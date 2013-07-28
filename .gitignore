@@ -6,6 +6,9 @@ Temp
 *.sln
 *.userprefs
 
+Assets/-tk2d
+Assets/Resources/tk2d/*
+
 !Library/*.asset
 !Library/AssetImportState
 !Library/AssetVersioning.db

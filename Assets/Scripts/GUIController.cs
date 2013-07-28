@@ -2,20 +2,35 @@ using UnityEngine;
 using System.Collections;
 
 public class GUIController : MonoBehaviour {
-
-	void Start () {
-		UIHorizontalLayout[] patternHLayout = new UIHorizontalLayout[4];
+	
+	public static GUIController instance;
+	
+	tk2dCamera mainCamera;
+	bool mouseRaycast = false;
+	
+	void Start() {
+		instance = this;
+		mouseRaycast = false;
+		mainCamera = GameObject.Find("tk2dCamera").GetComponent<tk2dCamera>();
+	}
+	
+	void Update() {
+		if (Input.GetButtonDown("Fire1")) {
+			mouseRaycast = true;
+		} else if (Input.GetButtonUp("Fire1")) {
+			mouseRaycast = false;
+			PatternController.instance.finishPattern();
+		}
 		
-		
-		UIButton[,] patternButtons = new UIButton[4,4];
-		for (int i = 0 ; i < 4 ; i++) {
-			patternHLayout[i] = new UIHorizontalLayout(10);
-			patternHLayout[i].pixelsFromTopLeft(100 + i * 64, 10);
-			for (int j = 0 ; j < 4 ; j++) {
-				patternButtons[i,j] = UIButton.create( "pattern_circle.png", "pattern_circle.png", 0, 0 );
-				patternHLayout[i].addChild(patternButtons[i,j]);
+		if (mouseRaycast) {
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			RaycastHit hit;
+			if (Physics.Raycast(ray, out hit, 100)) {
+				PatternButton hitButton = hit.collider.GetComponent<PatternButton>();
+				if (hitButton != null) {
+					hitButton.onHover();
+				}
 			}
 		}
-				
 	}
 }
