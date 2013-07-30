@@ -1,0 +1,9 @@
+<items>
+  <item>
+    <name>Sopa</name>
+    <damage>4</damage>
+    <type>common</type>
+	<hp>5</hp>
+    <mana>5</mana>
+  </item>
+</items>
