@@ -9,7 +9,7 @@ public class PatternController : MonoBehaviour {
 	public GameObject buttonPrefab;
 	public GameObject bridgePrefab;
 	public PatternButton[,] buttons = new PatternButton[4,4];
-		
+	public List<int[]> pattern = new List<int[]>();
 	public List<GameObject> bridges = new List<GameObject>();
 	
 	void Start() {
@@ -32,23 +32,91 @@ public class PatternController : MonoBehaviour {
 	}
 	
 	public void addToPattern(int x, int y) {
-		if (buttons[x,y].highlighted) {
-			return;
-		}
+		int[] newNode = {x, y};
 		// Next pattern node should be adjacent
 		if (pattern.Count != 0) {
 			int[] lastElement = pattern[pattern.Count - 1];
+			if (buttons[x,y].highlighted) {
+				// Check if bridge already exists.
+				if ((areNodesEqual(newNode, lastElement)) || 
+					isBridgePresent(newNode, pattern[pattern.Count - 1])) {
+					return;
+				}
+			}
 			if (Mathf.Abs(lastElement[0] - x) <= 1 && Mathf.Abs(lastElement[1] - y) <= 1) {
 				buttons[x,y].highlight();
-				int[] newNode = {x, y};
 				pattern.Add(newNode);
 				drawBridgeBetween(lastElement, newNode);
 			}
 		} else {
 			buttons[x,y].highlight();
-			int[] newNode = {x, y};
 			pattern.Add(newNode);
 		}
+	}
+	
+	public List<int> convertToDirectional() {
+		List<int> dirRep = new List<int>();
+		for (int i = 1 ; i < pattern.Count ; i++) {
+			int[] dirDiff = new int[2];
+			dirDiff[0] = pattern[i][0] - pattern[i-1][0];
+			dirDiff[1] = pattern[i][1] - pattern[i-1][1];
+			dirRep.Add(getDirectionInt(dirDiff));
+		}
+		return dirRep;
+	}
+	
+	// Coordinate diff. representation to int representation
+	public int getDirectionInt(int[] dirDiff) {
+		if (dirDiff[0] == 0) {
+			switch (dirDiff[1]) {
+			case 1:
+				return 0;
+			case -1:
+				return 4;
+			}
+		}
+		if (dirDiff[0] == 1) {
+			switch (dirDiff[1]) {
+			case 1:
+				return 7;
+			case 0:
+				return 6;
+			case -1:
+				return 5;
+			}
+		}
+		if (dirDiff[0] == -1) {
+			switch (dirDiff[1]) {
+			case 1:
+				return 1;
+			case 0:
+				return 2;
+			case -1:
+				return 3;
+			}
+		}
+		return -1;
+	}
+	
+	public bool areNodesEqual(int[] n1, int[] n2) {
+		if (n1[0] == n2[0] && n1[1] == n2[1]) {
+			return true;
+		}
+		return false;
+	}
+	
+	public bool isBridgePresent(int[] n1, int[] n2) {
+		for(int i = 0 ; i < pattern.Count ; i++) {
+			if (areNodesEqual(pattern[i], n1)) {
+				if (i-1 >= 0 && areNodesEqual(pattern[i-1], n2)) {
+					return true;
+				}
+				if (i+1 < pattern.Count && areNodesEqual(pattern[i+1], n2)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 	
 	public void drawBridgeBetween(int[] n1, int[] n2) {
@@ -77,23 +145,6 @@ public class PatternController : MonoBehaviour {
 		}
 	}
 	
-	public void shiftPattern() {
-		int xDifference = pattern[0][0];
-		int yDifference = pattern[0][1];
-		foreach(int[] node in pattern) {
-			if(node[0] < xDifference)
-				xDifference = node[0];
-			else if(node[1] < yDifference)
-				yDifference = node[1];
-		}
-		if(xDifference > 0)
-			foreach(int[] node in pattern) 
-				node[0] = node[0] - xDifference;
-		if(yDifference > 0)
-			foreach(int[] node in pattern) 
-				node[1] = node[1] - yDifference;
-	}
-	
 	public void finishPattern() {
 		Debug.Log("====PATTERN====");
 		foreach(int[] node in pattern) {
@@ -101,7 +152,10 @@ public class PatternController : MonoBehaviour {
 			Debug.Log("(x:" + node[0] + "y:" + node[1] + ")");
 		}
 		Debug.Log("===============");
-		shiftPattern();
+		
+		// Debug this to see directional rep.
+		List<int> dirRep = convertToDirectional();
+		
 		pattern.Clear();
 		foreach(GameObject bridge in bridges) {
 			Destroy(bridge);
