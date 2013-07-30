@@ -36,17 +36,17 @@ public class PatternController : MonoBehaviour {
 		// Next pattern node should be adjacent
 		if (pattern.Count != 0) {
 			int[] lastElement = pattern[pattern.Count - 1];
+			int bridgeCount = 0;
 			if (buttons[x,y].highlighted) {
-				// Check if bridge already exists.
-				if ((areNodesEqual(newNode, lastElement)) || 
-					isBridgePresent(newNode, pattern[pattern.Count - 1])) {
+				if (areNodesEqual(newNode, lastElement)) {
 					return;
 				}
+				bridgeCount = countBridges(newNode, lastElement);
 			}
 			if (Mathf.Abs(lastElement[0] - x) <= 1 && Mathf.Abs(lastElement[1] - y) <= 1) {
 				buttons[x,y].highlight();
 				pattern.Add(newNode);
-				drawBridgeBetween(lastElement, newNode);
+				drawBridgeBetween(lastElement, newNode, bridgeCount);
 			}
 		} else {
 			buttons[x,y].highlight();
@@ -105,6 +105,7 @@ public class PatternController : MonoBehaviour {
 		return false;
 	}
 	
+	// Not used
 	public bool isBridgePresent(int[] n1, int[] n2) {
 		for(int i = 0 ; i < pattern.Count ; i++) {
 			if (areNodesEqual(pattern[i], n1)) {
@@ -119,7 +120,25 @@ public class PatternController : MonoBehaviour {
 		return false;
 	}
 	
-	public void drawBridgeBetween(int[] n1, int[] n2) {
+	// Count present bridges for coloring.
+	public int countBridges(int[] n1, int[] n2) {
+		int n = 0;
+		for(int i = 0 ; i < pattern.Count ; i++) {
+			// If n == 2 no need to count more.
+			if (n == 2) return n;
+			if (areNodesEqual(pattern[i], n1)) {
+				if (i-1 >= 0 && areNodesEqual(pattern[i-1], n2)) {
+					n++;
+				} 
+				if (i+1 < pattern.Count && areNodesEqual(pattern[i+1], n2)) {
+					n++;
+				}
+			}
+		}
+		return Mathf.Clamp(n, 0, 2);
+	}
+	
+	public void drawBridgeBetween(int[] n1, int[] n2, int bridgeCount) {
 		tk2dCameraAnchor anchor = GameObject.Find("AnchorLL").GetComponent<tk2dCameraAnchor>();
 		GameObject obj = Instantiate(bridgePrefab) as GameObject;
 		obj.transform.parent = anchor.transform;
@@ -127,7 +146,8 @@ public class PatternController : MonoBehaviour {
 		Vector3 n2Pos = buttons[n2[0], n2[1]].transform.localPosition;
 		obj.transform.localPosition = (n1Pos + n2Pos) / 2;
 		obj.transform.localPosition += new Vector3(0, 0, 1f);
-		obj.GetComponent<tk2dSprite>().SetSprite("pattern_bridge_" + bridgeType(n1, n2));
+		string bridgeColorStr = (bridgeCount + 1) + "_";
+		obj.GetComponent<tk2dSprite>().SetSprite("pattern_bridge_" + bridgeColorStr + bridgeType(n1, n2));
 		bridges.Add(obj);
 	}
 	
