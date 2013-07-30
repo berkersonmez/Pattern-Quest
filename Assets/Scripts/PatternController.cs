@@ -9,7 +9,7 @@ public class PatternController : MonoBehaviour {
 	public GameObject buttonPrefab;
 	public GameObject bridgePrefab;
 	public PatternButton[,] buttons = new PatternButton[4,4];
-	public List<int[]> pattern = new List<int[]>();
+		
 	public List<GameObject> bridges = new List<GameObject>();
 	
 	void Start() {
@@ -77,6 +77,23 @@ public class PatternController : MonoBehaviour {
 		}
 	}
 	
+	public void shiftPattern() {
+		int xDifference = pattern[0][0];
+		int yDifference = pattern[0][1];
+		foreach(int[] node in pattern) {
+			if(node[0] < xDifference)
+				xDifference = node[0];
+			else if(node[1] < yDifference)
+				yDifference = node[1];
+		}
+		if(xDifference > 0)
+			foreach(int[] node in pattern) 
+				node[0] = node[0] - xDifference;
+		if(yDifference > 0)
+			foreach(int[] node in pattern) 
+				node[1] = node[1] - yDifference;
+	}
+	
 	public void finishPattern() {
 		Debug.Log("====PATTERN====");
 		foreach(int[] node in pattern) {
@@ -84,6 +101,7 @@ public class PatternController : MonoBehaviour {
 			Debug.Log("(x:" + node[0] + "y:" + node[1] + ")");
 		}
 		Debug.Log("===============");
+		shiftPattern();
 		pattern.Clear();
 		foreach(GameObject bridge in bridges) {
 			Destroy(bridge);

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Spell {
 
@@ -14,6 +15,7 @@ public class Spell {
 	public string name;
 	public int turn;
 	public bool isOverTime=false;
+	public List<int[]> pattern = new List<int[]>();
 	
 	public virtual  void cast(Battle battle, Creature caster, Creature target){
 		caster.mana = caster.mana - this.mana;
