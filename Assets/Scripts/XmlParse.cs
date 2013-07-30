@@ -5,11 +5,12 @@ using System.Xml;
 
 public class XmlParse : MonoBehaviour {
 	
+	public TextAsset itemXML;
 	public List<Item> itemList = new List<Item>();
 	
 	public void getItem() {
 		XmlDocument xmlDoc = new XmlDocument();
-		xmlDoc.LoadXml("Resources/item.xml");
+		xmlDoc.LoadXml(itemXML.text);
 		XmlNodeList xmlItems = xmlDoc.GetElementsByTagName("item");
 		
 		foreach (XmlNode oneItem in xmlItems) {
