@@ -9,7 +9,7 @@ public class XmlParse : MonoBehaviour {
 	
 	public void getItem() {
 		XmlDocument xmlDoc = new XmlDocument();
-		xmlDoc.LoadXml("item.xml");
+		xmlDoc.LoadXml("Resources/item.xml");
 		XmlNodeList xmlItems = xmlDoc.GetElementsByTagName("item");
 		
 		foreach (XmlNode oneItem in xmlItems) {
