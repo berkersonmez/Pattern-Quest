@@ -15,7 +15,7 @@ public class Spell {
 	public string name;
 	public int turn;
 	public bool isOverTime=false;
-	public List<int[]> pattern = new List<int[]>();
+	public List<int> shape = new List<int>();
 	
 	public virtual  void cast(Battle battle, Creature caster, Creature target){
 		caster.mana = caster.mana - this.mana;

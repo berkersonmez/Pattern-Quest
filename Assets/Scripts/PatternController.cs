@@ -10,6 +10,7 @@ public class PatternController : MonoBehaviour {
 	public GameObject bridgePrefab;
 	public PatternButton[,] buttons = new PatternButton[4,4];
 	public List<int[]> pattern = new List<int[]>();
+	public List<int> directions = new List<int>();
 	public List<GameObject> bridges = new List<GameObject>();
 	
 	void Start() {
@@ -70,7 +71,7 @@ public class PatternController : MonoBehaviour {
 		if (dirDiff[0] == 0) {
 			switch (dirDiff[1]) {
 			case 1:
-				return 0;
+				return 6;
 			case -1:
 				return 4;
 			}
@@ -78,21 +79,21 @@ public class PatternController : MonoBehaviour {
 		if (dirDiff[0] == 1) {
 			switch (dirDiff[1]) {
 			case 1:
-				return 7;
+				return 9;
 			case 0:
-				return 6;
+				return 8;
 			case -1:
-				return 5;
+				return 7;
 			}
 		}
 		if (dirDiff[0] == -1) {
 			switch (dirDiff[1]) {
 			case 1:
-				return 1;
+				return 3;
 			case 0:
 				return 2;
 			case -1:
-				return 3;
+				return 1;
 			}
 		}
 		return -1;
@@ -174,13 +175,38 @@ public class PatternController : MonoBehaviour {
 		Debug.Log("===============");
 		
 		// Debug this to see directional rep.
-		List<int> dirRep = convertToDirectional();
+		directions = this.convertToDirectional();
 		
 		pattern.Clear();
 		foreach(GameObject bridge in bridges) {
 			Destroy(bridge);
 		}
 		bridges.Clear();
+		//Example values to test checkspell method
+		Player player = new Player();
+		Spell fireBall = new FireBall();
+		player.spellList.Add(fireBall);
+		checkSpell(player);
 	}
 	
+	public Spell checkSpell(Player player) {
+		foreach(Spell spell in player.spellList){
+			if(isEqual(directions,spell.shape)){
+				Debug.Log(spell.name);
+				return spell;
+			}
+		}
+		return null;
+	}
+	
+	//I added this method because couldn't find a proper way to check equality of two lists
+	public bool isEqual(List<int> list1, List<int> list2){
+		if(list1.Count == list2.Count){
+			for(int i=0; i<list1.Count; i++)
+				if(list1[i] != list2[i])
+					return false;
+			return true;
+		}else
+			return false;
+		}
 }

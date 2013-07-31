@@ -9,6 +9,10 @@ public FireBall(){
 		mana = 3;
 		type = "fire";
 		level = 1;
+		shape.Add(6);
+		shape.Add(2);
+		shape.Add(4);
+		shape.Add(8);
 }
 	
 public override bool increaseLevel(){
