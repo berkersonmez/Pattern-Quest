@@ -8,13 +8,13 @@ public class Player : Creature {
 	public Item weapon;
 	public Item head;
 	public Item necklace;
-	public Item wrist;
-	public Item waist;
 	public Item shoulder;
-	public Item gloves;
-	public Item boots;
-	public Item leg;
 	public Item chest;
+	public Item wrist;
+	public Item gloves;
+	public Item waist;
+	public Item leg;
+	public Item boots;
 	
 	public Player(){
 		isPlayer = true;
