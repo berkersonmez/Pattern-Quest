@@ -11,6 +11,7 @@ public class Item {
 	public int armor;
 	public int hp;
 	public int mana;
+	public int manaRegen;
 	public int level;
 	public float dropChance;
 	

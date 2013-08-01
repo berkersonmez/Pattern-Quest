@@ -9,6 +9,7 @@ public class Creature
 	public int hp;
 	public int currentHp;
 	public int mana;
+	public int manaRegen;
 	public int currentMana;
 	public int spellPower;
 	public int level=1;

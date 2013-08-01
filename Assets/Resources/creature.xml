@@ -1,0 +1,14 @@
+<creatures>	
+	<creature>
+		<name>ufak</name>
+		<hp>20</hp>
+		<mana>20</mana>
+		<manaRegen>2</manaRegen>
+		<spellPower>3</spellPower>
+		<level>1</level>
+		<type>insect</type>
+		<spellList>
+			<spell>Fire Ball</spell>
+		</spellList>
+	</creature>
+</creatures>

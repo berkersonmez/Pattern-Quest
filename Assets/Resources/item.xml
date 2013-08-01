@@ -8,6 +8,7 @@
 		<type>1,10</type>
 		<hp>3,4</hp>
 	    <mana>1</mana>
+		<manaRegen>1</manaRegen>
 		<level>1</level>
 	</item>
 	<item dropChance="25">

@@ -11,36 +11,34 @@ public class XmlParse : MonoBehaviour {
 	public List<Item> itemList = new List<Item>();
 	public List<Spell> spellList = new List<Spell>();
 	
-	public Creature getCreature(){
+	public Creature getCreature(string creatureName){
 		Creature obj = new Creature();
 		XmlDocument xmlDoc = new XmlDocument();
 		xmlDoc.LoadXml(creatureXML.text);
-		XmlNodeList xmlCreatures = xmlDoc.GetElementsByTagName("creature");
 		
-		foreach(XmlNode oneCreature in xmlCreatures){
-			XmlNodeList creatureContentList = oneCreature.ChildNodes;
-			
-			foreach (XmlNode creatureContent in creatureContentList) {
-				if(creatureContent.Name == "name")
-					obj.name = creatureContent.InnerText;		
-				if(creatureContent.Name == "hp")
-					obj.hp = getValue(creatureContent.InnerText);	
-				if(creatureContent.Name == "spellPower")
-					obj.spellPower = getValue(creatureContent.InnerText);	
-				if(creatureContent.Name == "level")
-					obj.level = getValue(creatureContent.InnerText);	
-				if(creatureContent.Name == "type")
-					obj.type = creatureContent.InnerText;
-				if(creatureContent.Name == "spellList"){
-					List<string> spellNamesList = new List<string>();
-					XmlNodeList xmlSpells = creatureContent.ChildNodes;
-					foreach (XmlNode xmlSpell in xmlSpells) {	
-						spellNamesList.Add(xmlSpell.InnerText);
-						obj.spellList = Globals.getSpells(spellNamesList);
-					}
-		 	 	}
-				obj.setValues();
-			}
+		XmlNode datNode = xmlDoc.SelectSingleNode("/creatures/creature[name='" + creatureName + "']");
+		XmlNodeList creatureContentList = datNode.ChildNodes;
+		
+		foreach (XmlNode creatureContent in creatureContentList) {
+			if(creatureContent.Name == "name")
+				obj.name = creatureContent.InnerText;		
+			if(creatureContent.Name == "hp")
+				obj.hp = getValue(creatureContent.InnerText);	
+			if(creatureContent.Name == "spellPower")
+				obj.spellPower = getValue(creatureContent.InnerText);	
+			if(creatureContent.Name == "level")
+				obj.level = getValue(creatureContent.InnerText);	
+			if(creatureContent.Name == "type")
+				obj.type = creatureContent.InnerText;
+			if(creatureContent.Name == "spellList"){
+				List<string> spellNamesList = new List<string>();
+				XmlNodeList xmlSpells = creatureContent.ChildNodes;
+				foreach (XmlNode xmlSpell in xmlSpells) {	
+					spellNamesList.Add(xmlSpell.InnerText);
+					obj.spellList = Globals.getSpells(spellNamesList);
+				}
+	 	 	}
+			obj.setValues();
 		}
 		return obj;
 	}
@@ -118,6 +116,8 @@ public class XmlParse : MonoBehaviour {
 			obj.hp = getValue(itemContent.InnerText);
 		if(itemContent.Name == "mana")
 			obj.mana = getValue(itemContent.InnerText);
+		if(itemContent.Name == "manaRegen")
+			obj.manaRegen = getValue(itemContent.InnerText);
 		if(itemContent.Name == "level")
 			obj.level = getValue(itemContent.InnerText);
 	  	}
@@ -190,6 +190,7 @@ public class XmlParse : MonoBehaviour {
 		getItem ();
 		if(itemList.Count > 0)
 			Debug.Log("(name:" + itemList[0].name + " - damage:" + itemList[0].damage + ")");
+		Debug.Log ("yaratik adi: " + getCreature("ufak").name);
 	}
 	
 	// Update is called once per frame
