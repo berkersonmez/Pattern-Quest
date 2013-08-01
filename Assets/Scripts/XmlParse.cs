@@ -6,7 +6,79 @@ using System.Xml;
 public class XmlParse : MonoBehaviour {
 	
 	public TextAsset itemXML;
+	public TextAsset spellXML;
+	public TextAsset creatureXML;
 	public List<Item> itemList = new List<Item>();
+	public List<Spell> spellList = new List<Spell>();
+	
+	public Creature getCreature(){
+		Creature obj = new Creature();
+		XmlDocument xmlDoc = new XmlDocument();
+		xmlDoc.LoadXml(creatureXML.text);
+		XmlNodeList xmlCreatures = xmlDoc.GetElementsByTagName("creature");
+		
+		foreach(XmlNode oneCreature in xmlCreatures){
+			XmlNodeList creatureContentList = oneCreature.ChildNodes;
+			
+			foreach (XmlNode creatureContent in creatureContentList) {
+				if(creatureContent.Name == "name")
+					obj.name = creatureContent.InnerText;		
+				if(creatureContent.Name == "hp")
+					obj.hp = getValue(creatureContent.InnerText);	
+				if(creatureContent.Name == "spellPower")
+					obj.spellPower = getValue(creatureContent.InnerText);	
+				if(creatureContent.Name == "level")
+					obj.level = getValue(creatureContent.InnerText);	
+				if(creatureContent.Name == "type")
+					obj.type = creatureContent.InnerText;
+				if(creatureContent.Name == "spellList"){
+					List<string> spellNamesList = new List<string>();
+					XmlNodeList xmlSpells = creatureContent.ChildNodes;
+					foreach (XmlNode xmlSpell in xmlSpells) {	
+						spellNamesList.Add(xmlSpell.InnerText);
+						obj.spellList = Globals.getSpells(spellNamesList);
+					}
+		 	 	}
+				obj.setValues();
+			}
+		}
+		return obj;
+	}
+	
+	public void getSpell(){
+		XmlDocument xmlDoc = new XmlDocument();
+		xmlDoc.LoadXml(spellXML.text);
+		XmlNodeList xmlSpells = xmlDoc.GetElementsByTagName("spell");
+		
+		foreach(XmlNode oneSpell in xmlSpells){
+			XmlNodeList spellContentList = oneSpell.ChildNodes;
+			Spell obj = new Spell();
+			
+			foreach (XmlNode spellContent in spellContentList) {
+				if(spellContent.Name == "name")
+					obj.name = spellContent.InnerText;
+				if(spellContent.Name == "damage")
+					obj.damage = getValue(spellContent.InnerText);
+				if(spellContent.Name == "damageOverTime")
+					obj.damageOverTime = getValue(spellContent.InnerText);
+				if(spellContent.Name == "mana")
+					obj.mana = getValue(spellContent.InnerText);
+				if(spellContent.Name == "heal")
+					obj.heal = getValue(spellContent.InnerText);
+				if(spellContent.Name == "healOverTime")
+					obj.healOverTime = getValue(spellContent.InnerText);
+				if(spellContent.Name == "level")
+					obj.level = getValue(spellContent.InnerText);
+				if(spellContent.Name == "maxLevel")
+					obj.maxLevel = getValue(spellContent.InnerText);
+				if(spellContent.Name == "turn")
+					obj.turn = getValue(spellContent.InnerText);
+				if(spellContent.Name == "shape")
+					obj.turn = getValue(spellContent.InnerText);
+		  	}
+		}
+		
+	}
 	
 	public void getItem() {
 		XmlDocument xmlDoc = new XmlDocument();

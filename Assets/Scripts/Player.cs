@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 public class Player : Creature {
 	
-	public string name;
 	public Item weapon;
 	public Item head;
 	public Item necklace;
