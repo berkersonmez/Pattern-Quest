@@ -46,8 +46,8 @@ public class XmlParse : MonoBehaviour {
 					obj.spellList = Globals.getSpells(spellNamesList);
 				}
 	 	 	}
-			obj.setValues();
 		}
+		obj.setValues();
 		return obj;
 	}
 	

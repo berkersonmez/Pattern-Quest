@@ -25,8 +25,8 @@ public override bool increaseLevel(){
 	}
 }
 	
-public override void cast(Battle battle, Creature caster, Creature target){
-	caster.mana = caster.mana - this.mana;
+public override void cast(Battle battle, ref Creature caster, ref Creature target){
+	caster.currentMana = caster.currentMana - this.mana;
 	ActiveSpell activeSpell = new ActiveSpell(this);
 	if(target.isPlayer)
 		battle.activeSpellsOnPlayer.Add(activeSpell);

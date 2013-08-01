@@ -27,9 +27,10 @@ public override bool increaseLevel(){
 
 }
 	
-public override void cast(Battle battle, Creature caster, Creature target){
-	target.hp = target.hp - this.damage;
-	caster.mana = caster.mana - this.mana;
+public override void cast(Battle battle, ref Creature caster, ref Creature target){
+	target.currentHp = target.currentHp - this.damage;
+	caster.currentMana = caster.currentMana - this.mana;
+	Debug.Log(this.name + "'i patlattim *" + this.damage + "*");
 	//Fireball görsel efekti yapan fonksiyon eklenecek
 }
 	

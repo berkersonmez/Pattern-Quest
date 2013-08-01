@@ -17,9 +17,9 @@ public class Spell {
 	public bool isOverTime=false;
 	public List<int> shape = new List<int>();
 	
-	public virtual  void cast(Battle battle, Creature caster, Creature target){
-		caster.mana = caster.mana - this.mana;
-		target.hp = target.hp - this.damage;
+	public virtual  void cast(Battle battle, ref Creature caster, ref Creature target){
+		caster.currentMana = caster.currentMana - this.mana;
+		target.currentHp = target.currentHp - this.damage;
 	}
 	
 	public virtual bool increaseLevel(){
@@ -31,7 +31,7 @@ public class Spell {
 		}
 	}
 	
-	public virtual void turnEffect(Creature creature){
+	public virtual void turnEffect(ref Creature creature){
 		creature.currentHp = creature.currentHp - damageOverTime;
 		creature.currentHp = creature.currentHp + healOverTime;
 	}

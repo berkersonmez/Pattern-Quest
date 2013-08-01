@@ -12,10 +12,13 @@ public class PatternController : MonoBehaviour {
 	public List<int[]> pattern = new List<int[]>();
 	public List<int> directions = new List<int>();
 	public List<GameObject> bridges = new List<GameObject>();
+	Creature creature = new Creature();
+		
 	
 	void Start() {
 		instance = this;
 		createButtons();
+		creature = XmlParse.instance.getCreature("ufak");
 	}
 	
 	private void createButtons() {
@@ -186,12 +189,19 @@ public class PatternController : MonoBehaviour {
 		Player player = new Player();
 		Spell fireBall = new FireBall();
 		player.spellList.Add(fireBall);
-		checkSpell(player);
+		Battle.instance.player = player;
+		Battle.instance.creature = creature;
+		//------------------------------------------------------------------
+		//NORMALDE BURDA GEREKLi CREATURE VE PLAYER BELiRLENiP O BATTLE KULLANILACAK
+		//------------------------------------------------------------------
+		Spell spell = getCastedSpell(player);
+		if(spell != null)
+			Battle.instance.castedSpells.Add(spell);
 	}
 	
-	public Spell checkSpell(Player player) {
+	public Spell getCastedSpell(Player player) {
 		foreach(Spell spell in player.spellList){
-			if(isEqual(directions,spell.shape)){
+			if(isEqual(directions , spell.shape)){
 				Debug.Log(spell.name);
 				return spell;
 			}

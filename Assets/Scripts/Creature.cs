@@ -6,8 +6,8 @@ public class Creature
 {
 	
 	public string name;
-	public int hp;
-	public int currentHp;
+	public int hp=25;
+	public int currentHp=25;
 	public int mana;
 	public int manaRegen;
 	public int currentMana;
@@ -20,7 +20,7 @@ public class Creature
 	
 	public void setValues(){
 		this.currentHp = this.hp;
-		this.currentHp = this.mana;
+		this.currentMana = this.mana;
 	}
 	
 	public Creature (){
