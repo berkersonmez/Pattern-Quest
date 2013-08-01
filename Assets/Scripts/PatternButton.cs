@@ -7,13 +7,11 @@ public class PatternButton : MonoBehaviour {
 	public int y;
 	public bool highlighted = false;
 	
-	private tk2dUIItem uiItem;
 	private tk2dSprite sprite;
 	
 	// Use this for initialization
 	void Start () {
 		sprite = GetComponent<tk2dSprite>();
-		uiItem = GetComponent<tk2dUIItem>();
 	}
 	
 	public void highlight() {

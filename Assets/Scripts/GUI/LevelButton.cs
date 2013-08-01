@@ -16,7 +16,8 @@ public class LevelButton : MonoBehaviour {
 	}
 	
 	void loadLevel() {
-		// Here fill "_LevelDescriptor" with dungeon info.
+		// Fill "_LevelDescriptor" with dungeon info.
+		LevelDescriptor.instance.describeLevel(levelNo);
 		Application.LoadLevel("dungeon");
 	}
 }

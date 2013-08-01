@@ -11,4 +11,16 @@
 			<spell>Fire Ball</spell>
 		</spellList>
 	</creature>
+	<creature>
+		<name>kocaman</name>
+		<hp>50</hp>
+		<mana>30</mana>
+		<manaRegen>3</manaRegen>
+		<spellPower>4</spellPower>
+		<level>1</level>
+		<type>insect</type>
+		<spellList>
+			<spell>Fire Ball</spell>
+		</spellList>
+	</creature>
 </creatures>

@@ -5,13 +5,11 @@ public class GUIController : MonoBehaviour {
 	
 	public static GUIController instance;
 	
-	tk2dCamera mainCamera;
 	bool mouseRaycast = false;
 	
 	void Start() {
 		instance = this;
 		mouseRaycast = false;
-		mainCamera = GameObject.Find("tk2dCamera").GetComponent<tk2dCamera>();
 	}
 	
 	void Update() {

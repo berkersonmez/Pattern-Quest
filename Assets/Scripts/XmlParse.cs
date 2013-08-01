@@ -5,11 +5,19 @@ using System.Xml;
 
 public class XmlParse : MonoBehaviour {
 	
+	public static XmlParse instance;
+	
 	public TextAsset itemXML;
 	public TextAsset spellXML;
 	public TextAsset creatureXML;
+	public TextAsset mapXML;
+	
 	public List<Item> itemList = new List<Item>();
 	public List<Spell> spellList = new List<Spell>();
+	
+	void Start() {
+		instance = this;
+	}
 	
 	public Creature getCreature(string creatureName){
 		Creature obj = new Creature();
@@ -41,6 +49,19 @@ public class XmlParse : MonoBehaviour {
 			obj.setValues();
 		}
 		return obj;
+	}
+	
+	public Queue<string> getMapCreatures(int dungeonNo){
+		XmlDocument xmlDoc = new XmlDocument();
+		xmlDoc.LoadXml(mapXML.text);
+		XmlNodeList xmlCreatures = xmlDoc.SelectNodes("dungeons/dungeon[@no = '"+ dungeonNo +"']/creatures/creature");
+		
+		Queue<string> creatureNames = new Queue<string>();
+		
+		foreach(XmlNode xmlCreature in xmlCreatures){
+			creatureNames.Enqueue(xmlCreature.InnerText);
+		}
+		return creatureNames;
 	}
 	
 	public void getSpell(){
@@ -85,11 +106,11 @@ public class XmlParse : MonoBehaviour {
 		
 		XmlNode droppedItem = determineDroppedItem(xmlItems);
 		if(droppedItem == null){
-			Debug.Log("NO ITEM DROPPED");
+			//Debug.Log("NO ITEM DROPPED");
 			return;
 		}
 		
-		Debug.Log(droppedItem.Attributes["dropChance"].Value);
+		//Debug.Log(droppedItem.Attributes["dropChance"].Value);
 		
 		XmlNodeList itemContentList = droppedItem.ChildNodes;
 		Item obj = new Item(); 
@@ -153,48 +174,25 @@ public class XmlParse : MonoBehaviour {
 		switch(typeCode){
 		case 1:
 			return "weapon";
-			break;
 		case 2:
 			return "head";
-			break;
 		case 3:
 			return "necklace";
-			break;
 		case 4:
 			return "shoulder";
-			break;
 		case 5:
 			return "chest";
-			break;
 		case 6:
 			return "wrist";
-			break;
 		case 7:
 			return "gloves";
-			break;
 		case 8:
 			return "waist";
-			break;
 		case 9:
 			return "leg";
-			break;
 		case 10:
 			return "boots";
-			break;
 		}
 		return "typeless";
-	}
-	
-	// Use this for initialization
-	void Start () {
-		getItem ();
-		if(itemList.Count > 0)
-			Debug.Log("(name:" + itemList[0].name + " - damage:" + itemList[0].damage + ")");
-		Debug.Log ("yaratik adi: " + getCreature("ufak").name);
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
 	}
 }
