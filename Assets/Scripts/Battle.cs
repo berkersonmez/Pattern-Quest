@@ -15,7 +15,7 @@ public class Battle {
 	public List <ActiveSpell> activeSpellsOnCreature = new List<ActiveSpell>();
 	public List <ActiveSpell> toDeleteSpellsOnCreature = new List<ActiveSpell>();
 	
-	public Battle(Player player, Creature creature){
+	public Battle(ref Player player, ref Creature creature){
 		this.player = player;
 		this.creature = creature;
 		turn = 0;
