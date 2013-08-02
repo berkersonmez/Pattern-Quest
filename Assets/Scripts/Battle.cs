@@ -40,51 +40,6 @@ public class Battle {
 		return false;
 	}
 	
-	// To be deleted
-	public void passNextTurn(){
-		if(whoseTurn == (int)Turn.PLAYER){
-			foreach (ActiveSpell activeSpell in activeSpellsOnPlayer){
-				if(activeSpell.effect(ref player) == false)
-					this.toDeleteSpellsOnPlayer.Add(activeSpell);
-			}
-			if(isAnyoneDead())
-				return;
-			foreach (Spell spell in castedSpells){
-				Debug.Log("player buyu atiy");
-				spell.cast(this, ref player, ref creature);
-			}
-			if(isAnyoneDead())
-				return;
-		}
-		else{
-			foreach (ActiveSpell activeSpell in activeSpellsOnCreature){
-				if(activeSpell.effect(ref creature) == false)
-					this.toDeleteSpellsOnCreature.Add(activeSpell);
-			}
-			if(isAnyoneDead())
-				return;
-			foreach (Spell spell in castedSpells){
-				spell.cast(this, ref creature, ref player);
-			}
-			if(isAnyoneDead())
-				return;
-			turn++;
-		}
-		clearFinishedSpells();
-	}
-	
-	// To be deleted
-	public void clearFinishedSpells(){
-		foreach (ActiveSpell activeSpell in toDeleteSpellsOnPlayer){
-				activeSpellsOnPlayer.Remove(activeSpell);
-		}
-		foreach (ActiveSpell activeSpell in toDeleteSpellsOnCreature){
-				activeSpellsOnCreature.Remove(activeSpell);
-		}
-		toDeleteSpellsOnPlayer.Clear();
-		toDeleteSpellsOnCreature.Clear();
-	}
-	
 	public void castSpell(Spell spell) {
 		if (state != (int)State.CAST_PHASE) return;
 		
