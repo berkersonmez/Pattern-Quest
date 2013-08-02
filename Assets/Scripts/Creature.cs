@@ -23,6 +23,23 @@ public class Creature
 		this.currentMana = this.mana;
 	}
 	
+	public void increaseHp(int amount) {
+		currentHp += amount;
+	}
+	
+	public void decreaseHp(int amount) {
+		currentHp -= amount;
+		CombatTextController.instance.deployText(amount);
+	}
+	
+	public void increaseMana(int amount) {
+		currentMana += amount;
+	}
+	
+	public void decreaseMana(int amount) {
+		currentMana -= amount;
+	}
+	
 	public Creature (){
 		
 	}
