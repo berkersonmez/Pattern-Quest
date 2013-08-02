@@ -2,9 +2,8 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Battle : MonoBehaviour {
+public class Battle {
 	
-	public static Battle instance;
 	public Creature player;
 	public Creature creature;
 	public Creature dead=null;
@@ -16,7 +15,13 @@ public class Battle : MonoBehaviour {
 	public List <ActiveSpell> activeSpellsOnCreature = new List<ActiveSpell>();
 	public List <ActiveSpell> toDeleteSpellsOnCreature = new List<ActiveSpell>();
 	
-	
+	public Battle(Player player, Creature creature){
+		this.player = player;
+		this.creature = creature;
+		turn = 0;
+		//whoseTurn: 0 demek oyuncunun turu, 1 demek npc nin turu demek
+		whoseTurn = 0;
+	}
 	
 	public bool isAnyoneDead(){
 		
@@ -76,12 +81,8 @@ public class Battle : MonoBehaviour {
 		toDeleteSpellsOnCreature.Clear();
 	}
 	
-	// Use this for initialization
-	void Start () {
-		instance = this;
-	}
-	
-	void Update () {
+	public void castSpell(Spell spell) {
+		castedSpells.Add(spell);
 		if(this.castedSpells.Count == 2){
 			passNextTurn();
 			Debug.Log ("2 buyu atildi, ecnebinin cani: " + creature.currentHp);

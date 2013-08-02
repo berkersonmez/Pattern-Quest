@@ -186,17 +186,11 @@ public class PatternController : MonoBehaviour {
 		}
 		bridges.Clear();
 		//Example values to test checkspell method
-		Player player = new Player();
 		Spell fireBall = new FireBall();
-		player.spellList.Add(fireBall);
-		Battle.instance.player = player;
-		Battle.instance.creature = creature;
-		//------------------------------------------------------------------
-		//NORMALDE BURDA GEREKLi CREATURE VE PLAYER BELiRLENiP O BATTLE KULLANILACAK
-		//------------------------------------------------------------------
-		Spell spell = getCastedSpell(player);
+		DungeonController.instance.player.spellList.Add(fireBall);
+		Spell spell = getCastedSpell(DungeonController.instance.player);
 		if(spell != null)
-			Battle.instance.castedSpells.Add(spell);
+			DungeonController.instance.battle.castSpell(spell);
 	}
 	
 	public Spell getCastedSpell(Player player) {

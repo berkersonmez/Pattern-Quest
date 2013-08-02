@@ -32,14 +32,4 @@ public class Item {
 		if(this.type != "weapon")
 			this.damage = 0;
 	}
-	
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }
