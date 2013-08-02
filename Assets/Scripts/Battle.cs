@@ -88,7 +88,16 @@ public class Battle {
 	public void castSpell(Spell spell) {
 		if (state != (int)State.CAST_PHASE) return;
 		
+		if (whoseTurn == (int)Turn.PLAYER) {
+			spell.cast(this, ref player, ref creature);
+		} else {
+			spell.cast(this, ref creature, ref player);
+		}
 		castedSpells.Enqueue(spell);
+		if (isAnyoneDead()) {
+			state = (int)State.END;
+			return;
+		}
 		if(this.castedSpells.Count == 2){
 			state = (int)State.SPELL_EFFECT;
 		}
@@ -105,18 +114,8 @@ public class Battle {
 		case (int)State.CAST_PHASE:
 			break;
 		case (int)State.SPELL_EFFECT:
-			if (castedSpells.Count != 0) {
-				if (whoseTurn == (int)Turn.PLAYER) {
-					castedSpells.Dequeue().cast(this, ref player, ref creature);
-				} else {
-					castedSpells.Dequeue().cast(this, ref creature, ref player);
-				}
-				if (isAnyoneDead()) {
-					state = (int)State.END;
-				}
-			} else {
-				state = (int)State.ACTIVE_SPELL_EFFECT;
-			}
+			// TODO: Combo logic here?
+			state = (int)State.ACTIVE_SPELL_EFFECT;
 			delayUpdate(1f);
 			break;
 		case (int)State.ACTIVE_SPELL_EFFECT:

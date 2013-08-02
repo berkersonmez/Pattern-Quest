@@ -13,6 +13,7 @@ public class Creature
 	public int currentMana;
 	public int spellPower;
 	public int level=1;
+	public int spellPerTurn = 1;
 	public bool isPlayer=false;
 	public string type;
 	public List<string> spellNamesList = new List<string>();
