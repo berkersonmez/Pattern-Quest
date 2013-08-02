@@ -35,4 +35,10 @@ public class DungeonController : MonoBehaviour {
 		mobHpBar.owner = currentCreature;
 		mobManaBar.owner = currentCreature;
 	}
+	
+	void Update() {
+		if (battle != null) {
+			battle.update();
+		}
+	}
 }

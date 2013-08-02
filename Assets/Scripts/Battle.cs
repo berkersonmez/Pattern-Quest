@@ -3,13 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Battle {
+	enum State {CAST_PHASE = 0, SPELL_EFFECT, ACTIVE_SPELL_EFFECT, END};
+	enum Turn {PLAYER = 0, CREATURE};
 	
 	public Creature player;
 	public Creature creature;
 	public Creature dead=null;
 	public int turn=0;
+	public int state=0;
 	public int whoseTurn=0;
-	public List<Spell> castedSpells = new List<Spell>();
+	public float delayUpdateUntil = 0f;
+	public Queue<Spell> castedSpells = new Queue<Spell>();
 	public List <ActiveSpell> activeSpellsOnPlayer = new List<ActiveSpell>();
 	public List <ActiveSpell> toDeleteSpellsOnPlayer = new List<ActiveSpell>();
 	public List <ActiveSpell> activeSpellsOnCreature = new List<ActiveSpell>();
@@ -19,12 +23,10 @@ public class Battle {
 		this.player = player;
 		this.creature = creature;
 		turn = 0;
-		//whoseTurn: 0 demek oyuncunun turu, 1 demek npc nin turu demek
-		whoseTurn = 0;
+		whoseTurn = (int)Turn.PLAYER;
 	}
 	
 	public bool isAnyoneDead(){
-		
 		if(player.currentHp <= 0){
 			Debug.Log("Player is dead");
 			dead = player;
@@ -38,8 +40,9 @@ public class Battle {
 		return false;
 	}
 	
+	// To be deleted
 	public void passNextTurn(){
-		if(whoseTurn == 0){
+		if(whoseTurn == (int)Turn.PLAYER){
 			foreach (ActiveSpell activeSpell in activeSpellsOnPlayer){
 				if(activeSpell.effect(ref player) == false)
 					this.toDeleteSpellsOnPlayer.Add(activeSpell);
@@ -70,6 +73,7 @@ public class Battle {
 		clearFinishedSpells();
 	}
 	
+	// To be deleted
 	public void clearFinishedSpells(){
 		foreach (ActiveSpell activeSpell in toDeleteSpellsOnPlayer){
 				activeSpellsOnPlayer.Remove(activeSpell);
@@ -82,11 +86,47 @@ public class Battle {
 	}
 	
 	public void castSpell(Spell spell) {
-		castedSpells.Add(spell);
+		if (state != (int)State.CAST_PHASE) return;
+		
+		castedSpells.Enqueue(spell);
 		if(this.castedSpells.Count == 2){
-			passNextTurn();
-			Debug.Log ("2 buyu atildi, ecnebinin cani: " + creature.currentHp);
-			castedSpells.Clear();
+			state = (int)State.SPELL_EFFECT;
+		}
+	}
+	
+	public void delayUpdate(float seconds) {
+		delayUpdateUntil = Time.time + seconds;
+	}
+	
+	public void update() {
+		if (Time.time < delayUpdateUntil) return;
+		
+		switch (state) {
+		case (int)State.CAST_PHASE:
+			break;
+		case (int)State.SPELL_EFFECT:
+			if (castedSpells.Count != 0) {
+				if (whoseTurn == (int)Turn.PLAYER) {
+					castedSpells.Dequeue().cast(this, ref player, ref creature);
+				} else {
+					castedSpells.Dequeue().cast(this, ref creature, ref player);
+				}
+				if (isAnyoneDead()) {
+					state = (int)State.END;
+				}
+			} else {
+				state = (int)State.ACTIVE_SPELL_EFFECT;
+			}
+			delayUpdate(1f);
+			break;
+		case (int)State.ACTIVE_SPELL_EFFECT:
+			// TODO: Implement active spell thing here
+			turn++;
+			state = (int)State.CAST_PHASE;
+			break;
+		case (int)State.END:
+			// TODO: Implement next battle logic here
+			break;
 		}
 	}
 	
