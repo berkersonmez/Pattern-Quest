@@ -6,7 +6,7 @@ public class CombatText : MonoBehaviour {
 	Vector3 speed;
 	
 	void Start () {
-		speed = new Vector3(Random.Range(-.2f, .2f), .5f, 0);
+		speed = new Vector3(Random.Range(-.2f, .1f), .3f, 0);
 		Invoke("destroy", 1.5f);
 	}
 	
@@ -17,7 +17,7 @@ public class CombatText : MonoBehaviour {
 	
 	void FixedUpdate() {
 		transform.position += speed;
-		speed.y -= .05f;
+		speed.y -= .04f;
 	}
 	
 	void destroy() {
