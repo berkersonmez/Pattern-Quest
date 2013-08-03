@@ -19,7 +19,8 @@ public class LevelDescriptor : MonoBehaviour {
 	
 	public Creature getNextCreature() {
 		if (creatureNameList.Count != 0) {
-			return XmlParse.instance.getCreature(creatureNameList.Dequeue());
+			Creature crtre = XmlParse.instance.getCreature(creatureNameList.Dequeue());
+			return crtre;
 		}
 		return null;
 	}

@@ -13,11 +13,22 @@ public class Spell {
 	public int level=1;
 	public int maxLevel;
 	public string name;
-	public int turn;
+	public int turn=0;
 	public bool isOverTime=false;
 	public List<int> shape = new List<int>();
 	
-	public virtual  void cast(Battle battle, ref Creature caster, ref Creature target){
+	public Spell(){
+		
+	}
+	
+	public Spell(int damage){
+		this.damage = damage;
+		this.mana = (int)Mathf.Sqrt(damage);
+		Debug.Log("mana: " + this.mana);
+		this.name = "Basic Attack";
+	}
+	
+	public virtual void cast(Battle battle, ref Creature caster, ref Creature target){
 		caster.decreaseMana(mana);
 		target.decreaseHp(damage);
 	}

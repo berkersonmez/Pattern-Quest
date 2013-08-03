@@ -15,9 +15,7 @@ public class Battle {
 	public float delayUpdateUntil = 0f;
 	public Queue<Spell> castedSpells = new Queue<Spell>();
 	public List <ActiveSpell> activeSpellsOnPlayer = new List<ActiveSpell>();
-	public List <ActiveSpell> toDeleteSpellsOnPlayer = new List<ActiveSpell>();
 	public List <ActiveSpell> activeSpellsOnCreature = new List<ActiveSpell>();
-	public List <ActiveSpell> toDeleteSpellsOnCreature = new List<ActiveSpell>();
 	
 	public Battle(ref Player player, ref Creature creature){
 		this.player = player;
@@ -62,21 +60,36 @@ public class Battle {
 		delayUpdateUntil = Time.time + seconds;
 	}
 	
+	public void passNextTurn(){
+		this.turn++;	
+		player.increaseMana(player.manaRegen);
+		creature.increaseMana(creature.manaRegen);
+	}
+	
 	public void update() {
 		if (Time.time < delayUpdateUntil) return;
 		
 		switch (state) {
+		case (int)State.ACTIVE_SPELL_EFFECT:
+			// TODO: Implement active spell thing here
+			if (whoseTurn == (int)Turn.PLAYER) {
+				player.activateActiveSpells(ref activeSpellsOnPlayer);
+			} else {
+				creature.activateActiveSpells(ref activeSpellsOnCreature);
+			}
+			state = (int)State.CAST_PHASE;
+			break;
 		case (int)State.CAST_PHASE:
+			if (whoseTurn == (int)Turn.CREATURE)
+				creature.play(this, ref creature, ref player);
 			break;
 		case (int)State.SPELL_EFFECT:
 			// TODO: Combo logic here?
 			state = (int)State.ACTIVE_SPELL_EFFECT;
 			delayUpdate(1f);
-			break;
-		case (int)State.ACTIVE_SPELL_EFFECT:
-			// TODO: Implement active spell thing here
-			turn++;
-			state = (int)State.CAST_PHASE;
+			if(whoseTurn == (int)Turn.PLAYER)
+				passNextTurn();
+			whoseTurn = (whoseTurn + 1) % 2;
 			break;
 		case (int)State.END:
 			// TODO: Implement next battle logic here

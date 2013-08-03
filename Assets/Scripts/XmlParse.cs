@@ -29,7 +29,12 @@ public class XmlParse : MonoBehaviour {
 		
 		foreach (XmlNode creatureContent in creatureContentList) {
 			if(creatureContent.Name == "name")
-				obj.name = creatureContent.InnerText;		
+				obj.name = creatureContent.InnerText;
+			if(creatureContent.Name == "damage"){
+				obj.damage = getValue(creatureContent.InnerText);
+				Spell spell = new Spell(obj.damage);
+				obj.spellList.Add(spell);
+			}
 			if(creatureContent.Name == "hp")
 				obj.hp = getValue(creatureContent.InnerText);	
 			if(creatureContent.Name == "spellPower")
@@ -43,7 +48,13 @@ public class XmlParse : MonoBehaviour {
 				XmlNodeList xmlSpells = creatureContent.ChildNodes;
 				foreach (XmlNode xmlSpell in xmlSpells) {	
 					spellNamesList.Add(xmlSpell.InnerText);
-					obj.spellList = Globals.getSpells(spellNamesList);
+					List<Spell> globalSpells = Globals.getSpells(spellNamesList);
+					if ( globalSpells != null) {
+						foreach(Spell spell in globalSpells) {
+							obj.spellList.Add(spell);
+						} 
+					}
+					
 				}
 	 	 	}
 		}

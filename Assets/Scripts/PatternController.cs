@@ -187,7 +187,9 @@ public class PatternController : MonoBehaviour {
 		bridges.Clear();
 		//Example values to test checkspell method
 		Spell fireBall = new FireBall();
+		Spell poison = new Poison();
 		DungeonController.instance.player.spellList.Add(fireBall);
+		DungeonController.instance.player.spellList.Add(poison);
 		Spell spell = getCastedSpell(DungeonController.instance.player);
 		if(spell != null)
 			DungeonController.instance.battle.castSpell(spell);

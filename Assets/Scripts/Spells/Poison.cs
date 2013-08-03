@@ -12,6 +12,9 @@ public Poison(){
 		type = "nature";
 		level = 1;
 		isOverTime = true;
+		shape.Add(8);
+		shape.Add(6);
+		shape.Add(8);
 }
 	
 public override bool increaseLevel(){

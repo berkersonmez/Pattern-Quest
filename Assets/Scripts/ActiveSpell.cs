@@ -12,7 +12,7 @@ public class ActiveSpell{
 		this.remainingTurn = spell.turn;
 	}
 	
-	public bool effect(ref Creature creature){
+	public bool effect(Creature creature){
 		remainingTurn--;
 		this.spell.turnEffect(ref creature);
 		if(remainingTurn == 0)
