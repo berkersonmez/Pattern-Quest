@@ -15,7 +15,7 @@ public class CombatTextController : MonoBehaviour {
 	public void deployText(int damage) {
 		GameObject combatText = Instantiate(combatTextPrefab) as GameObject;
 		combatText.transform.parent = GameObject.Find("AnchorUC").transform;
-		combatText.transform.localPosition = new Vector3(0, -7.3f, 0);
+		combatText.transform.localPosition = new Vector3(0, -7.3f, -1f);
 		combatText.GetComponent<CombatText>().setText("-" + damage);
 	}
 }
