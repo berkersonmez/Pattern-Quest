@@ -11,7 +11,7 @@ public class Creature
 	public int currentHp=25;
 	public int mana=20;
 	public int manaRegen=2;
-	public int currentMana;
+	public int currentMana=20;
 	public int spellPower;
 	public int level=1;
 	public int spellPerTurn = 1;
@@ -36,6 +36,8 @@ public class Creature
 	
 	public void decreaseHp(int amount) {
 		currentHp -= amount;
+		if(currentHp < 0)
+			currentHp = 0;
 		CombatTextController.instance.deployText(amount);
 	}
 	
@@ -64,6 +66,7 @@ public class Creature
 	public void play(Battle battle, ref Creature caster, ref Creature target){
 		Spell spell = this.spellList[0];
 		DungeonController.instance.battle.castSpell(spell);
+		Debug.Log("oy oy oy");
 	}
 	
 	public Creature (){

@@ -6,7 +6,7 @@ public class FireBall : Spell {
 	public FireBall(){
 			name = "Fire Ball";
 			damage = 5;
-			mana = 3;
+			mana = 1;
 			type = "fire";
 			level = 1;
 			shape.Add(6);
@@ -27,10 +27,13 @@ public class FireBall : Spell {
 	
 	}
 		
-	public override void cast(Battle battle, ref Creature caster, ref Creature target){
+	public override bool cast(Battle battle, ref Creature caster, ref Creature target){
+		if(caster.currentMana - mana < 0)
+			return false;
 		caster.decreaseMana(mana);
 		target.decreaseHp(damage);
 		Debug.Log(this.name + "'i patlattim *" + this.damage + "*");
+		return true;
 		//Fireball görsel efekti yapan fonksiyon eklenecek
 	}
 	

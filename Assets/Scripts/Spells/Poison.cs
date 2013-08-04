@@ -28,14 +28,12 @@ public override bool increaseLevel(){
 	}
 }
 	
-public override void cast(Battle battle, ref Creature caster, ref Creature target){
-	caster.currentMana = caster.currentMana - this.mana;
-	ActiveSpell activeSpell = new ActiveSpell(this);
-	if(target.isPlayer)
-		battle.activeSpellsOnPlayer.Add(activeSpell);
-	else
-		battle.activeSpellsOnCreature.Add(activeSpell);
-	//GÖRSEL EFEKT
+public override bool cast(Battle battle, ref Creature caster, ref Creature target){
+	if(caster.currentMana - mana < 0)
+		return false;
+	caster.decreaseMana(mana);
+	battle.addActiveSpell(this, target);
+	return true;
 }
 	
 }

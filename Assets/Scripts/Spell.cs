@@ -28,9 +28,12 @@ public class Spell {
 		this.name = "Basic Attack";
 	}
 	
-	public virtual void cast(Battle battle, ref Creature caster, ref Creature target){
+	public virtual bool cast(Battle battle, ref Creature caster, ref Creature target){
+		if(caster.currentMana - mana < 0)
+			return false;
 		caster.decreaseMana(mana);
 		target.decreaseHp(damage);
+		return true;		
 	}
 	
 	public virtual bool increaseLevel(){

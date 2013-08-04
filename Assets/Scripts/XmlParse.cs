@@ -52,9 +52,8 @@ public class XmlParse : MonoBehaviour {
 					if ( globalSpells != null) {
 						foreach(Spell spell in globalSpells) {
 							obj.spellList.Add(spell);
-						} 
+						}
 					}
-					
 				}
 	 	 	}
 		}

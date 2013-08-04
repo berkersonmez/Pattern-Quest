@@ -14,7 +14,7 @@
 	</creature>
 	<creature>
 		<name>kocaman</name>
-		<damage>6</damage>
+		<damage>2</damage>
 		<hp>50</hp>
 		<mana>30</mana>
 		<manaRegen>3</manaRegen>

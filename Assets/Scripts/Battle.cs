@@ -41,19 +41,40 @@ public class Battle {
 	public void castSpell(Spell spell) {
 		if (state != (int)State.CAST_PHASE) return;
 		
+		bool result;
 		if (whoseTurn == (int)Turn.PLAYER) {
-			spell.cast(this, ref player, ref creature);
+			result = spell.cast(this, ref player, ref creature);
 		} else {
-			spell.cast(this, ref creature, ref player);
+			result = spell.cast(this, ref creature, ref player);
 		}
-		castedSpells.Enqueue(spell);
+		Debug.Log("sonuc: " + result);
+		if(result == true)
+			castedSpells.Enqueue(spell);
 		if (isAnyoneDead()) {
 			state = (int)State.END;
 			return;
 		}
 		if(this.castedSpells.Count == 2){
 			state = (int)State.SPELL_EFFECT;
+			castedSpells.Clear();
 		}
+	}
+	
+	public void addActiveSpell(Spell spell, Creature target){
+		List <ActiveSpell> activeSpells;
+		if(target.isPlayer)
+			activeSpells = activeSpellsOnPlayer;
+		else
+			activeSpells = activeSpellsOnCreature;
+		foreach(ActiveSpell activeSpell in activeSpells){
+			if(activeSpell.spell.isOverTime)
+				if(activeSpell.spell.type == spell.type){
+				activeSpell.remainingTurn = spell.turn;
+				return;
+			}
+		}
+		ActiveSpell newActiveSpell = new ActiveSpell(spell);
+		activeSpells.Add(newActiveSpell);
 	}
 	
 	public void delayUpdate(float seconds) {
@@ -71,7 +92,6 @@ public class Battle {
 		
 		switch (state) {
 		case (int)State.ACTIVE_SPELL_EFFECT:
-			// TODO: Implement active spell thing here
 			if (whoseTurn == (int)Turn.PLAYER) {
 				player.activateActiveSpells(ref activeSpellsOnPlayer);
 			} else {
