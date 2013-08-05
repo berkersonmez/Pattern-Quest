@@ -18,6 +18,7 @@ public class Player : Creature {
 	public Player(){
 		isPlayer = true;
 		spellPerTurn = 2;
+		spriteName = "avatar_player_1";
 	}
 	
 	public override void decreaseHp(int amount) {

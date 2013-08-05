@@ -16,6 +16,7 @@ public class Creature
 	public int level=1;
 	public int spellPerTurn = 1;
 	public bool isPlayer=false;
+	public string spriteName;
 	public string type;
 	public List<string> spellNamesList = new List<string>();
 	public List<Spell> spellList = new List<Spell>();

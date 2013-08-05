@@ -24,6 +24,7 @@ public class Avatar : MonoBehaviour {
 		this.owner = owner;
 		nameText.text = owner.name;
 		nameText.Commit();
+		avatarSprite.SetSprite(owner.spriteName);
 		// Set avatarSprite here.
 	}
 	

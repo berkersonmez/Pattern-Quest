@@ -8,6 +8,7 @@
 		<spellPower>3</spellPower>
 		<level>1</level>
 		<type>insect</type>
+		<spriteName>avatar_creature_0</spriteName>
 		<spellList>
 			<spell>Fire Ball</spell>
 		</spellList>
@@ -21,6 +22,7 @@
 		<spellPower>4</spellPower>
 		<level>1</level>
 		<type>insect</type>
+		<spriteName>avatar_creature_0</spriteName>
 		<spellList>
 			<spell>Fire Ball</spell>
 		</spellList>

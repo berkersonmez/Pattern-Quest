@@ -43,6 +43,8 @@ public class XmlParse : MonoBehaviour {
 				obj.level = getValue(creatureContent.InnerText);	
 			if(creatureContent.Name == "type")
 				obj.type = creatureContent.InnerText;
+			if(creatureContent.Name == "spriteName")
+				obj.spriteName = creatureContent.InnerText;
 			if(creatureContent.Name == "spellList"){
 				List<string> spellNamesList = new List<string>();
 				XmlNodeList xmlSpells = creatureContent.ChildNodes;
