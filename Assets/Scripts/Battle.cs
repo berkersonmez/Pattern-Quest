@@ -14,8 +14,8 @@ public class Battle {
 	public int whoseTurn=0;
 	public float delayUpdateUntil = 0f;
 	public Queue<Spell> castedSpells = new Queue<Spell>();
-	public List <ActiveSpell> activeSpellsOnPlayer = new List<ActiveSpell>();
-	public List <ActiveSpell> activeSpellsOnCreature = new List<ActiveSpell>();
+	public Queue <ActiveSpell> activeSpellsOnPlayer = new Queue<ActiveSpell>();
+	public Queue <ActiveSpell> activeSpellsOnCreature = new Queue<ActiveSpell>();
 	
 	public Battle(ref Player player, ref Creature creature){
 		this.player = player;
@@ -61,7 +61,7 @@ public class Battle {
 	}
 	
 	public void addActiveSpell(Spell spell, Creature target){
-		List <ActiveSpell> activeSpells;
+		Queue <ActiveSpell> activeSpells;
 		if(target.isPlayer)
 			activeSpells = activeSpellsOnPlayer;
 		else
@@ -74,7 +74,7 @@ public class Battle {
 			}
 		}
 		ActiveSpell newActiveSpell = new ActiveSpell(spell);
-		activeSpells.Add(newActiveSpell);
+		activeSpells.Enqueue(newActiveSpell);
 	}
 	
 	public void delayUpdate(float seconds) {
@@ -93,15 +93,26 @@ public class Battle {
 		switch (state) {
 		case (int)State.ACTIVE_SPELL_EFFECT:
 			if (whoseTurn == (int)Turn.PLAYER) {
-				player.activateActiveSpells(ref activeSpellsOnPlayer);
+				if (player.activateActiveSpell(ref activeSpellsOnPlayer)) {
+					state = (int)State.CAST_PHASE;
+					delayUpdate(1f);
+				} else {
+					delayUpdate(.5f);
+				}
 			} else {
-				creature.activateActiveSpells(ref activeSpellsOnCreature);
+				if (creature.activateActiveSpell(ref activeSpellsOnCreature)) {
+					state = (int)State.CAST_PHASE;
+					delayUpdate(1f);
+				} else {
+					delayUpdate(.5f);
+				}
 			}
-			state = (int)State.CAST_PHASE;
 			break;
 		case (int)State.CAST_PHASE:
-			if (whoseTurn == (int)Turn.CREATURE)
+			if (whoseTurn == (int)Turn.CREATURE) {
 				creature.play(this, ref creature, ref player);
+				delayUpdate(1f);
+			}
 			break;
 		case (int)State.SPELL_EFFECT:
 			// TODO: Combo logic here?

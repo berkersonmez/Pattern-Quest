@@ -19,6 +19,7 @@ public class Creature
 	public string type;
 	public List<string> spellNamesList = new List<string>();
 	public List<Spell> spellList = new List<Spell>();
+	Queue<ActiveSpell> nextTurnsActiveSpells = new Queue<ActiveSpell>();
 	
 	public void setValues(){
 		this.currentHp = this.hp;
@@ -51,16 +52,20 @@ public class Creature
 		currentMana -= amount;
 	}
 	
-	public void activateActiveSpells(ref List<ActiveSpell> activeSpells){
-		List<ActiveSpell> nextTurnsActiveSpells = new List<ActiveSpell>();
-		foreach (ActiveSpell activeSpell in activeSpells){
-			//.effect() return false if the remaining turn of the active spell is 0, otherwise true
+	// Activate spells one by one to put a small delay.
+	// Return true if all spells in that turn finishes.
+	public bool activateActiveSpell(ref Queue<ActiveSpell> activeSpells) {
+		if (activeSpells.Count == 0) {
+			activeSpells = new Queue<ActiveSpell>(nextTurnsActiveSpells);
+			nextTurnsActiveSpells.Clear();
+			return true;
+		} else {
+			ActiveSpell activeSpell = activeSpells.Dequeue();
 			bool result = activeSpell.effect(this);
 			if(result == true)
-				nextTurnsActiveSpells.Add(activeSpell);
+				nextTurnsActiveSpells.Enqueue(activeSpell);
+			return false;
 		}
-		activeSpells.Clear();
-		activeSpells = nextTurnsActiveSpells;
 	}
 	
 	public void play(Battle battle, ref Creature caster, ref Creature target){
