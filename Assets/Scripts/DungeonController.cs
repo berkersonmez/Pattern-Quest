@@ -7,21 +7,17 @@ public class DungeonController : MonoBehaviour {
 	public Battle battle;
 	public Player player;
 	
-	private Healthbar mobHpBar;
-	private Healthbar playerHpBar;
-	private Manabar mobManaBar;
-	private Manabar playerManaBar;
+	private Avatar mobAvatar;
+	private Avatar playerAvatar;
 	
 	void Start () {
 		instance = this;
 		Invoke ("enterDungeon", 1f);
 		player = new Player();
-		mobHpBar = GameObject.Find("Healthbar Mob").GetComponent<Healthbar>();
-		playerHpBar = GameObject.Find("Healthbar Player").GetComponent<Healthbar>();
-		mobManaBar = GameObject.Find("Manabar Mob").GetComponent<Manabar>();
-		playerManaBar = GameObject.Find("Manabar Player").GetComponent<Manabar>();
-		playerHpBar.owner = player;
-		playerManaBar.owner = player;
+		player.name = "Player";
+		mobAvatar = GameObject.Find("Avatar Creature").GetComponent<Avatar>();
+		playerAvatar = GameObject.Find("Avatar Player").GetComponent<Avatar>();
+		playerAvatar.setOwner(player);
 	}
 	
 	public void enterDungeon() {
@@ -32,8 +28,7 @@ public class DungeonController : MonoBehaviour {
 	
 	public void startBattle() {
 		battle = new Battle(ref player, ref currentCreature);
-		mobHpBar.owner = currentCreature;
-		mobManaBar.owner = currentCreature;
+		mobAvatar.setOwner(currentCreature);
 	}
 	
 	void Update() {
