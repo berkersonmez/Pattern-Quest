@@ -12,12 +12,12 @@ public class DungeonController : MonoBehaviour {
 	
 	void Start () {
 		instance = this;
-		Invoke ("enterDungeon", 1f);
 		player = new Player();
 		player.name = "Player";
 		mobAvatar = GameObject.Find("Avatar Creature").GetComponent<Avatar>();
 		playerAvatar = GameObject.Find("Avatar Player").GetComponent<Avatar>();
 		playerAvatar.setOwner(player);
+		enterDungeon();
 	}
 	
 	public void enterDungeon() {
