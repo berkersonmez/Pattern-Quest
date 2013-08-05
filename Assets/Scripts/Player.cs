@@ -19,4 +19,11 @@ public class Player : Creature {
 		isPlayer = true;
 		spellPerTurn = 2;
 	}
+	
+	public override void decreaseHp(int amount) {
+		currentHp -= amount;
+		if(currentHp < 0)
+			currentHp = 0;
+		CombatTextController.instance.deployText(amount, (int)CombatTextController.Placement.PLAYER);
+	}
 }
