@@ -31,6 +31,11 @@ public class DungeonController : MonoBehaviour {
 		mobAvatar.setOwner(currentCreature);
 	}
 	
+	public void switchTurn(bool isPlayersTurn) {
+		playerAvatar.visualizeTurn(isPlayersTurn);
+		mobAvatar.visualizeTurn(!isPlayersTurn);
+	}
+	
 	void Update() {
 		if (battle != null) {
 			battle.update();

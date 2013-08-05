@@ -27,6 +27,16 @@ public class Avatar : MonoBehaviour {
 		// Set avatarSprite here.
 	}
 	
+	public void visualizeTurn(bool isOwnersTurn) {
+		if (isOwnersTurn) {
+			nameText.color = Color.yellow;
+			nameText.Commit();
+		} else {
+			nameText.color = Color.white;
+			nameText.Commit();
+		}
+	}
+	
 	void Update () {
 		if (owner != null) {
 			manaBar.Value = (float)owner.currentMana / owner.mana;

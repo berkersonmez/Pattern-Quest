@@ -22,6 +22,7 @@ public class Battle {
 		this.creature = creature;
 		turn = 0;
 		whoseTurn = (int)Turn.PLAYER;
+		DungeonController.instance.switchTurn(true);
 	}
 	
 	public bool isAnyoneDead(){
@@ -118,8 +119,12 @@ public class Battle {
 			// TODO: Combo logic here?
 			state = (int)State.ACTIVE_SPELL_EFFECT;
 			delayUpdate(1f);
-			if(whoseTurn == (int)Turn.PLAYER)
+			if(whoseTurn == (int)Turn.PLAYER) {
+				DungeonController.instance.switchTurn(false);
 				passNextTurn();
+			} else {
+				DungeonController.instance.switchTurn(true);
+			}
 			whoseTurn = (whoseTurn + 1) % 2;
 			break;
 		case (int)State.END:
