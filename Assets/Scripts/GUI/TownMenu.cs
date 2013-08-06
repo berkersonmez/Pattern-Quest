@@ -18,8 +18,6 @@ public class TownMenu : MonoBehaviour {
 		instance = this;
 		cam = Camera.main.GetComponent<tk2dCamera>();
 		cameraTarget = transform.position;
-		
-		DontDestroyOnLoad(GameObject.Find("_LevelDescriptor"));
 	}
 	
 	public void menuWindow() {

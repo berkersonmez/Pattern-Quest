@@ -12,8 +12,7 @@ public class DungeonController : MonoBehaviour {
 	
 	void Start () {
 		instance = this;
-		player = new Player();
-		player.name = "Player";
+		player = GameSaveController.instance.getPlayer();
 		mobAvatar = GameObject.Find("Avatar Creature").GetComponent<Avatar>();
 		playerAvatar = GameObject.Find("Avatar Player").GetComponent<Avatar>();
 		playerAvatar.setOwner(player);
