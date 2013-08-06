@@ -26,7 +26,7 @@ public class GameStarter : MonoBehaviour {
 			playerCreateButton.transform.position = new Vector3(0, -15.8f, -1f);
 			loadingText.text = "Enter character name:";
 			loadingText.Commit();
-			loadingText.transform.position = new Vector3(0, 17.5f, 0);
+			loadingText.transform.position = new Vector3(0, 17.5f, -1f);
 		}
 	}
 	
