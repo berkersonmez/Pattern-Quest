@@ -53,6 +53,11 @@ public class Creature
 		currentMana -= amount;
 	}
 	
+	public void restoreHealthMana() {
+		currentHp = hp;
+		currentMana = mana;
+	}
+	
 	// Activate spells one by one to put a small delay.
 	// Return true if all spells in that turn finishes.
 	public bool activateActiveSpell(ref Queue<ActiveSpell> activeSpells) {

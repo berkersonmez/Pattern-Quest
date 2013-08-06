@@ -30,6 +30,7 @@ public class Avatar : MonoBehaviour {
 		nameText.text = owner.name;
 		nameText.Commit();
 		avatarSprite.SetSprite(owner.spriteName);
+		avatarSprite.color = new Color(1f, 1f, 1f);
 		// Set avatarSprite here.
 	}
 	

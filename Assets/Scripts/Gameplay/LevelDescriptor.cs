@@ -6,6 +6,7 @@ public class LevelDescriptor : MonoBehaviour {
 	
 	public static LevelDescriptor instance;
 	public Queue<string> creatureNameList;
+	public int currentDungeon;
 	
 	
 	void Start() {
@@ -15,6 +16,11 @@ public class LevelDescriptor : MonoBehaviour {
 	// Fills "creatureNameList" with creature names in the level
 	public void describeLevel(int dungeonNo) {
 		creatureNameList = XmlParse.instance.getMapCreatures(dungeonNo);
+		currentDungeon = dungeonNo;
+	}
+	
+	public void resetLevel() {
+		creatureNameList = XmlParse.instance.getMapCreatures(currentDungeon);
 	}
 	
 	public Creature getNextCreature() {
