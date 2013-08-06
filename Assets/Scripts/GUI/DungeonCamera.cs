@@ -2,7 +2,6 @@
 using System.Collections;
 
 public class DungeonCamera : MonoBehaviour {
-	enum Window {BATTLE = 0, WIN, LOSE};
 
 	public static DungeonCamera instance;
 	public tk2dCamera cam;
@@ -14,7 +13,6 @@ public class DungeonCamera : MonoBehaviour {
 	
 	private Vector3 cameraTarget;
 	private bool moveCamera = false;
-	private int windowMode = 0;
 	void Start() {
 		instance = this;
 		cam = Camera.main.GetComponent<tk2dCamera>();
@@ -24,19 +22,16 @@ public class DungeonCamera : MonoBehaviour {
 	public void battleWindow() {
 		cameraTarget = battlePosition;
 		moveCamera = true;
-		windowMode = (int)Window.BATTLE;
 	}
 	
 	public void winWindow() {
 		cameraTarget = winPosition;
 		moveCamera = true;
-		windowMode = (int)Window.WIN;
 	}
 	
 	public void loseWindow() {
 		cameraTarget = losePosition;
 		moveCamera = true;
-		windowMode = (int)Window.LOSE;
 	}
 	
 	void Update() {
