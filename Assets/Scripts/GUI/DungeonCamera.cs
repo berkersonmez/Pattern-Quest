@@ -15,6 +15,7 @@ public class DungeonCamera : MonoBehaviour {
 	private bool moveCamera = false;
 	void Start() {
 		instance = this;
+		Screen.SetResolution(480, 800, true);
 		cam = Camera.main.GetComponent<tk2dCamera>();
 		cameraTarget = transform.position;
 	}
@@ -37,7 +38,7 @@ public class DungeonCamera : MonoBehaviour {
 	void Update() {
 		if (moveCamera) {
 	        transform.position = Vector3.Lerp(transform.position, cameraTarget, cameraSmooth * Time.deltaTime);
-			if (Vector3.Distance(transform.position, cameraTarget) < .1f) {
+			if (Vector3.Distance(transform.position, cameraTarget) < .01f) {
 				moveCamera = false;
 			}
 		}
