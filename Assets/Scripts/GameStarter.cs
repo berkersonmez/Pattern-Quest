@@ -8,7 +8,7 @@ public class GameStarter : MonoBehaviour {
 	tk2dUIItem playerCreateButton;
 
 	void Start () {
-		// PlayerPrefs.DeleteAll();
+		//PlayerPrefs.DeleteAll();
 		loadingText = GameObject.Find("Loading Text").GetComponent<tk2dTextMesh>();
 		playerNameInput = GameObject.Find("Player Name Input").GetComponent<tk2dUITextInput>();
 		playerCreateButton = GameObject.Find("Create Char Button").GetComponent<tk2dUIItem>();

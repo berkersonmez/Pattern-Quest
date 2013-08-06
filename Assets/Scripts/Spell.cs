@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
+[System.Serializable]
 public class Spell {
 
 	public int damage=0;
@@ -23,9 +24,12 @@ public class Spell {
 	
 	public Spell(int damage){
 		this.damage = damage;
-		this.mana = (int)Mathf.Sqrt(damage);
+		this.mana = 0;
+		//this.mana = (int)Mathf.Sqrt(damage);
 		Debug.Log("mana: " + this.mana);
 		this.name = "Basic Attack";
+		this.shape.Add(9);
+		this.shape.Add(9);
 	}
 	
 	public virtual bool cast(Battle battle, ref Creature caster, ref Creature target){

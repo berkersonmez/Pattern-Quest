@@ -50,7 +50,7 @@ public class XmlParse : MonoBehaviour {
 				XmlNodeList xmlSpells = creatureContent.ChildNodes;
 				foreach (XmlNode xmlSpell in xmlSpells) {	
 					spellNamesList.Add(xmlSpell.InnerText);
-					List<Spell> globalSpells = Globals.getSpells(spellNamesList);
+					List<Spell> globalSpells = Globals.instance.getSpells(spellNamesList);
 					if ( globalSpells != null) {
 						foreach(Spell spell in globalSpells) {
 							obj.spellList.Add(spell);
