@@ -10,7 +10,7 @@
 		<type>insect</type>
 		<spriteName>avatar_creature_0</spriteName>
 		<spellList>
-			<spell>Fire Ball</spell>
+			<spell>FireBall</spell>
 		</spellList>
 	</creature>
 	<creature>
@@ -24,7 +24,7 @@
 		<type>insect</type>
 		<spriteName>avatar_creature_0</spriteName>
 		<spellList>
-			<spell>Fire Ball</spell>
+			<spell>FireBall</spell>
 		</spellList>
 	</creature>
 </creatures>

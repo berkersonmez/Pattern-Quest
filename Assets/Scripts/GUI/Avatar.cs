@@ -20,6 +20,11 @@ public class Avatar : MonoBehaviour {
 		avatarSprite = transform.Find("Avatar").GetComponent<tk2dSprite>();
 	}
 	
+	public void deadAnim() {
+		
+		avatarSprite.color = new Color(.2f, .2f, .2f);
+	}
+	
 	public void setOwner(Creature owner) {
 		this.owner = owner;
 		nameText.text = owner.name;

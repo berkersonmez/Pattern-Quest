@@ -29,11 +29,13 @@ public class Battle {
 		if(player.currentHp <= 0){
 			Debug.Log("Player is dead");
 			dead = player;
+			DungeonController.instance.finishBattle(false);
 			return true;
 		}
 		if(creature.currentHp <= 0){
 			Debug.Log(creature.name + " is dead");
 			dead = creature;
+			DungeonController.instance.finishBattle(true);
 			return true;
 		}
 		return false;

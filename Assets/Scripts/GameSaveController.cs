@@ -10,6 +10,7 @@ public class GameSaveController : MonoBehaviour {
 	[System.Serializable]
 	public class GameSave {
 		public List<Item> inventory;
+		public List<string> spells = new List<string>();
 		public int level;
 		public string playerName;
 		// Other variables to save goes here.
@@ -37,6 +38,9 @@ public class GameSaveController : MonoBehaviour {
 		currentGame = new GameSave();
 		player = new Player();
 		player.name = playerName;
+		player.spellList.Add(new FireBall());
+		player.spellList.Add(new Poison());
+		player.spellList.Add(new Spell(4));
 		player.level = 1;
 		saveGame();
 	}
@@ -45,6 +49,8 @@ public class GameSaveController : MonoBehaviour {
 	public void saveGame() {
 		currentGame.level = player.level;
 		currentGame.playerName = player.name;
+		foreach(Spell spell in player.spellList)
+			currentGame.spells.Add(spell.name);
 		save("GameSave", currentGame);
 	}
 	
@@ -53,6 +59,8 @@ public class GameSaveController : MonoBehaviour {
 			player = new Player();
 			player.level = currentGame.level;
 			player.name = currentGame.playerName;
+			player.spellList = Globals.instance.getSpells(currentGame.spells);
+			player.spellList.Add(new Spell(player.damage));
 		}
 		return player;
 	}

@@ -4,7 +4,7 @@ using System.Collections;
 public class FireBall : Spell {
 	
 	public FireBall(){
-			name = "Fire Ball";
+			name = "FireBall";
 			damage = 5;
 			mana = 1;
 			type = "fire";

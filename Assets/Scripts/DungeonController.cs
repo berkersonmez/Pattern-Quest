@@ -35,6 +35,25 @@ public class DungeonController : MonoBehaviour {
 		mobAvatar.visualizeTurn(!isPlayersTurn);
 	}
 	
+	public void finishBattle(bool playerWon) {
+		if (playerWon) {
+			mobAvatar.deadAnim();
+			Invoke("switchWinWindow", .5f);
+		} else {
+			playerAvatar.deadAnim();
+			Invoke("switchLoseWindow", .5f);
+		}
+		
+	}
+	
+	void switchWinWindow() {
+		DungeonCamera.instance.winWindow();
+	}
+	
+	void switchLoseWindow() {
+		DungeonCamera.instance.loseWindow();
+	}
+	
 	void Update() {
 		if (battle != null) {
 			battle.update();
