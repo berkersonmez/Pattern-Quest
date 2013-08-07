@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <items>
 	<item dropChance="30">
+		<name>common 1</name>
 	    <damage>4,6</damage>
 		<armor>1,2</armor>
 	    <rarity>common</rarity>

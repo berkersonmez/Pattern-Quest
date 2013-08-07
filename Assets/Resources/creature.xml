@@ -9,6 +9,10 @@
 		<level>1</level>
 		<type>insect</type>
 		<spriteName>avatar_creature_0</spriteName>
+		<items>
+			<item dropChance="25">common 1</item>
+			<item dropChance="20">sope</item>
+		</items>
 		<spellList>
 			<spell>FireBall</spell>
 		</spellList>
