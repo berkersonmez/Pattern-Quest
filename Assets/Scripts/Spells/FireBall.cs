@@ -4,15 +4,18 @@ using System.Collections;
 public class FireBall : Spell {
 	
 	public FireBall(){
-			name = "FireBall";
-			damage = 5;
-			mana = 1;
-			type = "fire";
-			level = 1;
-			shape.Add(6);
-			shape.Add(2);
-			shape.Add(4);
-			shape.Add(8);
+		name = "FireBall";
+		damage = 5;
+		mana = 1;
+		type = "fire";
+		level = 1;
+		shape.Add(6);
+		shape.Add(2);
+		shape.Add(4);
+		shape.Add(8);
+		effectParticle1Pre = EffectHolder.instance.fireballProjectile;
+		effectParticle2Pre = EffectHolder.instance.fireballExplosion;
+		effectType = (int)EffectType.PROJECTILE;
 	}
 		
 	public override bool increaseLevel(){

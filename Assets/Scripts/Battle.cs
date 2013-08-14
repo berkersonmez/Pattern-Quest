@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Battle {
-	enum State {CAST_PHASE = 0, SPELL_EFFECT, ACTIVE_SPELL_EFFECT, END};
+	enum State {CAST_PHASE = 0, SPELL_ANIM, SPELL_EFFECT, ACTIVE_SPELL_EFFECT, END};
 	enum Turn {PLAYER = 0, CREATURE};
 	
 	public Creature player;
@@ -16,6 +16,7 @@ public class Battle {
 	public Queue<Spell> castedSpells = new Queue<Spell>();
 	public Queue <ActiveSpell> activeSpellsOnPlayer = new Queue<ActiveSpell>();
 	public Queue <ActiveSpell> activeSpellsOnCreature = new Queue<ActiveSpell>();
+	public Spell castingSpell;
 	
 	public Battle(ref Player player, ref Creature creature){
 		this.player = player;
@@ -44,23 +45,13 @@ public class Battle {
 	public void castSpell(Spell spell) {
 		if (state != (int)State.CAST_PHASE) return;
 		
-		bool result;
+		castingSpell = spell;
 		if (whoseTurn == (int)Turn.PLAYER) {
-			result = spell.cast(this, ref player, ref creature);
+			spell.animateStart(true);
 		} else {
-			result = spell.cast(this, ref creature, ref player);
+			spell.animateStart(false);
 		}
-		Debug.Log("sonuc: " + result);
-		if(result == true)
-			castedSpells.Enqueue(spell);
-		if (isAnyoneDead()) {
-			state = (int)State.END;
-			return;
-		}
-		if(this.castedSpells.Count == 2){
-			state = (int)State.SPELL_EFFECT;
-			castedSpells.Clear();
-		}
+		state = (int)State.SPELL_ANIM;
 	}
 	
 	public void addActiveSpell(Spell spell, Creature target){
@@ -90,6 +81,29 @@ public class Battle {
 		creature.increaseMana(creature.manaRegen);
 	}
 	
+	public void spellAnimComplete() {
+		bool result;
+		if (whoseTurn == (int)Turn.PLAYER) {
+			result = castingSpell.cast(this, ref player, ref creature);
+		} else {
+			result = castingSpell.cast(this, ref creature, ref player);
+		}
+		state = (int)State.CAST_PHASE;
+		
+		Debug.Log("sonuc: " + result);
+		if(result == true)
+			castedSpells.Enqueue(castingSpell);
+		if (isAnyoneDead()) {
+			state = (int)State.END;
+			return;
+		}
+		if(this.castedSpells.Count == 2){
+			state = (int)State.SPELL_EFFECT;
+			castedSpells.Clear();
+		}
+		delayUpdate(.2f);
+	}
+	
 	public void update() {
 		if (Time.time < delayUpdateUntil) return;
 		
@@ -111,10 +125,13 @@ public class Battle {
 				}
 			}
 			break;
+		case (int)State.SPELL_ANIM:
+				castingSpell.animate();
+			break;
 		case (int)State.CAST_PHASE:
 			if (whoseTurn == (int)Turn.CREATURE) {
 				creature.play(this, ref creature, ref player);
-				delayUpdate(1f);
+				
 			}
 			break;
 		case (int)State.SPELL_EFFECT:
