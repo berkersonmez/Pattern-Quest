@@ -149,7 +149,7 @@ public class PatternController : MonoBehaviour {
 		Vector3 n1Pos = buttons[n1[0], n1[1]].transform.localPosition;
 		Vector3 n2Pos = buttons[n2[0], n2[1]].transform.localPosition;
 		obj.transform.localPosition = (n1Pos + n2Pos) / 2;
-		obj.transform.localPosition += new Vector3(0, 0, 1f);
+		obj.transform.localPosition += new Vector3(0, 0, 1f - bridgeCount * .1f);
 		string bridgeColorStr = (bridgeCount + 1) + "_";
 		obj.GetComponent<tk2dSprite>().SetSprite("pattern_bridge_" + bridgeColorStr + bridgeType(n1, n2));
 		bridges.Add(obj);
