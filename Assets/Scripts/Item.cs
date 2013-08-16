@@ -27,8 +27,8 @@ public class Item {
 	
 	//Fixes empty and wrong values
 	public void setValues(){
-		if(this.name == null)
-			this.name = "level " + this.level + " " + this.type;
+		if(this.name.Contains("common"))
+			this.name = "Level " + this.level + " " + this.type;
 		if(this.type != "weapon")
 			this.damage = 0;
 	}

@@ -9,9 +9,10 @@
 		<level>1</level>
 		<type>insect</type>
 		<spriteName>avatar_creature_0</spriteName>
+		<gold>2</gold>
 		<items>
-			<item dropChance="25">common 1</item>
-			<item dropChance="20">sope</item>
+			<item dropChance="45">common 1</item>
+			<item dropChance="15">sopa</item>
 		</items>
 		<spellList>
 			<spell>FireBall</spell>
@@ -27,6 +28,11 @@
 		<level>1</level>
 		<type>insect</type>
 		<spriteName>avatar_creature_0</spriteName>
+		<gold>5</gold>
+		<items>
+			<item dropChance="35">common 1</item>
+			<item dropChance="25">sopa</item>
+		</items>
 		<spellList>
 			<spell>FireBall</spell>
 		</spellList>

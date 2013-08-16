@@ -45,6 +45,19 @@ public class XmlParse : MonoBehaviour {
 				obj.type = creatureContent.InnerText;
 			if(creatureContent.Name == "spriteName")
 				obj.spriteName = creatureContent.InnerText;
+			if(creatureContent.Name == "gold")
+				obj.gold = getValue(creatureContent.InnerText);
+			if(creatureContent.Name == "items"){
+				XmlNodeList xmlItems = creatureContent.ChildNodes;
+				string itemName = determineDroppedItem(xmlItems);
+				Item droppedItem = getItem(itemName);
+				if(droppedItem == null){
+					Debug.Log("Item dusmedi :((");
+					continue;
+				}
+				obj.droppedItems.Add(droppedItem);
+				Debug.Log(obj.droppedItems[0].name);
+			}
 			if(creatureContent.Name == "spellList"){
 				List<string> spellNamesList = new List<string>();
 				XmlNodeList xmlSpells = creatureContent.ChildNodes;
@@ -117,6 +130,8 @@ public class XmlParse : MonoBehaviour {
 		xmlDoc.LoadXml(itemXML.text);
 		
 		XmlNode datNode = xmlDoc.SelectSingleNode("/items/item[name='" + name + "']");
+		if(datNode == null)
+			return null;
 		XmlNodeList itemContentList = datNode.ChildNodes;
 		
 		foreach (XmlNode itemContent in itemContentList) {
@@ -151,60 +166,12 @@ public class XmlParse : MonoBehaviour {
 	  	return obj;
 	}
 	
-	public void getItem() {
-		XmlDocument xmlDoc = new XmlDocument();
-		xmlDoc.LoadXml(itemXML.text);
-		XmlNodeList xmlItems = xmlDoc.GetElementsByTagName("item");
-		
-		XmlNode droppedItem = determineDroppedItem(xmlItems);
-		if(droppedItem == null){
-			//Debug.Log("NO ITEM DROPPED");
-			return;
-		}
-		
-		//Debug.Log(droppedItem.Attributes["dropChance"].Value);
-		
-		XmlNodeList itemContentList = droppedItem.ChildNodes;
-		Item obj = new Item(); 
-
-		foreach (XmlNode itemContent in itemContentList) {
-		if(itemContent.Name == "name"){
-			if(itemContent.InnerText != null)
-				obj.name = itemContent.InnerText;		
-		}
-		if(itemContent.Name == "damage"){
-			obj.damage = getValue(itemContent.InnerText);
-		}
-		if(itemContent.Name == "spellPower")
-			obj.spellPower = getValue(itemContent.InnerText);
-		if(itemContent.Name == "type"){
-			int typeCode = getValue(itemContent.InnerText);
-			obj.type = getType(typeCode);
-		}
-		if(itemContent.Name == "rarity")
-			obj.rarity = itemContent.InnerText;
-		if(itemContent.Name == "armor")
-			obj.armor = getValue(itemContent.InnerText);
-		if(itemContent.Name == "hp")
-			obj.hp = getValue(itemContent.InnerText);
-		if(itemContent.Name == "mana")
-			obj.mana = getValue(itemContent.InnerText);
-		if(itemContent.Name == "manaRegen")
-			obj.manaRegen = getValue(itemContent.InnerText);
-		if(itemContent.Name == "level")
-			obj.level = getValue(itemContent.InnerText);
-	  	}
-		//Fixes empty and wrong values
-		obj.setValues();
-	  	itemList.Add(obj);
-	}
-	
-	public XmlNode determineDroppedItem(XmlNodeList xmlItems){
+	public string determineDroppedItem(XmlNodeList xmlItems){
 		int randomValue = Random.Range(1,100);
 		foreach (XmlNode oneItem in xmlItems) {
 			int dropChance = int.Parse(oneItem.Attributes["dropChance"].Value);
 			if(randomValue <= dropChance)
-				return oneItem;
+				return oneItem.InnerText;
 			else
 				randomValue = randomValue - dropChance;
 		}

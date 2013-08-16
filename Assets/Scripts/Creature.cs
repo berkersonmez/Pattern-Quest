@@ -18,6 +18,8 @@ public class Creature
 	public bool isPlayer=false;
 	public string spriteName;
 	public string type;
+	public int gold;
+	public List<Item> droppedItems = new List<Item>();
 	public List<string> spellNamesList = new List<string>();
 	public List<Spell> spellList = new List<Spell>();
 	Queue<ActiveSpell> nextTurnsActiveSpells = new Queue<ActiveSpell>();
