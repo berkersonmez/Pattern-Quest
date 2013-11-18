@@ -14,10 +14,10 @@ public class Player : Creature {
 		spriteName = "avatar_player_1";
 	}
 	
-	public override void decreaseHp(int amount) {
+	public override void decreaseHp(int amount, string effectName) {
 		currentHp -= amount;
 		if(currentHp < 0)
 			currentHp = 0;
-		CombatTextController.instance.deployText(amount, (int)CombatTextController.Placement.PLAYER);
+		CombatTextController.instance.deployText(effectName, amount, (int)CombatTextController.Placement.PLAYER);
 	}
 }

@@ -3,23 +3,22 @@ using System.Collections;
 
 public class CombatText : MonoBehaviour {
 
-	Vector3 speed;
+	float speed;
 	
 	void Start () {
-		speed = new Vector3(Random.Range(-.2f, .1f), .3f, 0);
+		speed = .15f;
+		Invoke("slowdown", .2f);
 		Invoke("destroy", 1.5f);
 	}
 	
-	public void setText(string text) {
-		GetComponent<tk2dTextMesh>().text = text;
-		GetComponent<tk2dTextMesh>().Commit();
-	}
-	
 	void FixedUpdate() {
-		transform.position += speed;
-		speed.y -= .04f;
+		transform.localScale -= new Vector3(speed, speed, 0f);
 	}
-	
+
+	void slowdown() {
+		speed = .005f;
+	}
+
 	void destroy() {
 		Destroy(gameObject);
 	}

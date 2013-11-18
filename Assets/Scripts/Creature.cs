@@ -38,11 +38,11 @@ public class Creature
 			currentHp = hp;
 	}
 	
-	public virtual void decreaseHp(int amount) {
+	public virtual void decreaseHp(int amount, string effectName) {
 		currentHp -= amount;
 		if(currentHp < 0)
 			currentHp = 0;
-		CombatTextController.instance.deployText(amount, (int)CombatTextController.Placement.CREATURE);
+		CombatTextController.instance.deployText(effectName, amount, (int)CombatTextController.Placement.CREATURE);
 	}
 	
 	public void increaseMana(int amount) {

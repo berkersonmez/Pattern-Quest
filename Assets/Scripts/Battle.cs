@@ -46,11 +46,7 @@ public class Battle {
 		if (state != (int)State.CAST_PHASE) return;
 		
 		castingSpell = spell;
-		if (whoseTurn == (int)Turn.PLAYER) {
-			spell.animateStart(true);
-		} else {
-			spell.animateStart(false);
-		}
+
 		state = (int)State.SPELL_ANIM;
 	}
 	
@@ -101,7 +97,7 @@ public class Battle {
 			state = (int)State.SPELL_EFFECT;
 			castedSpells.Clear();
 		}
-		delayUpdate(.2f);
+		delayUpdate(1.5f);
 	}
 	
 	public void update() {
@@ -126,7 +122,7 @@ public class Battle {
 			}
 			break;
 		case (int)State.SPELL_ANIM:
-				castingSpell.animate();
+				spellAnimComplete();
 			break;
 		case (int)State.CAST_PHASE:
 			if (whoseTurn == (int)Turn.CREATURE) {

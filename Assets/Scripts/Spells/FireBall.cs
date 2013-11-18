@@ -13,9 +13,6 @@ public class FireBall : Spell {
 		shape.Add(2);
 		shape.Add(4);
 		shape.Add(8);
-		effectParticle1Pre = EffectHolder.instance.fireballProjectile;
-		effectParticle2Pre = EffectHolder.instance.fireballExplosion;
-		effectType = (int)EffectType.PROJECTILE;
 	}
 		
 	public override bool increaseLevel(){
@@ -34,7 +31,7 @@ public class FireBall : Spell {
 		if(caster.currentMana - mana < 0)
 			return false;
 		caster.decreaseMana(mana);
-		target.decreaseHp(damage);
+		target.decreaseHp(damage, name);
 		Debug.Log(this.name + "'i patlattim *" + this.damage + "*");
 		return true;
 		//Fireball görsel efekti yapan fonksiyon eklenecek

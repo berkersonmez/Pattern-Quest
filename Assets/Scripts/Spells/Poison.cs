@@ -15,8 +15,6 @@ public class Poison : Spell {
 		shape.Add(8);
 		shape.Add(6);
 		shape.Add(8);
-		effectParticle1Pre = EffectHolder.instance.normalAttack;
-		effectType = (int)EffectType.ENEMY_INSTANT;
 	}
 		
 	public override bool increaseLevel(){
