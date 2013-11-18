@@ -11,7 +11,7 @@
 		<spriteName>avatar_creature_0</spriteName>
 		<gold>2</gold>
 		<items>
-			<item dropChance="45">common 1</item>
+			<item dropChance="35">Red Stone 1</item>
 			<item dropChance="15">sopa</item>
 		</items>
 		<spellList>
@@ -30,7 +30,7 @@
 		<spriteName>avatar_creature_0</spriteName>
 		<gold>5</gold>
 		<items>
-			<item dropChance="35">common 1</item>
+			<item dropChance="55">Blue Stone 1</item>
 			<item dropChance="25">sopa</item>
 		</items>
 		<spellList>

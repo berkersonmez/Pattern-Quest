@@ -29,7 +29,5 @@ public class Item {
 	public void setValues(){
 		if(this.name.Contains("common"))
 			this.name = "Level " + this.level + " " + this.type;
-		if(this.type != "weapon")
-			this.damage = 0;
 	}
 }

@@ -142,11 +142,8 @@ public class XmlParse : MonoBehaviour {
 		if(itemContent.Name == "damage"){
 			obj.damage = getValue(itemContent.InnerText);
 		}
-		if(itemContent.Name == "spellPower")
-			obj.spellPower = getValue(itemContent.InnerText);
 		if(itemContent.Name == "type"){
-			int typeCode = getValue(itemContent.InnerText);
-			obj.type = getType(typeCode);
+			obj.type = itemContent.InnerText;
 		}
 		if(itemContent.Name == "rarity")
 			obj.rarity = itemContent.InnerText;

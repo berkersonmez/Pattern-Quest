@@ -43,7 +43,7 @@ public class Spell {
 		this.damage = damage;
 		this.mana = 0;
 		//this.mana = (int)Mathf.Sqrt(damage);
-		Debug.Log("mana: " + this.mana);
+		//Debug.Log("mana: " + this.mana);
 		this.name = "Basic Attack";
 		this.shape.Add(9);
 		this.shape.Add(9);

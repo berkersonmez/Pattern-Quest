@@ -1,23 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <items>
 	<item dropChance="30">
-		<name>common 1</name>
-	    <damage>4,6</damage>
-		<armor>1,2</armor>
+		<name>Red Stone 1</name>
 	    <rarity>common</rarity>
-		<spellPower>1,2</spellPower>
-		<type>1,10</type>
-		<hp>3,4</hp>
+		<type>red</type>
+	    <damage>4,6</damage>
+		<level>1</level>
+	</item>
+	<item dropChance="30">
+		<name>Blue Stone 1</name>
+	    <rarity>common</rarity>
+		<type>blue</type>
 	    <mana>1</mana>
 		<manaRegen>1</manaRegen>
 		<level>1</level>
 	</item>
-	<item dropChance="25">
-		<name>sope</name>
+	<item dropChance="30">
+		<name>Green Stone 1</name>
+	    <rarity>common</rarity>
+		<type>green</type>
+		<hp>3,4</hp>
+		<armor>2</armor>
+		<level>1</level>
+	</item>
+	<item dropChance="10">
+		<name>sopa</name>
+		<type>red</type>
 	    <damage>7,9</damage>
 		<armor>2,3</armor>
 	    <rarity>uncommon</rarity>
-		<type>1</type>
 		<hp>5</hp>
 	    <mana>5</mana>
 		<level>1</level>
