@@ -37,11 +37,11 @@ public class InventoryController : MonoBehaviour {
 		ItemHolder blueHolder = gearList.transform.Find("Blue").GetComponent<ItemHolder>();
 		ItemHolder greenHolder = gearList.transform.Find("Green").GetComponent<ItemHolder>();
 		ItemHolder redHolder = gearList.transform.Find("Red").GetComponent<ItemHolder>();
-		if (GameSaveController.instance.player.blueStone.type != null)
+		if (GameSaveController.instance.player.blueStone != null && GameSaveController.instance.player.blueStone.type != null)
 			blueHolder.setItem(GameSaveController.instance.player.blueStone);
-		if (GameSaveController.instance.player.greenStone.type != null)
+		if (GameSaveController.instance.player.greenStone != null && GameSaveController.instance.player.greenStone.type != null)
 			greenHolder.setItem(GameSaveController.instance.player.greenStone);
-		if (GameSaveController.instance.player.redStone.type != null)
+		if (GameSaveController.instance.player.redStone != null && GameSaveController.instance.player.redStone.type != null)
 			redHolder.setItem(GameSaveController.instance.player.redStone);
 	}
 }
