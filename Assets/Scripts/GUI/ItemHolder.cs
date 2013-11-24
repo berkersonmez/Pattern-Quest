@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// Item slots in loot window and inventory.
 public class ItemHolder : MonoBehaviour {
 
 	public Item item;
-	public tk2dSprite avatar;
-	public tk2dTextMesh text;
+	public tk2dSprite avatar; // Assign using inspector
+	public tk2dTextMesh text; // Assign using inspector
 	private tk2dUIItem itemUI;
 
 	void Start () {
@@ -14,6 +15,7 @@ public class ItemHolder : MonoBehaviour {
 		itemUI.OnRelease += OnRelease;
 	}
 
+	// Sets item of the item slot.
 	public void setItem(Item item) {
 		this.item = item;
 		if (avatar != null) {
@@ -36,6 +38,7 @@ public class ItemHolder : MonoBehaviour {
 	}
 
 	void OnHold() {
+		// Set and show tooltip
 		item.setTooltipText();
 		Tooltip.instance.setText(item.tooltipText);
 		Tooltip.instance.showTooltip(transform.position);

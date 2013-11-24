@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class DungeonController : MonoBehaviour {
 	public static DungeonController instance;
@@ -13,6 +14,11 @@ public class DungeonController : MonoBehaviour {
 	private tk2dTextMesh textNextBattle;
 	private tk2dUIItem buttonRetry;
 	private tk2dUIItem buttonMainMenu;
+
+	// Loot from dungeon is held here.
+	private List<Item> allLootItems = new List<Item>();
+	private int allLootGold;
+	private int allLootXP;
 	
 	void Start () {
 		instance = this;
@@ -32,6 +38,9 @@ public class DungeonController : MonoBehaviour {
 	}
 	
 	public void enterDungeon() {
+		allLootItems.Clear();
+		allLootGold = 0;
+		allLootXP = 0;
 		currentCreature = LevelDescriptor.instance.getNextCreature();
 		Debug.Log(currentCreature.name);
 		startBattle();
@@ -51,6 +60,9 @@ public class DungeonController : MonoBehaviour {
 		if (playerWon) {
 			mobAvatar.deadAnim();
 			LootWindow.instance.prepare();
+			allLootItems.AddRange(currentCreature.droppedItems);
+			allLootGold += currentCreature.gold;
+			allLootXP += 0; // TODO: Calculate XP
 			Invoke("switchWinWindow", .5f);
 		} else {
 			playerAvatar.deadAnim();

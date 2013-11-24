@@ -32,10 +32,12 @@ public class Item {
 	public void setValues(){
 		if(this.name.Contains("common"))
 			this.name = "Level " + this.level + " " + this.type;
-		setTooltipText();
 	}
 
 	public void setTooltipText() {
+		// Tooltip text for items.
+		// TODO: Color of item names changes with rarity
+		// Coloring: ^CRRGGBBAA*text*
 		tooltipText = "^C00FF3Cff" + name + "\n";
 		tooltipText += "^CffffffffType: " + type + "\n";
 		if (damage != 0) tooltipText += "Damage: " + damage + "\n";

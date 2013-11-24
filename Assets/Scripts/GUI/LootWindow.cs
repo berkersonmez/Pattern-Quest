@@ -21,6 +21,7 @@ public class LootWindow : MonoBehaviour {
 		item4 = transform.Find("Item 4").GetComponent<ItemHolder>();
 	}
 
+	// Prepare loot window information using current creature.
 	public void prepare() {
 		Creature creature = DungeonController.instance.currentCreature;
 		List<Item> items = creature.droppedItems;
