@@ -14,6 +14,7 @@ public class Item {
 	public int manaRegen;
 	public int level;
 	public float dropChance;
+	public string spriteName;
 	
 	public Item(){
 		damage = 0;

@@ -157,6 +157,8 @@ public class XmlParse : MonoBehaviour {
 			obj.manaRegen = getValue(itemContent.InnerText);
 		if(itemContent.Name == "level")
 			obj.level = getValue(itemContent.InnerText);
+		if(itemContent.Name == "spriteName")
+			obj.spriteName = itemContent.InnerText;
 	  	}
 		//Fixes empty and wrong values
 		obj.setValues();

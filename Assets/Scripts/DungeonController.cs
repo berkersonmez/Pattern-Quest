@@ -50,6 +50,7 @@ public class DungeonController : MonoBehaviour {
 	public void finishBattle(bool playerWon) {
 		if (playerWon) {
 			mobAvatar.deadAnim();
+			LootWindow.instance.prepare();
 			Invoke("switchWinWindow", .5f);
 		} else {
 			playerAvatar.deadAnim();
