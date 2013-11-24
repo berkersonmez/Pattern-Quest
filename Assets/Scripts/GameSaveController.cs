@@ -36,6 +36,7 @@ public class GameSaveController : MonoBehaviour {
 		if (currentGame == null) {
 			return false;
 		}
+		player = getPlayer();
 		return true;
 	}
 	

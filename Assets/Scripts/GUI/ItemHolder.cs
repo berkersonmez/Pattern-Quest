@@ -38,9 +38,11 @@ public class ItemHolder : MonoBehaviour {
 	}
 
 	void OnHold() {
-		// Set and show tooltip
-		item.setTooltipText();
-		Tooltip.instance.setText(item.tooltipText);
-		Tooltip.instance.showTooltip(transform.position);
+		if (item != null && item.type != "") {
+			// Set and show tooltip
+			item.setTooltipText();
+			Tooltip.instance.setText(item.tooltipText);
+			Tooltip.instance.showTooltip(transform.position);
+		}
 	}
 }

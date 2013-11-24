@@ -4,6 +4,8 @@ using System.Collections;
 public class Tooltip : MonoBehaviour {
 	public static Tooltip instance;
 
+	public int mode = 0; // 0: menu, 1: dungeon
+
 	private tk2dTextMesh meshText;
 	private tk2dSlicedSprite spriteBG;
 
@@ -24,7 +26,11 @@ public class Tooltip : MonoBehaviour {
 
 	public void showTooltip(Vector3 position) {
 		Vector3 globalPos = position;
-		position = globalPos - Camera.main.transform.position;
+		if (mode == 0) {
+			position = globalPos - (Camera.main.transform.position - new Vector3(12f, 20f, 0f));
+		} else if (mode == 1) {
+			position = globalPos - Camera.main.transform.position;
+		}
 		meshText.gameObject.SetActive(true);
 		spriteBG.gameObject.SetActive(true);
 		float pixelX = position.x * 20;
@@ -35,7 +41,12 @@ public class Tooltip : MonoBehaviour {
 		if (pixelY - spriteBG.dimensions.y < 0) {
 			pixelY = spriteBG.dimensions.y;
 		}
-		this.transform.localPosition = new Vector3(pixelX / 20, pixelY / 20, transform.localPosition.z);
+		if (mode == 0) {
+			this.transform.localPosition = new Vector3(pixelX / 20 - 12f, pixelY / 20 - 20f, transform.localPosition.z);
+		} else if (mode == 1) {
+			this.transform.localPosition = new Vector3(pixelX / 20, pixelY / 20, transform.localPosition.z);
+		}
+
 	}
 
 	public void hideTooltip() {

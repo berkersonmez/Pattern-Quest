@@ -14,12 +14,18 @@ public class TownController : MonoBehaviour {
 		textGold = GameObject.Find("Gold").GetComponent<tk2dTextMesh>();
 		textLevel = GameObject.Find("Level").GetComponent<tk2dTextMesh>();
 		textXP = GameObject.Find("XP").GetComponent<tk2dTextMesh>();
-		Player player = GameSaveController.instance.getPlayer();
+		Player player = GameSaveController.instance.player;
 		textGold.text = "Gold: " + player.gold;
 		textLevel.text = "Level: " + player.level;
 		textXP.text = "XP: " + player.xp;
 		textGold.Commit();
 		textLevel.Commit();
 		textXP.Commit();
+	}
+
+	void Update() {
+		if (Input.GetButtonDown("Fire1")) {
+			Tooltip.instance.hideTooltip();
+		}
 	}
 }
