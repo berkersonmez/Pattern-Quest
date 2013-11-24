@@ -15,6 +15,8 @@ public class Item {
 	public int level;
 	public float dropChance;
 	public string spriteName;
+
+	public string tooltipText;
 	
 	public Item(){
 		damage = 0;
@@ -30,5 +32,17 @@ public class Item {
 	public void setValues(){
 		if(this.name.Contains("common"))
 			this.name = "Level " + this.level + " " + this.type;
+		setTooltipText();
+	}
+
+	public void setTooltipText() {
+		tooltipText = "^C00FF3Cff" + name + "\n";
+		tooltipText += "^CffffffffType: " + type + "\n";
+		if (damage != 0) tooltipText += "Damage: " + damage + "\n";
+		if (armor != 0) tooltipText += "Armor: " + armor + "\n";
+		if (hp != 0) tooltipText += "HP: " + hp + "\n";
+		if (mana != 0) tooltipText += "Mana: " + mana + "\n";
+		if (manaRegen != 0) tooltipText += "Mana Regen: " + mana + "\n";
+		if (level != 0) tooltipText += "Level: " + level + "\n";
 	}
 }

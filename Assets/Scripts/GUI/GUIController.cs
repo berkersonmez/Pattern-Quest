@@ -15,6 +15,7 @@ public class GUIController : MonoBehaviour {
 	void Update() {
 		if (Input.GetButtonDown("Fire1")) {
 			mouseRaycast = true;
+			Tooltip.instance.hideTooltip();
 		} else if (Input.GetButtonUp("Fire1")) {
 			mouseRaycast = false;
 			PatternController.instance.finishPattern();
