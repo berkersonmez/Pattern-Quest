@@ -13,7 +13,7 @@ public class TownMenu : MonoBehaviour {
 	
 	private Vector3 cameraTarget;
 	private bool moveCamera = false;
-	
+
 	void Start() {
 		instance = this;
 		cam = Camera.main.GetComponent<tk2dCamera>();

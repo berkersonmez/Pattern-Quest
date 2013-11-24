@@ -91,6 +91,12 @@ public class DungeonController : MonoBehaviour {
 			DungeonCamera.instance.battleWindow();
 			startBattle();
 		} else {
+			// END BATTLE SUCCESSFULLY
+			player.inventory.AddRange(allLootItems);
+			player.gold += allLootGold;
+			player.xp += allLootXP; // TODO: Level up here if necessary
+			GameSaveController.instance.player = player;
+			GameSaveController.instance.saveGame();
 			Application.LoadLevel("main");
 		}
 	}
@@ -101,6 +107,8 @@ public class DungeonController : MonoBehaviour {
 	}
 	
 	void mainMenuClick() {
+		// END BATTLE UNSUCCESSFUL
+		// Loot is not saved
 		Application.LoadLevel("main");
 	}
 	

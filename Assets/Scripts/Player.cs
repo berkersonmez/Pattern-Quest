@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Player : Creature {
-	
-	public Item red_stone;
-	public Item blue_stone;
-	public Item green_stone;
+
+	public int xp;
+	public Item redStone;
+	public Item blueStone;
+	public Item greenStone;
+	public List<Item> inventory = new List<Item>();
 	
 	public Player(){
 		isPlayer = true;

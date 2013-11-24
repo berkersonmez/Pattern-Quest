@@ -10,8 +10,13 @@ public class GameSaveController : MonoBehaviour {
 	[System.Serializable]
 	public class GameSave {
 		public List<Item> inventory;
+		public Item redStone;
+		public Item blueStone;
+		public Item greenStone;
 		public List<string> spells = new List<string>();
 		public int level;
+		public int xp;
+		public int gold;
 		public string playerName;
 		// Other variables to save goes here.
 	}
@@ -49,6 +54,12 @@ public class GameSaveController : MonoBehaviour {
 	public void saveGame() {
 		currentGame.level = player.level;
 		currentGame.playerName = player.name;
+		currentGame.xp = player.xp;
+		currentGame.gold = player.gold;
+		currentGame.inventory = player.inventory;
+		currentGame.redStone = player.redStone;
+		currentGame.blueStone = player.blueStone;
+		currentGame.greenStone = player.greenStone;
 		foreach(Spell spell in player.spellList)
 			currentGame.spells.Add(spell.name);
 		save("GameSave", currentGame);
@@ -59,6 +70,12 @@ public class GameSaveController : MonoBehaviour {
 			player = new Player();
 			player.level = currentGame.level;
 			player.name = currentGame.playerName;
+			player.xp = currentGame.xp;
+			player.gold = currentGame.gold;
+			player.inventory= currentGame.inventory;
+			player.redStone= currentGame.redStone;
+			player.blueStone = currentGame.blueStone;
+			player.greenStone = currentGame.greenStone;
 			player.spellList = Globals.instance.getSpells(currentGame.spells);
 			player.spellList.Add(new Spell(player.damage));
 		}
