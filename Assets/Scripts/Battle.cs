@@ -106,14 +106,14 @@ public class Battle {
 		switch (state) {
 		case (int)State.ACTIVE_SPELL_EFFECT:
 			if (whoseTurn == (int)Turn.PLAYER) {
-				if (player.activateActiveSpell(ref activeSpellsOnPlayer)) {
+				if (player.activateActiveSpell(creature, ref activeSpellsOnPlayer)) {
 					state = (int)State.CAST_PHASE;
 					delayUpdate(1f);
 				} else {
 					delayUpdate(.5f);
 				}
 			} else {
-				if (creature.activateActiveSpell(ref activeSpellsOnCreature)) {
+				if (creature.activateActiveSpell(player, ref activeSpellsOnCreature)) {
 					state = (int)State.CAST_PHASE;
 					delayUpdate(1f);
 				} else {

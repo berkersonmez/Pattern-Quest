@@ -1,31 +1,34 @@
 using UnityEngine;
 using System.Collections;
 
-public class FireBall : Spell {
+public class NonEndingFire : Spell {
 	
-	public FireBall(){
-		name = "FireBall";
-		damage = 6;
-		mana = 1;
+	public NonEndingFire(){
+		name = "NonEndingFire";
+		damage = 4;
+		damageOverTime = 2;
+		turn = 3;
+		mana = 5;
 		type = "fire";
 		level = 1;
-		shape.Add(9);
+		isOverTime = true;
+		shape.Add(6);
 		shape.Add(2);
-		shape.Add(9);
+		shape.Add(4);
+		shape.Add(8);
 	}
-		
+	
 	public override bool increaseLevel(){
-		if(level + 1 < maxLevel){
-			level = level+1;
-			damage = damage*2;
+		if(level == maxLevel)
+			return false;
+		else{
+			level++;
+			damageOverTime = Mathf.CeilToInt(damageOverTime*3/2);
 			mana = Mathf.CeilToInt(mana*5/3);
 			return true;
 		}
-		else
-			return false;
-	
 	}
-		
+	
 	public override bool cast(Battle battle, ref Creature caster, ref Creature target){
 		if(caster.currentMana - mana < 0)
 			return false;
@@ -33,10 +36,10 @@ public class FireBall : Spell {
 		if(currentDamage < 0)
 			currentDamage = 0;
 		caster.decreaseMana(mana);
-		target.decreaseHp(currentDamage, name);
+		target.decreaseHp(damage, name);
 		Debug.Log(this.name + "'i patlattim *" + this.damage + "*");
+		battle.addActiveSpell(this, target);
 		return true;
-		//Fireball görsel efekti yapan fonksiyon eklenecek
 	}
 	
 }

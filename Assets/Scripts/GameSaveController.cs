@@ -46,6 +46,8 @@ public class GameSaveController : MonoBehaviour {
 		player.name = playerName;
 		player.spellList.Add(new FireBall());
 		player.spellList.Add(new Poison());
+		player.spellList.Add(new Heal());
+		player.spellList.Add(new NonEndingFire());
 		player.spellList.Add(new Spell(4));
 		player.level = 1;
 		saveGame();

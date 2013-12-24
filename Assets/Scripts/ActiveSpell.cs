@@ -12,9 +12,9 @@ public class ActiveSpell{
 		this.remainingTurn = spell.turn;
 	}
 	
-	public bool effect(Creature creature){
+	public bool effect(Creature caster, Creature target){
 		remainingTurn--;
-		this.spell.turnEffect(ref creature);
+		this.spell.turnEffect(ref caster, ref target);
 		if(remainingTurn == 0)
 			return false;
 		else

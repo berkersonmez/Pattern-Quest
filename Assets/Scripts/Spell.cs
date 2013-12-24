@@ -38,7 +38,10 @@ public class Spell {
 		if(caster.currentMana - mana < 0)
 			return false;
 		caster.decreaseMana(mana);
-		target.decreaseHp(damage, name);
+		int currentDamage = damage + caster.spellPower - target.armor;
+		if(currentDamage < 0)
+			currentDamage = 0;
+		target.decreaseHp(currentDamage, name);
 		return true;		
 	}
 	
@@ -51,8 +54,12 @@ public class Spell {
 		}
 	}
 	
-	public virtual void turnEffect(ref Creature creature){
-		creature.decreaseHp(damageOverTime, name);
-		creature.increaseHp(healOverTime);
+	public virtual void turnEffect(ref Creature caster, ref Creature target){
+		float currentDamage = (float)(damageOverTime*turn - target.armor + caster.spellPower) / turn;
+		if(healOverTime > 0)
+			target.increaseHp(healOverTime, name);
+		else
+			target.decreaseHp((int)currentDamage, name);
+
 	}
 }

@@ -25,7 +25,7 @@ public class LootWindow : MonoBehaviour {
 	public void prepare() {
 		Creature creature = DungeonController.instance.currentCreature;
 		List<Item> items = creature.droppedItems;
-		textXP.text = "XP: 0"; // TODO: Calculate XP.
+		textXP.text = "XP: " + creature.level * 5; // TODO: Calculate XP.
 		textXP.Commit();
 		textGold.text = "Gold: " + creature.gold;
 		textGold.Commit();

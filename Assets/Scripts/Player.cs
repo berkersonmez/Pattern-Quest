@@ -22,4 +22,22 @@ public class Player : Creature {
 			currentHp = 0;
 		CombatTextController.instance.deployText(effectName, amount, (int)CombatTextController.Placement.PLAYER);
 	}
+
+	public void wearItem(Item item) {
+		spellPower += item.damage;
+		hp += item.hp;
+		mana += item.mana;
+		armor += item.armor;
+		manaRegen += item.manaRegen;
+		hpRegen += item.hpRegen;
+	}
+
+	public void unwearItem(Item item) {
+		spellPower -= item.damage;
+		hp -= item.hp;
+		mana -= item.mana;
+		armor -= item.armor;
+		manaRegen -= item.manaRegen;
+		hpRegen -= item.hpRegen;
+	}
 }

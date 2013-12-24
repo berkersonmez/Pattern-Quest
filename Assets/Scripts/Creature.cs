@@ -11,8 +11,10 @@ public class Creature
 	public int currentHp=25;
 	public int mana=20;
 	public int manaRegen=2;
+	public int hpRegen = 0;
 	public int currentMana=20;
 	public int spellPower;
+	public int armor = -5;
 	public int level=1;
 	public int spellPerTurn = 1;
 	public bool isPlayer=false;
@@ -32,10 +34,11 @@ public class Creature
 		//this.spellList.Add(spell);
 	}
 	
-	public void increaseHp(int amount) {
+	public void increaseHp(int amount, string effectName) {
 		currentHp += amount;
 		if(currentHp > hp)
 			currentHp = hp;
+		CombatTextController.instance.deployText(effectName, amount, (int)CombatTextController.Placement.PLAYER);
 	}
 	
 	public virtual void decreaseHp(int amount, string effectName) {
@@ -62,14 +65,14 @@ public class Creature
 	
 	// Activate spells one by one to put a small delay.
 	// Return true if all spells in that turn finishes.
-	public bool activateActiveSpell(ref Queue<ActiveSpell> activeSpells) {
+	public bool activateActiveSpell(Creature caster, ref Queue<ActiveSpell> activeSpells) {
 		if (activeSpells.Count == 0) {
 			activeSpells = new Queue<ActiveSpell>(nextTurnsActiveSpells);
 			nextTurnsActiveSpells.Clear();
 			return true;
 		} else {
 			ActiveSpell activeSpell = activeSpells.Dequeue();
-			bool result = activeSpell.effect(this);
+			bool result = activeSpell.effect(caster, this);
 			if(result == true)
 				nextTurnsActiveSpells.Enqueue(activeSpell);
 			return false;

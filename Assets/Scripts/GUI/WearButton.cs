@@ -29,7 +29,10 @@ public class WearButton : MonoBehaviour {
 		GameSaveController.instance.player.inventory.Remove(item);
 		if (swapped != null && swapped.type != null) {
 			GameSaveController.instance.player.inventory.Add(swapped);
+			GameSaveController.instance.player.unwearItem(swapped);
 		}
+		GameSaveController.instance.player.wearItem(item);
+
 		InventoryController.instance.refreshGearList();
 		InventoryController.instance.refreshItemList();
 		GameSaveController.instance.saveGame();
