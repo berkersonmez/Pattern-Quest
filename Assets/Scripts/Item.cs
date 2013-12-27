@@ -15,6 +15,7 @@ public class Item {
 	public int manaRegen;
 	public int hpRegen;
 	public int level;
+	public int gold;
 	public float dropChance;
 	public string spriteName;
 

@@ -159,7 +159,11 @@ public class XmlParse : MonoBehaviour {
 			obj.level = getValue(itemContent.InnerText);
 		if(itemContent.Name == "spriteName")
 			obj.spriteName = itemContent.InnerText;
+		if(itemContent.Name == "gold")
+			obj.gold = getValue(itemContent.InnerText);
 	  	}
+
+
 		//Fixes empty and wrong values
 		obj.setValues();
 	  	return obj;

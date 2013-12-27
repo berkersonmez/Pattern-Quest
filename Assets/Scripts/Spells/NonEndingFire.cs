@@ -29,14 +29,14 @@ public class NonEndingFire : Spell {
 		}
 	}
 	
-	public override bool cast(Battle battle, ref Creature caster, ref Creature target){
+	public override bool cast(Battle battle, Creature caster, Creature target){
 		if(caster.currentMana - mana < 0)
 			return false;
 		int currentDamage = damage + caster.spellPower - target.armor;
 		if(currentDamage < 0)
 			currentDamage = 0;
 		caster.decreaseMana(mana);
-		target.decreaseHp(damage, name);
+		target.decreaseHp(caster, damage, name);
 		Debug.Log(this.name + "'i patlattim *" + this.damage + "*");
 		battle.addActiveSpell(this, target);
 		return true;

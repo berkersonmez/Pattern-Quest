@@ -14,11 +14,13 @@ public class Battle {
 	public int whoseTurn=0;
 	public float delayUpdateUntil = 0f;
 	public Queue<Spell> castedSpells = new Queue<Spell>();
+	public List<ComboSpell> comboSpells = new List<ComboSpell>();
 	public Queue <ActiveSpell> activeSpellsOnPlayer = new Queue<ActiveSpell>();
 	public Queue <ActiveSpell> activeSpellsOnCreature = new Queue<ActiveSpell>();
 	public Spell castingSpell;
+
 	
-	public Battle(ref Player player, ref Creature creature){
+	public Battle(Player player, Creature creature){
 		this.player = player;
 		this.creature = creature;
 		turn = 0;
@@ -49,7 +51,27 @@ public class Battle {
 
 		state = (int)State.SPELL_ANIM;
 	}
-	
+
+	public void castComboSpells(){
+		if(whoseTurn == (int)Turn.PLAYER) {
+			this.comboSpells = player.getComboSpells(castedSpells);
+			if(comboSpells == null)
+				return;
+			foreach(ComboSpell combo in comboSpells){
+				combo.cast(this,player,creature);
+			}
+			this.comboSpells.Clear();
+		} else {
+			this.comboSpells = creature.getComboSpells(castedSpells);
+			if(comboSpells == null)
+				return;
+			foreach(ComboSpell combo in comboSpells){
+				combo.cast(this,creature,player);
+			}
+			this.comboSpells.Clear();
+		}
+	}
+
 	public void addActiveSpell(Spell spell, Creature target){
 		Queue <ActiveSpell> activeSpells;
 		if(target.isPlayer)
@@ -80,9 +102,9 @@ public class Battle {
 	public void spellAnimComplete() {
 		bool result;
 		if (whoseTurn == (int)Turn.PLAYER) {
-			result = castingSpell.cast(this, ref player, ref creature);
+			result = castingSpell.cast(this, player, creature);
 		} else {
-			result = castingSpell.cast(this, ref creature, ref player);
+			result = castingSpell.cast(this, creature, player);
 		}
 		state = (int)State.CAST_PHASE;
 		
@@ -95,7 +117,7 @@ public class Battle {
 		}
 		if(this.castedSpells.Count == 2){
 			state = (int)State.SPELL_EFFECT;
-			castedSpells.Clear();
+
 		}
 		delayUpdate(1.5f);
 	}
@@ -108,16 +130,16 @@ public class Battle {
 			if (whoseTurn == (int)Turn.PLAYER) {
 				if (player.activateActiveSpell(creature, ref activeSpellsOnPlayer)) {
 					state = (int)State.CAST_PHASE;
-					delayUpdate(1f);
+					delayUpdate(0.5f);
 				} else {
-					delayUpdate(.5f);
+					delayUpdate(.7f);
 				}
 			} else {
 				if (creature.activateActiveSpell(player, ref activeSpellsOnCreature)) {
 					state = (int)State.CAST_PHASE;
-					delayUpdate(1f);
+					delayUpdate(0.5f);
 				} else {
-					delayUpdate(.5f);
+					delayUpdate(.7f);
 				}
 			}
 			break;
@@ -126,14 +148,17 @@ public class Battle {
 			break;
 		case (int)State.CAST_PHASE:
 			if (whoseTurn == (int)Turn.CREATURE) {
-				creature.play(this, ref creature, ref player);
+				creature.play(this,ref creature,ref player);
 				
 			}
 			break;
 		case (int)State.SPELL_EFFECT:
 			// TODO: Combo logic here?
+			castComboSpells();
+			castedSpells.Clear();
+
 			state = (int)State.ACTIVE_SPELL_EFFECT;
-			delayUpdate(1f);
+			delayUpdate(0.4f);
 			if(whoseTurn == (int)Turn.PLAYER) {
 				DungeonController.instance.switchTurn(false);
 				passNextTurn();

@@ -26,14 +26,14 @@ public class FireBall : Spell {
 	
 	}
 		
-	public override bool cast(Battle battle, ref Creature caster, ref Creature target){
+	public override bool cast(Battle battle, Creature caster, Creature target){
 		if(caster.currentMana - mana < 0)
 			return false;
 		int currentDamage = damage + caster.spellPower - target.armor;
 		if(currentDamage < 0)
 			currentDamage = 0;
 		caster.decreaseMana(mana);
-		target.decreaseHp(currentDamage, name);
+		target.decreaseHp(caster, currentDamage, name);
 		Debug.Log(this.name + "'i patlattim *" + this.damage + "*");
 		return true;
 		//Fireball görsel efekti yapan fonksiyon eklenecek

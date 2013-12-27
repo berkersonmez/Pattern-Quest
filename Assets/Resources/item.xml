@@ -6,6 +6,7 @@
 		<type>red</type>
 	    <damage>4,6</damage>
 		<level>1</level>
+		<gold>3</gold>
 		<spriteName>avatar_item_0</spriteName>
 	</item>
 	<item dropChance="30">
@@ -15,6 +16,7 @@
 	    <mana>1</mana>
 		<manaRegen>1</manaRegen>
 		<level>1</level>
+		<gold>3</gold>
 		<spriteName>avatar_item_0</spriteName>
 	</item>
 	<item dropChance="30">
@@ -24,6 +26,7 @@
 		<hp>3,4</hp>
 		<armor>2</armor>
 		<level>1</level>
+		<gold>3</gold>
 		<spriteName>avatar_item_0</spriteName>
 	</item>
 	<item dropChance="10">
@@ -35,6 +38,7 @@
 		<hp>5</hp>
 	    <mana>5</mana>
 		<level>1</level>
+		<gold>10</gold>
 		<spriteName>avatar_item_1</spriteName>
 	</item>
 </items>

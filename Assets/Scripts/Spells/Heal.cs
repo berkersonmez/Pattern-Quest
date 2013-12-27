@@ -28,7 +28,7 @@ public class Heal : Spell {
 		
 	}
 	
-	public override bool cast(Battle battle, ref Creature caster, ref Creature target){
+	public override bool cast(Battle battle, Creature caster, Creature target){
 		if(caster.currentMana - mana < 0)
 			return false;
 		int currentHeal = heal + caster.spellPower;

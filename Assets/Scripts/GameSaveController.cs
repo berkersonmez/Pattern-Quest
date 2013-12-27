@@ -48,7 +48,10 @@ public class GameSaveController : MonoBehaviour {
 		player.spellList.Add(new Poison());
 		player.spellList.Add(new Heal());
 		player.spellList.Add(new NonEndingFire());
-		player.spellList.Add(new Spell(4));
+		player.spellList.Add(new BasicAttack());
+		player.comboSpells.Add(new Douball());
+		player.comboSpells.Add(new Clarity());
+		player.comboSpells.Add(new Happiness());
 		player.level = 1;
 		saveGame();
 	}

@@ -33,15 +33,21 @@ public class Spell {
 		this.shape.Add(9);
 		this.shape.Add(9);
 	}
-	
-	public virtual bool cast(Battle battle, ref Creature caster, ref Creature target){
+
+	public Spell(string name, int damage){
+		this.name = name;
+		this.damage = damage;
+		this.mana = 0;
+	}
+
+	public virtual bool cast(Battle battle, Creature caster, Creature target){
 		if(caster.currentMana - mana < 0)
 			return false;
 		caster.decreaseMana(mana);
 		int currentDamage = damage + caster.spellPower - target.armor;
 		if(currentDamage < 0)
 			currentDamage = 0;
-		target.decreaseHp(currentDamage, name);
+		target.decreaseHp(caster, currentDamage, name);
 		return true;		
 	}
 	
@@ -59,7 +65,7 @@ public class Spell {
 		if(healOverTime > 0)
 			target.increaseHp(healOverTime, name);
 		else
-			target.decreaseHp((int)currentDamage, name);
+			target.decreaseHp(caster,(int)currentDamage, name);
 
 	}
 }

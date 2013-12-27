@@ -14,9 +14,10 @@ public class Creature
 	public int hpRegen = 0;
 	public int currentMana=20;
 	public int spellPower;
-	public int armor = -5;
+	public int armor = 0;
 	public int level=1;
 	public int spellPerTurn = 1;
+	public int criticalStrikeChance = 5;
 	public bool isPlayer=false;
 	public string spriteName;
 	public string type;
@@ -24,6 +25,7 @@ public class Creature
 	public List<Item> droppedItems = new List<Item>();
 	public List<string> spellNamesList = new List<string>();
 	public List<Spell> spellList = new List<Spell>();
+	public List<Spell> comboSpells = new List<Spell>();
 	Queue<ActiveSpell> nextTurnsActiveSpells = new Queue<ActiveSpell>();
 	
 	public void setValues(){
@@ -41,17 +43,29 @@ public class Creature
 		CombatTextController.instance.deployText(effectName, amount, (int)CombatTextController.Placement.PLAYER);
 	}
 	
-	public virtual void decreaseHp(int amount, string effectName) {
+	public virtual void decreaseHp(Creature caster, int amount, string effectName) {
+		int randomValue = Random.Range(1,100);
+		if(randomValue <= caster.criticalStrikeChance){
+			amount = amount * 2;
+			effectName.ToUpper();
+		}
 		currentHp -= amount;
 		if(currentHp < 0)
 			currentHp = 0;
 		CombatTextController.instance.deployText(effectName, amount, (int)CombatTextController.Placement.CREATURE);
 	}
-	
-	public void increaseMana(int amount) {
+
+	public void increaseMana(int amount){
 		currentMana += amount;
 		if(currentMana > mana)
 			currentMana = mana;
+	}
+
+	public void increaseMana(int amount, string effectName) {
+		currentMana += amount;
+		if(currentMana > mana)
+			currentMana = mana;
+		CombatTextController.instance.deployText(effectName, amount, (int)CombatTextController.Placement.CREATURE);
 	}
 	
 	public void decreaseMana(int amount) {
@@ -61,6 +75,26 @@ public class Creature
 	public void restoreHealthMana() {
 		currentHp = hp;
 		currentMana = mana;
+	}
+
+	public List<ComboSpell> getComboSpells(Queue<Spell> castedSpells){
+		List<ComboSpell> currentComboSpells = new List<ComboSpell>();
+		foreach(ComboSpell comboSpell in comboSpells){
+			if(comboSpell.requires(castedSpells))
+				currentComboSpells.Add(comboSpell);
+		}
+		if(currentComboSpells.Count >0)
+			return currentComboSpells;
+		else
+			return null;
+	}
+
+	public Spell getSpell(string name, int level){
+		foreach(Spell spell in spellList){
+			if(spell.name == name && spell.level == level)
+				return spell;
+		}
+		return null;
 	}
 	
 	// Activate spells one by one to put a small delay.

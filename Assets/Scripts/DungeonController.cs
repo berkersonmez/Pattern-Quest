@@ -47,7 +47,7 @@ public class DungeonController : MonoBehaviour {
 	}
 	
 	public void startBattle() {
-		battle = new Battle(ref player, ref currentCreature);
+		battle = new Battle(player, currentCreature);
 		mobAvatar.setOwner(currentCreature);
 	}
 	
