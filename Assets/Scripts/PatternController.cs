@@ -12,16 +12,14 @@ public class PatternController : MonoBehaviour {
 	public List<int[]> pattern = new List<int[]>();
 	public List<int> directions = new List<int>();
 	public List<GameObject> bridges = new List<GameObject>();
-	Creature creature = new Creature();
 		
 	
 	void Start() {
 		instance = this;
 		createButtons();
-		creature = XmlParse.instance.getCreature("ufak");
 	}
 	
-	private void createButtons() {
+	protected virtual void createButtons() {
 		tk2dCameraAnchor anchor = GameObject.Find("AnchorLL").GetComponent<tk2dCameraAnchor>();
 		for (int i = 0 ; i < 4 ; i++) {
 			for (int j = 0 ; j < 4 ; j++) {
@@ -67,6 +65,77 @@ public class PatternController : MonoBehaviour {
 			dirRep.Add(getDirectionInt(dirDiff));
 		}
 		return dirRep;
+	}
+
+	public List<int[]> convertToCoordinational(List<int> dirRep) {
+		List<int[]> cooRep = new List<int[]>();
+		cooRep.Add(new int[] {0,0});
+		int[] prevCoo = cooRep[0];
+		for (int i = 0 ; i < dirRep.Count ; i++) {
+			int[] dirDiff = getDirDiff(dirRep[i]);
+			int[] newCoo = new int[] {prevCoo[0] + dirDiff[0], prevCoo[1] + dirDiff[1]};
+			prevCoo = newCoo;
+			cooRep.Add(newCoo);
+			// Normalize if there is overflow
+			if (newCoo[0] < 0) {
+				foreach (int[] coo in cooRep) {
+					coo[0] += 1;
+				}
+			} else if (newCoo[0] > 3) {
+				foreach (int[] coo in cooRep) {
+					coo[0] -= 1;
+				}
+			}
+			if (newCoo[1] < 0) {
+				foreach (int[] coo in cooRep) {
+					coo[1] += 1;
+				}
+			} else if (newCoo[1] > 3) {
+				foreach (int[] coo in cooRep) {
+					coo[1] -= 1;
+				}
+			}
+		}
+		return cooRep;
+	}
+
+	public int[] getDirDiff(int direction) {
+		int[] dirDiff = new int[2];
+		switch(direction) {
+		case 1:
+			dirDiff[0] = -1;
+			dirDiff[1] = -1;
+			break;
+		case 2:
+			dirDiff[0] = -1;
+			dirDiff[1] = 0;
+			break;
+		case 3:
+			dirDiff[0] = -1;
+			dirDiff[1] = 1;
+			break;
+		case 4:
+			dirDiff[0] = 0;
+			dirDiff[1] = -1;
+			break;
+		case 6:
+			dirDiff[0] = 0;
+			dirDiff[1] = 1;
+			break;
+		case 7:
+			dirDiff[0] = 1;
+			dirDiff[1] = -1;
+			break;
+		case 8:
+			dirDiff[0] = 1;
+			dirDiff[1] = 0;
+			break;
+		case 9:
+			dirDiff[0] = 1;
+			dirDiff[1] = 1;
+			break;
+		}
+		return dirDiff;
 	}
 	
 	// Coordinate diff. representation to int representation
@@ -142,7 +211,7 @@ public class PatternController : MonoBehaviour {
 		return Mathf.Clamp(n, 0, 2);
 	}
 	
-	public void drawBridgeBetween(int[] n1, int[] n2, int bridgeCount) {
+	public virtual void drawBridgeBetween(int[] n1, int[] n2, int bridgeCount) {
 		tk2dCameraAnchor anchor = GameObject.Find("AnchorLL").GetComponent<tk2dCameraAnchor>();
 		GameObject obj = Instantiate(bridgePrefab) as GameObject;
 		obj.transform.parent = anchor.transform;
@@ -169,7 +238,7 @@ public class PatternController : MonoBehaviour {
 		}
 	}
 	
-	public void finishPattern() {
+	public virtual void finishPattern() {
 		Debug.Log("====PATTERN====");
 		foreach(int[] node in pattern) {
 			buttons[node[0], node[1]].unhighlight();

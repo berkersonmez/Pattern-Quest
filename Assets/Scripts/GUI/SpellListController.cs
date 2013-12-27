@@ -51,6 +51,7 @@ public class SpellListController : MonoBehaviour {
 			spellEntry.transform.parent = comboList.transform;
 			spellEntry.transform.localPosition = new Vector3(-8.7f, 8.3f - (4.3f * i), 0f);
 			SpellHolder holder = spellEntry.GetComponent<SpellHolder>();
+			spellEntry.transform.Find("ShapeButton").gameObject.SetActive(false);
 			holder.setSpell(spell);
 			i++;
 		}
@@ -62,10 +63,12 @@ public class SpellListController : MonoBehaviour {
 		// Disable colliders for spells in list that are hidden under combo list.
 		foreach(Transform child in spellList.transform) {
 			SpellHolder holder = child.GetComponent<SpellHolder>();
-			if (child.transform.localPosition.y + spellList.transform.localPosition.y < -7f)
+			if (child.transform.localPosition.y + spellList.transform.localPosition.y < -7f) {
 				holder.avatar.collider.enabled = false;
-			else
+			} else {
 				holder.avatar.collider.enabled = true;
+			}
+
 		}
 	}
 
