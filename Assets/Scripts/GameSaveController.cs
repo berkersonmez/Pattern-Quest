@@ -14,6 +14,7 @@ public class GameSaveController : MonoBehaviour {
 		public Item blueStone;
 		public Item greenStone;
 		public List<string> spells = new List<string>();
+		public List<string> comboSpells = new List<string>();
 		public int level;
 		public int xp;
 		public int gold;
@@ -44,20 +45,38 @@ public class GameSaveController : MonoBehaviour {
 		currentGame = new GameSave();
 		player = new Player();
 		player.name = playerName;
-		player.spellList.Add(new FireBall());
-		player.spellList.Add(new Poison());
-		player.spellList.Add(new Heal());
-		player.spellList.Add(new NonEndingFire());
-		player.spellList.Add(new BasicAttack());
-		player.comboSpells.Add(new Douball());
-		player.comboSpells.Add(new Clarity());
-		player.comboSpells.Add(new Happiness());
+		Spell spell = new FireBall();
+		spell.owner = player;
+		player.spellList.Add(spell);
+		spell = new Poison();
+		spell.owner = player;
+		player.spellList.Add(spell);
+		spell = new Heal();
+		spell.owner = player;
+		player.spellList.Add(spell);
+		spell = new NonEndingFire();
+		spell.owner = player;
+		player.spellList.Add(spell);
+		spell = new BasicAttack();
+		spell.owner = player;
+		player.spellList.Add(spell);
+		spell = new Douball();
+		spell.owner = player;
+		player.comboSpells.Add(spell);
+		spell = new Clarity();
+		spell.owner = player;
+		player.comboSpells.Add(spell);
+		spell = new Happiness();
+		spell.owner = player;
+		player.comboSpells.Add(spell);
 		player.level = 1;
 		saveGame();
 	}
 	
 	// Collect data to "currentGame" in this method before save.
 	public void saveGame() {
+		currentGame.spells.Clear();
+		currentGame.comboSpells.Clear();
 		currentGame.level = player.level;
 		currentGame.playerName = player.name;
 		currentGame.xp = player.xp;
@@ -68,6 +87,8 @@ public class GameSaveController : MonoBehaviour {
 		currentGame.greenStone = player.greenStone;
 		foreach(Spell spell in player.spellList)
 			currentGame.spells.Add(spell.name);
+		foreach(Spell spell in player.comboSpells)
+			currentGame.comboSpells.Add(spell.name);
 		save("GameSave", currentGame);
 	}
 	
@@ -79,11 +100,14 @@ public class GameSaveController : MonoBehaviour {
 			player.xp = currentGame.xp;
 			player.gold = currentGame.gold;
 			player.inventory= currentGame.inventory;
-			player.redStone= currentGame.redStone;
-			player.blueStone = currentGame.blueStone;
-			player.greenStone = currentGame.greenStone;
-			player.spellList = Globals.instance.getSpells(currentGame.spells);
-			player.spellList.Add(new Spell(player.damage));
+			if (currentGame.redStone != null && currentGame.redStone.type != "")
+				player.wearItem(currentGame.redStone);
+			if (currentGame.blueStone != null && currentGame.blueStone.type != "")
+				player.wearItem(currentGame.blueStone);
+			if (currentGame.greenStone != null && currentGame.greenStone.type != "")
+				player.wearItem(currentGame.greenStone);
+			player.spellList = Globals.instance.getSpells(currentGame.spells, player);
+			player.comboSpells = Globals.instance.getSpells(currentGame.comboSpells, player);
 		}
 		return player;
 	}

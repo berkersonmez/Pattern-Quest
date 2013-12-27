@@ -40,7 +40,7 @@ public class Poison : Spell {
 	public override void setTooltipText() {
 		// Tooltip text for spell.
 		// Coloring: ^CRRGGBBAA*text*
-		Creature caster = GameSaveController.instance.player;
+		Creature caster = owner;
 		float currentDamageOverTime = (float)(damageOverTime*turn + caster.spellPower) / turn;
 
 		tooltipText = "^C7ED8E6ff" + name + "\n";

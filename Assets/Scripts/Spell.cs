@@ -21,6 +21,8 @@ public class Spell {
 	public List<int> shape = new List<int>();
 	public int effectType;
 
+	public Creature owner;
+
 	public string tooltipText;
 	
 	public Spell(){

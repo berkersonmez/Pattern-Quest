@@ -87,6 +87,8 @@ public class Battle {
 		}
 		ActiveSpell newActiveSpell = new ActiveSpell(spell);
 		activeSpells.Enqueue(newActiveSpell);
+		GameObject.Find("Avatar Creature").GetComponent<Avatar>().updateActiveSpellVisuals();
+		GameObject.Find("Avatar Player").GetComponent<Avatar>().updateActiveSpellVisuals();
 	}
 	
 	public void delayUpdate(float seconds) {
@@ -129,6 +131,8 @@ public class Battle {
 		case (int)State.ACTIVE_SPELL_EFFECT:
 			if (whoseTurn == (int)Turn.PLAYER) {
 				if (player.activateActiveSpell(creature, ref activeSpellsOnPlayer)) {
+					GameObject.Find("Avatar Creature").GetComponent<Avatar>().updateActiveSpellVisuals();
+					GameObject.Find("Avatar Player").GetComponent<Avatar>().updateActiveSpellVisuals();
 					state = (int)State.CAST_PHASE;
 					delayUpdate(0.5f);
 				} else {
@@ -136,6 +140,8 @@ public class Battle {
 				}
 			} else {
 				if (creature.activateActiveSpell(player, ref activeSpellsOnCreature)) {
+					GameObject.Find("Avatar Creature").GetComponent<Avatar>().updateActiveSpellVisuals();
+					GameObject.Find("Avatar Player").GetComponent<Avatar>().updateActiveSpellVisuals();
 					state = (int)State.CAST_PHASE;
 					delayUpdate(0.5f);
 				} else {

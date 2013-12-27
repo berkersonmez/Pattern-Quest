@@ -49,6 +49,8 @@ public class DungeonController : MonoBehaviour {
 	public void startBattle() {
 		battle = new Battle(player, currentCreature);
 		mobAvatar.setOwner(currentCreature);
+		GameObject.Find("Avatar Creature").GetComponent<Avatar>().updateActiveSpellVisuals();
+		GameObject.Find("Avatar Player").GetComponent<Avatar>().updateActiveSpellVisuals();
 	}
 	
 	public void switchTurn(bool isPlayersTurn) {

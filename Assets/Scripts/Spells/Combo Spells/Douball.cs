@@ -36,7 +36,7 @@ public class Douball : ComboSpell {
 	public override void setTooltipText() {
 		// Tooltip text for spell.
 		// Coloring: ^CRRGGBBAA*text*
-		Creature caster = GameSaveController.instance.player;
+		Creature caster = owner;
 		Spell fireBall = caster.getSpell("FireBall",1);
 		if(fireBall == null)
 			return;

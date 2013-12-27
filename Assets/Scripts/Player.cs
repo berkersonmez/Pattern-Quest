@@ -35,13 +35,31 @@ public class Player : Creature {
 		CombatTextController.instance.deployText(effectName, amount, (int)CombatTextController.Placement.PLAYER);
 	}
 
-	public void wearItem(Item item) {
+	public Item wearItem(Item item) {
+		Item swapped = null;
+		if (item.type == "blue") {
+			swapped = this.blueStone;
+			this.blueStone = item;
+		} else if (item.type == "green") {
+			swapped = this.greenStone;
+			this.greenStone = item;
+		} else if (item.type == "red") {
+			swapped = this.redStone;
+			this.redStone = item;
+		}
+		this.inventory.Remove(item);
+		if (swapped != null && swapped.type != null) {
+			this.inventory.Add(swapped);
+			this.unwearItem(swapped);
+		}
+
 		spellPower += item.damage;
 		hp += item.hp;
 		mana += item.mana;
 		armor += item.armor;
 		manaRegen += item.manaRegen;
 		hpRegen += item.hpRegen;
+		return swapped;
 	}
 
 	public void unwearItem(Item item) {

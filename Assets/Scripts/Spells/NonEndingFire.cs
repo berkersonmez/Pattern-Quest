@@ -45,7 +45,7 @@ public class NonEndingFire : Spell {
 	public override void setTooltipText() {
 		// Tooltip text for spell.
 		// Coloring: ^CRRGGBBAA*text*
-		Creature caster = GameSaveController.instance.player;
+		Creature caster = owner;
 		int currentDamage = damage + caster.spellPower;
 		float currentDamageOverTime = (float)(damageOverTime*turn + caster.spellPower) / turn;
 

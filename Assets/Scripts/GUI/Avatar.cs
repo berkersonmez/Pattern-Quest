@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Avatar : MonoBehaviour {
 	
@@ -10,6 +11,9 @@ public class Avatar : MonoBehaviour {
 	private tk2dTextMesh manaText;
 	private tk2dTextMesh nameText;
 	private tk2dSprite avatarSprite;
+	private GameObject activeSpellsList;
+
+	public GameObject activeSpellCounterPrefab;
 	
 	void Start () {
 		healthBar = transform.Find("Healthbar").GetComponent<tk2dUIProgressBar>();
@@ -18,6 +22,7 @@ public class Avatar : MonoBehaviour {
 		manaText = manaBar.transform.Find("Background").Find("ProgressBarHighlight").Find("Text").GetComponent<tk2dTextMesh>();
 		nameText = transform.Find("Text").GetComponent<tk2dTextMesh>();
 		avatarSprite = transform.Find("Avatar").GetComponent<tk2dSprite>();
+		activeSpellsList = transform.Find("ActiveSpells").gameObject;
 	}
 	
 	public void deadAnim() {
@@ -41,6 +46,31 @@ public class Avatar : MonoBehaviour {
 		} else {
 			nameText.color = Color.white;
 			nameText.Commit();
+		}
+	}
+
+	public void updateActiveSpellVisuals() {
+		// Draw active spells here.
+		foreach(Transform child in activeSpellsList.transform) {
+			Destroy(child.gameObject);
+		}
+		Queue<ActiveSpell> activeSpells;
+		if (owner.isPlayer) {
+			activeSpells =  DungeonController.instance.battle.activeSpellsOnPlayer;
+		} else {
+			activeSpells =  DungeonController.instance.battle.activeSpellsOnCreature;
+		}
+		int i = 0;
+		foreach (ActiveSpell activeSpell in activeSpells) {
+			GameObject asEntry = Instantiate(activeSpellCounterPrefab) as GameObject;
+			asEntry.transform.parent = activeSpellsList.transform;
+			asEntry.transform.localPosition = new Vector3(0.6f + (i % 3) * 2.6f,-1f + (i / 3) * -3.2f, 0f);
+			SpellHolder holder = asEntry.GetComponent<SpellHolder>();
+			holder.setSpell(activeSpell.spell);
+			tk2dTextMesh countText = asEntry.transform.Find("Text").GetComponent<tk2dTextMesh>();
+			countText.text = activeSpell.remainingTurn.ToString();
+			countText.Commit();
+			i++;
 		}
 	}
 	

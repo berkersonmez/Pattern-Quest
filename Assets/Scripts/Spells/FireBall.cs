@@ -42,7 +42,7 @@ public class FireBall : Spell {
 	public override void setTooltipText() {
 		// Tooltip text for spell.
 		// Coloring: ^CRRGGBBAA*text*
-		Creature caster = GameSaveController.instance.player;
+		Creature caster = owner;
 		int currentDamage = damage + caster.spellPower;
 
 		tooltipText = "^C7ED8E6ff" + name + "\n";
