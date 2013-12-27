@@ -38,5 +38,17 @@ public class FireBall : Spell {
 		return true;
 		//Fireball görsel efekti yapan fonksiyon eklenecek
 	}
+
+	public override void setTooltipText() {
+		// Tooltip text for spell.
+		// Coloring: ^CRRGGBBAA*text*
+		Creature caster = GameSaveController.instance.player;
+		int currentDamage = damage + caster.spellPower;
+
+		tooltipText = "^C7ED8E6ff" + name + "\n";
+		tooltipText += "^CffffffffType: " + type + "\n";
+		if (mana != 0) tooltipText += "Mana Cost: " + mana + "\n\n";
+		tooltipText += "Inflicts " + currentDamage + " damage to enemy.\n";
+	}
 	
 }

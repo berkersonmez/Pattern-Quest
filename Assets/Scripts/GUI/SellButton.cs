@@ -14,8 +14,10 @@ public class SellButton : MonoBehaviour {
 	}
 	
 	void OnClick() {
+		GameSaveController.instance.player.inventory.Remove(item);
 		GameSaveController.instance.player.gold += item.gold;
 		InventoryController.instance.refreshItemList();
+		TownController.instance.updateTexts();
 		GameSaveController.instance.saveGame();
 	}
 }

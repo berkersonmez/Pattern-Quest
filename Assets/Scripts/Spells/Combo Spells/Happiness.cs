@@ -13,6 +13,7 @@ public class Happiness : ComboSpell {
 		type = "nature";
 		level = 1;
 		isOverTime = true;
+		spriteName = "avatar_spell_1";
 	}
 	
 	public override bool cast(Battle battle, Creature caster, Creature target){
@@ -29,5 +30,15 @@ public class Happiness : ComboSpell {
 		if(casted_heal_count >= 2)
 			return true;
 		return false;
+	}
+
+	public override void setTooltipText() {
+		// Tooltip text for spell.
+		// Coloring: ^CRRGGBBAA*text*
+		
+		tooltipText = "^C7ED8E6ff" + name + "\n";
+		tooltipText += "^CffffffffType: " + type + "\n";
+		tooltipText += "Combo: Heal + Heal\n\n";
+		tooltipText += "Heals the caster for " + healOverTime + " every turn for " + turn + " turns.\n";
 	}
 }

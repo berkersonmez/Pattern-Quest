@@ -6,12 +6,14 @@ public class InventoryController : MonoBehaviour {
 	public static InventoryController instance;
 
 	public GameObject prefabItem;
+	public GameObject inventoryListScrollArea;
 	public GameObject inventoryList;
 	public GameObject gearList;
 
 	void Start () {
 		instance = this;
-		inventoryList = GameObject.Find("InventoryList");
+		inventoryListScrollArea = transform.Find("InventoryList").gameObject;
+		inventoryList = transform.Find("InventoryList").Find("Content").gameObject;
 		gearList = GameObject.Find("GearList");
 		refreshItemList();
 		refreshGearList();
@@ -31,6 +33,8 @@ public class InventoryController : MonoBehaviour {
 			holder.setItem(item);
 			i++;
 		}
+		tk2dUIScrollableArea sa = inventoryListScrollArea.GetComponent<tk2dUIScrollableArea>();
+		sa.ContentLength = sa.MeasureContentLength();
 	}
 
 	public void refreshGearList() {

@@ -9,6 +9,7 @@ public class Heal : Spell {
 		mana = 5;
 		type = "nature";
 		level = 1;
+		spriteName = "avatar_spell_1";
 		shape.Add(6);
 		shape.Add(6);
 		shape.Add(7);
@@ -37,6 +38,18 @@ public class Heal : Spell {
 		Debug.Log(this.name + "'i patlattim *" + this.heal + "*");
 		return true;
 		//Fireball görsel efekti yapan fonksiyon eklenecek
+	}
+
+	public override void setTooltipText() {
+		// Tooltip text for spell.
+		// Coloring: ^CRRGGBBAA*text*
+		Creature caster = GameSaveController.instance.player;
+		int currentHeal = heal + caster.spellPower;
+
+		tooltipText = "^C7ED8E6ff" + name + "\n";
+		tooltipText += "^CffffffffType: " + type + "\n";
+		if (mana != 0) tooltipText += "Mana Cost: " + mana + "\n\n";
+		tooltipText += "Heals the caster for " + currentHeal + " hp.\n";
 	}
 	
 }

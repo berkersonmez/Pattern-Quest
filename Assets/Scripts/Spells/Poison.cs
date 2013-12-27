@@ -12,6 +12,7 @@ public class Poison : Spell {
 		type = "nature";
 		level = 1;
 		isOverTime = true;
+		spriteName = "avatar_spell_2";
 		shape.Add(8);
 		shape.Add(6);
 		shape.Add(8);
@@ -34,6 +35,18 @@ public class Poison : Spell {
 		caster.decreaseMana(mana);
 		battle.addActiveSpell(this, target);
 		return true;
+	}
+
+	public override void setTooltipText() {
+		// Tooltip text for spell.
+		// Coloring: ^CRRGGBBAA*text*
+		Creature caster = GameSaveController.instance.player;
+		float currentDamageOverTime = (float)(damageOverTime*turn + caster.spellPower) / turn;
+
+		tooltipText = "^C7ED8E6ff" + name + "\n";
+		tooltipText += "^CffffffffType: " + type + "\n";
+		if (mana != 0) tooltipText += "Mana Cost: " + mana + "\n\n";
+		tooltipText += "Deals " + (int)currentDamageOverTime + " damage every turn for " + turn + " turns.\n";
 	}
 	
 }

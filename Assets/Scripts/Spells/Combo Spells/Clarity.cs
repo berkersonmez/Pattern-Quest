@@ -27,5 +27,14 @@ public class Clarity : ComboSpell {
 			return true;
 		return false;
 	}
-	
+
+	public override void setTooltipText() {
+		// Tooltip text for spell.
+		// Coloring: ^CRRGGBBAA*text*
+		
+		tooltipText = "^C7ED8E6ff" + name + "\n";
+		tooltipText += "^CffffffffType: " + type + "\n";
+		tooltipText += "Combo: Basic Attack + Basic Attack\n\n";
+		tooltipText += "Restores 3 mana.\n";
+	}
 }

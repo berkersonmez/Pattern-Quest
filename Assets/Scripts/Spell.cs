@@ -15,10 +15,13 @@ public class Spell {
 	public int level=1;
 	public int maxLevel;
 	public string name;
+	public string spriteName = "avatar_spell_0";
 	public int turn=0;
 	public bool isOverTime=false;
 	public List<int> shape = new List<int>();
 	public int effectType;
+
+	public string tooltipText;
 	
 	public Spell(){
 		
@@ -67,5 +70,15 @@ public class Spell {
 		else
 			target.decreaseHp(caster,(int)currentDamage, name);
 
+	}
+
+	public virtual void setTooltipText() {
+		// Tooltip text for spell.
+		// Coloring: ^CRRGGBBAA*text*
+		tooltipText = "^C7ED8E6ff" + name + "\n";
+		tooltipText += "^CffffffffType: " + type + "\n";
+		if (mana != 0) tooltipText += "Mana Cost: " + mana + "\n";
+		if (damage != 0) tooltipText += "Damage: " + damage + "\n";
+		if (heal != 0) tooltipText += "Heal: " + heal + "\n";
 	}
 }

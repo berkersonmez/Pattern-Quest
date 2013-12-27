@@ -49,5 +49,6 @@ public class Item {
 		if (mana != 0) tooltipText += "Mana: " + mana + "\n";
 		if (manaRegen != 0) tooltipText += "Mana Regen: " + mana + "\n";
 		if (level != 0) tooltipText += "Level: " + level + "\n";
+		tooltipText += "Price: " + gold + "g\n";
 	}
 }

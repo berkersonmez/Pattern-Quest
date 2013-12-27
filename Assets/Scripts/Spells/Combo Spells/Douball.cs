@@ -32,5 +32,20 @@ public class Douball : ComboSpell {
 			return true;
 		return false;
 	}
+
+	public override void setTooltipText() {
+		// Tooltip text for spell.
+		// Coloring: ^CRRGGBBAA*text*
+		Creature caster = GameSaveController.instance.player;
+		Spell fireBall = caster.getSpell("FireBall",1);
+		if(fireBall == null)
+			return;
+		int currentDamage = (fireBall.damage + caster.spellPower) / 4;
+
+		tooltipText = "^C7ED8E6ff" + name + "\n";
+		tooltipText += "^CffffffffType: " + type + "\n";
+		tooltipText += "Combo: Fireball + Fireball\n\n";
+		tooltipText += "Inflicts " + currentDamage + " damage to enemy.\n";
+	}
 	
 }

@@ -11,6 +11,7 @@ public class TownMenu : MonoBehaviour {
 	public Vector3 mapPosition = new Vector3(24, 0, -10);
 	public Vector3 shopPosition = new Vector3(-24, 0, -10);
 	public Vector3 inventoryPosition = new Vector3(-24, 0, -10);
+	public Vector3 spellsPosition = new Vector3(0, 40, -10);
 	
 	private Vector3 cameraTarget;
 	private bool moveCamera = false;
@@ -33,6 +34,11 @@ public class TownMenu : MonoBehaviour {
 
 	public void inventoryWindow() {
 		cameraTarget = inventoryPosition;
+		moveCamera = true;
+	}
+
+	public void spellsWindow() {
+		cameraTarget = spellsPosition;
 		moveCamera = true;
 	}
 	
