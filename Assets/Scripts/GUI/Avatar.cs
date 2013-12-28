@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Avatar : MonoBehaviour {
-	
+
+	public bool updateEveryFrame = true;
+
 	public Creature owner;
 	private tk2dUIProgressBar healthBar;
 	private tk2dTextMesh healthText;
@@ -73,8 +75,8 @@ public class Avatar : MonoBehaviour {
 			i++;
 		}
 	}
-	
-	void Update () {
+
+	public void updateHealthAndMana() {
 		if (owner != null) {
 			manaBar.Value = (float)owner.currentMana / owner.mana;
 			manaText.text = owner.currentMana + "/" + owner.mana;
@@ -82,6 +84,12 @@ public class Avatar : MonoBehaviour {
 			healthBar.Value = (float)owner.currentHp / owner.hp;
 			healthText.text = owner.currentHp + "/" + owner.hp;
 			healthText.Commit();
+		}
+	}
+
+	void Update () {
+		if (updateEveryFrame) {
+			updateHealthAndMana();
 		}
 	}
 }

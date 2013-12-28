@@ -19,5 +19,10 @@ public class TownButton : MonoBehaviour {
 			TownMenu.instance.inventoryWindow();
 		else if (transform.name == "SpellsButton")
 			TownMenu.instance.spellsWindow();
+		else if (transform.name == "StatsButton") {
+			TownMenu.instance.statsWindow();
+			StatsController.instance.updateStats();
+		}
+			
 	}
 }

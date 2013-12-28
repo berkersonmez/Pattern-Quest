@@ -13,6 +13,7 @@ public class TownMenu : MonoBehaviour {
 	public Vector3 inventoryPosition = new Vector3(-24, 0, -10);
 	public Vector3 spellsPosition = new Vector3(0, 40, -10);
 	public Vector3 drawPatternPosition = new Vector3(0, 80, -10);
+	public Vector3 statsPosition = new Vector3(-48, 0, -10);
 	
 	private Vector3 cameraTarget;
 	private bool moveCamera = false;
@@ -45,6 +46,11 @@ public class TownMenu : MonoBehaviour {
 
 	public void drawPatternWindow() {
 		cameraTarget = drawPatternPosition;
+		moveCamera = true;
+	}
+
+	public void statsWindow() {
+		cameraTarget = statsPosition;
 		moveCamera = true;
 	}
 	

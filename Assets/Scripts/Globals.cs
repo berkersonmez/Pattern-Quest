@@ -37,18 +37,4 @@ public class Globals : MonoBehaviour {
 		}
 		return spells;
 	}
-
-	public List<ComboSpell> getComboSpells(List<string> spellNamesList, Creature owner){
-		List<ComboSpell> spells = new List<ComboSpell>();
-		foreach(string name in spellNamesList){
-			if(name == "Basic Attack"){
-				continue;
-			}
-			System.Type spellObject = System.Type.GetType(name,true);
-			ComboSpell spell = (ComboSpell)(System.Activator.CreateInstance(spellObject));
-			spell.owner = owner;
-			spells.Add(spell);
-		}
-		return spells;
-	}
 }
