@@ -21,13 +21,13 @@ public class AbsorbDamage : Power {
 		if(amount > 0){
 			if(amount <= castedSpell.damage){
 				castedSpell.damage -= amount;
-				combatTextExtra += "(Absorbed: " + amount + ")";
+				combatTextExtra += "(" + amount + ")";
 				amount = 0;
 				//DungeonController.instance.battle.creature.decreaseHp(DungeonController.instance.battle.player,amount,"absorb");
 			}
 			else {
 				amount -= castedSpell.damage;
-				combatTextExtra += "(Absorbed: " + castedSpell.damage + ")";
+				combatTextExtra += "(" + castedSpell.damage + ")";
 				castedSpell.damage = 0;
 			}
 			if(amount == 0)
@@ -37,7 +37,7 @@ public class AbsorbDamage : Power {
 		if(percent > 0) {
 			int tempDamage = castedSpell.damage;
 			castedSpell.damage = castedSpell.damage * (percent / 100);
-			combatTextExtra += "(Absorbed: " + (tempDamage - castedSpell.damage) + ")";
+			combatTextExtra += "(" + (tempDamage - castedSpell.damage) + ")";
 		}
 		return false;
 	}

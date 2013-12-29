@@ -23,7 +23,6 @@ public class IncreaseDamage : Power {
 		if((castedSpell.type == this.type) || (this.type == "all"))
 			castedSpell.damage += this.amount;
 		this.active = false;
-		combatTextExtra += "(Increased: " + this.amount + ")";
 		return false;
 	}
 
