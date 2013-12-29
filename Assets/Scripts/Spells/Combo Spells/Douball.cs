@@ -13,12 +13,18 @@ public class Douball : ComboSpell {
 	}
 	
 	public override bool cast(Battle battle, Creature caster, Creature target){
+		string combatTextExtra = "";
 		Spell fireBall = caster.getSpell("FireBall",1);
 		if(fireBall == null)
 			return false;
 		int currentDamage = (fireBall.damage + caster.spellPower - target.armor) / 4;
-		target.decreaseHp(caster, currentDamage, name);
-		Debug.Log(this.name + "'i patlattim *" + this.damage + "*");
+
+		currentDamage = applyCritical(caster, currentDamage);
+
+		target.decreaseHp(caster, currentDamage);
+		// Combat text
+		int placement = target.isPlayer ? (int)CombatTextController.Placement.PLAYER : (int)CombatTextController.Placement.CREATURE;
+		CombatTextController.instance.deployText(name, currentDamage.ToString() + combatTextExtra, placement, Color.red);
 		return true;
 	}
 

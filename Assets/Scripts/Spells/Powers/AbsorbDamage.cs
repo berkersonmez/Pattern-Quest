@@ -15,25 +15,30 @@ public class AbsorbDamage : Power {
 		level = 1;
 	}
 
-	public override bool react(Spell castedSpell, string effectOn){
+	public override bool react(Spell castedSpell, string effectOn, ref string combatTextExtra){
 		if(effectOn != this.effectOn)
 			return false;
 		if(amount > 0){
 			if(amount <= castedSpell.damage){
 				castedSpell.damage -= amount;
+				combatTextExtra += "(Absorbed: " + amount + ")";
 				amount = 0;
 				//DungeonController.instance.battle.creature.decreaseHp(DungeonController.instance.battle.player,amount,"absorb");
 			}
 			else {
 				amount -= castedSpell.damage;
+				combatTextExtra += "(Absorbed: " + castedSpell.damage + ")";
 				castedSpell.damage = 0;
 			}
 			if(amount == 0)
 				this.active = false;
 			return false;
 		}
-		if(percent > 0)
+		if(percent > 0) {
+			int tempDamage = castedSpell.damage;
 			castedSpell.damage = castedSpell.damage * (percent / 100);
+			combatTextExtra += "(Absorbed: " + (tempDamage - castedSpell.damage) + ")";
+		}
 		return false;
 	}
 

@@ -14,7 +14,7 @@ public class Power : Spell {
 	public int totalTurn;		//-1 means it is active until it is dispelled
 
 	//True means reaction ended the spell no need to complete it in the spell.cast part
-	public virtual bool react(Spell castedSpell, string effectOn){
+	public virtual bool react(Spell castedSpell, string effectOn, ref string combatTextExtra){
 
 		return false;
 	}

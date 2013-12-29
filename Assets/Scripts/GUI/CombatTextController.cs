@@ -13,7 +13,7 @@ public class CombatTextController : MonoBehaviour {
 		instance = this;
 	}
 	
-	public void deployText(string name, int damage, int placement) {
+	public void deployText(string name, string text, int placement, Color color) {
 		GameObject combatText = Instantiate(combatTextPrefab) as GameObject;
 		combatText.transform.parent = GameObject.Find("AnchorUC").transform;
 		float pX;
@@ -26,8 +26,10 @@ public class CombatTextController : MonoBehaviour {
 		tk2dTextMesh effectName = combatText.transform.Find("Name").GetComponent<tk2dTextMesh>();
 		tk2dTextMesh efectDamage = combatText.transform.Find("Damage").GetComponent<tk2dTextMesh>();
 		effectName.text = name;
+		effectName.color = color;
 		effectName.Commit();
-		efectDamage.text = damage.ToString(); // Damage is taken directly. Should be calculated (take spellDamage etc.).
+		efectDamage.text = text;
+		efectDamage.color = color;
 		efectDamage.Commit();
 	}
 }

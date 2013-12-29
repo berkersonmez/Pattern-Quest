@@ -54,14 +54,15 @@ public class Spell {
 	}
 
 	public virtual bool cast(Battle battle, Creature caster, Creature target){
+		string combatTextExtra = "";
 		if(caster.currentMana - mana < 0)
 			return false;
 		Spell temp = new Spell();
 		temp = this.copy();
 		if(temp.isOneTick == false)
-			caster.react(temp,"self");
+			caster.react(temp,"self",ref combatTextExtra);
 		caster.decreaseMana(mana);
-		bool result = target.react(temp,"enemy");
+		bool result = target.react(temp,"enemy",ref combatTextExtra);
 		if(result)
 			return true;
 
@@ -72,8 +73,22 @@ public class Spell {
 			currentDamage = temp.damage + caster.spellPower - target.armor;
 		if(currentDamage < 0)
 			currentDamage = 0;
-		target.decreaseHp(caster, currentDamage, name);
+
+		currentDamage = applyCritical(caster, currentDamage);
+
+		target.decreaseHp(caster, currentDamage);
+		// Combat text
+		int placement = target.isPlayer ? (int)CombatTextController.Placement.PLAYER : (int)CombatTextController.Placement.CREATURE;
+		CombatTextController.instance.deployText(name, currentDamage.ToString() + combatTextExtra, placement, Color.red);
 		return true;		
+	}
+
+	public virtual int applyCritical(Creature caster, int currentDamage) {
+		int randomValue = Random.Range(1,100);
+		if(randomValue <= caster.criticalStrikeChance){
+			currentDamage = currentDamage * 2;
+		}
+		return currentDamage;
 	}
 	
 	public virtual bool increaseLevel(){
@@ -92,8 +107,13 @@ public class Spell {
 			temp.cast(battle, caster, target);
 			return;
 		}
-		if(healOverTime > 0)
-			target.increaseHp(healOverTime, name);
+		if(healOverTime > 0) {
+			string combatTextExtra = "";
+			target.increaseHp(healOverTime);
+			// Combat text
+			int placement = target.isPlayer ? (int)CombatTextController.Placement.PLAYER : (int)CombatTextController.Placement.CREATURE;
+			CombatTextController.instance.deployText(name, healOverTime.ToString() + combatTextExtra, placement, Color.green);
+		}
 	}
 
 	public virtual void setTooltipText() {

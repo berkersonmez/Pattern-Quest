@@ -6,7 +6,11 @@ public class CombatText : MonoBehaviour {
 	float speed;
 	
 	void Start () {
-		speed = .15f;
+		speed = .65f;
+		GameObject effectDamageObj = transform.Find("Damage").gameObject;
+		tk2dTextMesh efectDamage = effectDamageObj.GetComponent<tk2dTextMesh>();
+		efectDamage.scale /= efectDamage.text.Length > 10 ? 2.5f : 1;
+
 		Invoke("slowdown", .2f);
 		Invoke("destroy", 1.5f);
 	}

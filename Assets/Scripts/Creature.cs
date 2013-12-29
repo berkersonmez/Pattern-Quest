@@ -37,36 +37,22 @@ public class Creature
 		//this.spellList.Add(spell);
 	}
 	
-	public void increaseHp(int amount, string effectName) {
+	public void increaseHp(int amount) {
 		currentHp += amount;
 		if(currentHp > hp)
 			currentHp = hp;
-		CombatTextController.instance.deployText(effectName, amount, (int)CombatTextController.Placement.PLAYER);
 	}
 	
-	public virtual void decreaseHp(Creature caster, int amount, string effectName) {
-		int randomValue = Random.Range(1,100);
-		if(randomValue <= caster.criticalStrikeChance){
-			amount = amount * 2;
-			effectName.ToUpper();
-		}
+	public virtual void decreaseHp(Creature caster, int amount) {
 		currentHp -= amount;
 		if(currentHp < 0)
 			currentHp = 0;
-		CombatTextController.instance.deployText(effectName, amount, (int)CombatTextController.Placement.CREATURE);
 	}
 
-	public void increaseMana(int amount){
+	public virtual void increaseMana(int amount){
 		currentMana += amount;
 		if(currentMana > mana)
 			currentMana = mana;
-	}
-
-	public virtual void increaseMana(int amount, string effectName) {
-		currentMana += amount;
-		if(currentMana > mana)
-			currentMana = mana;
-		CombatTextController.instance.deployText(effectName, amount, (int)CombatTextController.Placement.CREATURE);
 	}
 	
 	public void decreaseMana(int amount) {
@@ -91,10 +77,10 @@ public class Creature
 	}
 
 	//False means spell is canceled or destroyed somehow
-	public bool react(Spell castedSpell, string effectOn){
+	public bool react(Spell castedSpell, string effectOn, ref string combatTextExtra){
 		foreach(Power power in powers){
 			if(power.active){
-				bool result = power.react(castedSpell, effectOn);
+				bool result = power.react(castedSpell, effectOn, ref combatTextExtra);
 				if(result == true){
 					return true;
 				}

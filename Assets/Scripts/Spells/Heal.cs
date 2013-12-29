@@ -33,14 +33,16 @@ public class Heal : Spell {
 	}
 	
 	public override bool cast(Battle battle, Creature caster, Creature target){
+		string combatTextExtra = "";
 		if(caster.currentMana - mana < 0)
 			return false;
 		int currentHeal = heal + caster.spellPower;
 		caster.decreaseMana(mana);
-		caster.increaseHp(currentHeal, name);
-		Debug.Log(this.name + "'i patlattim *" + this.heal + "*");
+		caster.increaseHp(currentHeal);
+		// Combat text
+		int placement = caster.isPlayer ? (int)CombatTextController.Placement.PLAYER : (int)CombatTextController.Placement.CREATURE;
+		CombatTextController.instance.deployText(name, currentHeal.ToString() + combatTextExtra, placement, Color.green);
 		return true;
-		//Fireball görsel efekti yapan fonksiyon eklenecek
 	}
 
 	public override void setTooltipText() {

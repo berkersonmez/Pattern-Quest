@@ -16,23 +16,16 @@ public class Player : Creature {
 		spriteName = "avatar_player_1";
 	}
 	
-	public override void decreaseHp(Creature caster, int amount, string effectName) {
-		int randomValue = Random.Range(1,100);
-		if(randomValue <= caster.criticalStrikeChance){
-			amount = amount * 2;
-			effectName.ToUpper();
-		}
+	public override void decreaseHp(Creature caster, int amount) {
 		currentHp -= amount;
 		if(currentHp < 0)
 			currentHp = 0;
-		CombatTextController.instance.deployText(effectName, amount, (int)CombatTextController.Placement.PLAYER);
 	}
 
-	public override void increaseMana(int amount, string effectName) {
+	public override void increaseMana(int amount) {
 		currentMana += amount;
 		if(currentMana > mana)
 			currentMana = mana;
-		CombatTextController.instance.deployText(effectName, amount, (int)CombatTextController.Placement.PLAYER);
 	}
 
 	public Item wearItem(Item item) {

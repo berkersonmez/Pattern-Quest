@@ -15,15 +15,15 @@ public class IncreaseDamage : Power {
 		level = 1;
 	}
 	
-	public override bool react(Spell castedSpell, string effectOn){
+	public override bool react(Spell castedSpell, string effectOn, ref string combatTextExtra){
 		if(effectOn != this.effectOn)
 			return false;
 		if(castedSpell.damage == 0)
 			return false;
-		Debug.Log(this.name + "'i patlattim *" + this.amount + "*");
 		if((castedSpell.type == this.type) || (this.type == "all"))
 			castedSpell.damage += this.amount;
 		this.active = false;
+		combatTextExtra += "(Increased: " + this.amount + ")";
 		return false;
 	}
 

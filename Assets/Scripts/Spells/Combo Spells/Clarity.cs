@@ -6,14 +6,18 @@ public class Clarity : ComboSpell {
 	
 	public Clarity(){
 		name = "Clarity";
-		damage = 0;
+		damage = 3;
 		mana = 0;
 		type = "fire";
 		level = 1;
 	}
 	
 	public override bool cast(Battle battle, Creature caster, Creature target){
-		caster.increaseMana(3,"Clarity");
+		string combatTextExtra = "";
+		caster.increaseMana(damage);
+		// Combat text
+		int placement = caster.isPlayer ? (int)CombatTextController.Placement.PLAYER : (int)CombatTextController.Placement.CREATURE;
+		CombatTextController.instance.deployText(name, damage.ToString() + combatTextExtra, placement, Color.blue);
 		return true;
 	}
 	
