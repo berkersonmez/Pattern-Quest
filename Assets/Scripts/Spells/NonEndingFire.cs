@@ -53,7 +53,7 @@ public class NonEndingFire : Spell {
 		target.decreaseHp(caster, currentDamage);
 		// Combat text
 		int placement = target.isPlayer ? (int)CombatTextController.Placement.PLAYER : (int)CombatTextController.Placement.CREATURE;
-		CombatTextController.instance.deployText(name, currentDamage.ToString() + combatTextExtra, placement, Color.green);
+		CombatTextController.instance.deployText(name, currentDamage.ToString() + combatTextExtra, placement, Color.red);
 
 		battle.addActiveSpell(temp, target);
 		if(this.totalCoolDown > 0)

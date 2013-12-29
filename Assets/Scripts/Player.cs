@@ -9,6 +9,8 @@ public class Player : Creature {
 	public Item blueStone;
 	public Item greenStone;
 	public List<Item> inventory = new List<Item>();
+
+	public Dictionary<int,Dictionary<string,int>> questSlayCounter = new Dictionary<int, Dictionary<string,int>>();
 	
 	public Player(){
 		isPlayer = true;
@@ -53,6 +55,15 @@ public class Player : Creature {
 		manaRegen += item.manaRegen;
 		hpRegen += item.hpRegen;
 		return swapped;
+	}
+
+	public void slainCreature(string creatureName) {
+		// for quests (may count kills in this for stats)
+		foreach(KeyValuePair<int, Dictionary<string, int>> pair in questSlayCounter) {
+			if (pair.Value.ContainsKey(creatureName)) {
+				pair.Value[creatureName]++;
+			}
+		}
 	}
 
 	public void unwearItem(Item item) {

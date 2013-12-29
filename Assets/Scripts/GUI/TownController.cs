@@ -9,6 +9,8 @@ public class TownController : MonoBehaviour {
 	private tk2dTextMesh textLevel;
 	private tk2dTextMesh textXP;
 
+	public Quest[] quests;
+
 	void Start () {
 		instance = this;
 		textGold = GameObject.Find("Gold").GetComponent<tk2dTextMesh>();
@@ -18,7 +20,7 @@ public class TownController : MonoBehaviour {
 	}
 
 	public void updateTexts() {
-		Player player = GameSaveController.instance.player;
+		Player player = GameSaveController.instance.getPlayer();
 		textGold.text = "Gold: " + player.gold;
 		textLevel.text = "Level: " + player.level;
 		textXP.text = "XP: " + player.xp;

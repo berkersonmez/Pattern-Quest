@@ -20,6 +20,7 @@ public class GameSaveController : MonoBehaviour {
 		public int xp;
 		public int gold;
 		public string playerName;
+		public Dictionary<int,Dictionary<string,int>> questSlayCounter;
 		// Other variables to save goes here.
 	}
 	
@@ -92,6 +93,7 @@ public class GameSaveController : MonoBehaviour {
 		currentGame.redStone = player.redStone;
 		currentGame.blueStone = player.blueStone;
 		currentGame.greenStone = player.greenStone;
+		currentGame.questSlayCounter = player.questSlayCounter;
 		foreach(Spell spell in player.spellList)
 			currentGame.spells.Add(spell.name);
 		foreach(Spell spell in player.comboSpells)
@@ -118,6 +120,7 @@ public class GameSaveController : MonoBehaviour {
 			player.spellList = Globals.instance.getSpells(currentGame.spells, player);
 			player.comboSpells = Globals.instance.getSpells(currentGame.comboSpells, player);
 			player.powers = Globals.instance.getPowers(currentGame.powers, player);
+			player.questSlayCounter = currentGame.questSlayCounter;
 		}
 		return player;
 	}

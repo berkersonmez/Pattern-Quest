@@ -23,6 +23,20 @@ public class Globals : MonoBehaviour {
 		else
 			return null;
 	}
+
+	public Spell getSpell(string spellName, Creature owner){
+		System.Type spellObject = System.Type.GetType(spellName,true);
+		Spell spell = (Spell)(System.Activator.CreateInstance(spellObject));
+		spell.owner = owner;
+		return spell;
+	}
+
+	public Power getPower(string spellName, Creature owner){
+		System.Type spellObject = System.Type.GetType(spellName,true);
+		Power spell = (Power)(System.Activator.CreateInstance(spellObject));
+		spell.owner = owner;
+		return spell;
+	}
 	
 	public List<Spell> getSpells(List<string> spellNamesList, Creature owner){
 		List<Spell> spells = new List<Spell>();

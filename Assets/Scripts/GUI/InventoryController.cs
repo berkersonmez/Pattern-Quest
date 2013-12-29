@@ -23,7 +23,7 @@ public class InventoryController : MonoBehaviour {
 		foreach(Transform child in inventoryList.transform) {
 			Destroy(child.gameObject);
 		}
-		List<Item> inv = GameSaveController.instance.player.inventory;
+		List<Item> inv = GameSaveController.instance.getPlayer().inventory;
 		int i = 0;
 		foreach (Item item in inv) {
 			GameObject itemEntry = Instantiate(prefabItem) as GameObject;
