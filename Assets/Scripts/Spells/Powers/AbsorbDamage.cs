@@ -6,9 +6,11 @@ public class AbsorbDamage : Power {
 	
 	public AbsorbDamage(){
 		name = "AbsorbDamage";
-		amount = 5;
+		totalAmount = 5;
+		currentAmount = 5;
 		percent = 0;
 		effectOn = "enemy";
+		totalCoolDown = 1;
 		mana = 0;
 		type = "fire";
 		active = true;
@@ -18,20 +20,23 @@ public class AbsorbDamage : Power {
 	public override bool react(Spell castedSpell, string effectOn, ref string combatTextExtra){
 		if(effectOn != this.effectOn)
 			return false;
-		if(amount > 0){
-			if(amount <= castedSpell.damage){
-				castedSpell.damage -= amount;
-				combatTextExtra += "(" + amount + ")";
-				amount = 0;
+		if(currentAmount > 0){
+			if(currentAmount <= castedSpell.damage){
+				castedSpell.damage -= currentAmount;
+				combatTextExtra += "(" + currentAmount + ")";
+				currentAmount = 0;
 				//DungeonController.instance.battle.creature.decreaseHp(DungeonController.instance.battle.player,amount,"absorb");
 			}
 			else {
-				amount -= castedSpell.damage;
+				currentAmount -= castedSpell.damage;
 				combatTextExtra += "(" + castedSpell.damage + ")";
 				castedSpell.damage = 0;
 			}
-			if(amount == 0)
+			if(currentAmount == 0){
 				this.active = false;
+				this.currentCooldDown = this.totalCoolDown;
+				this.currentAmount = this.totalAmount;
+			}
 			return false;
 		}
 		if(percent > 0) {
@@ -49,7 +54,7 @@ public class AbsorbDamage : Power {
 		tooltipText = "^C7ED8E6ff" + name + "\n";
 		tooltipText += "^CffffffffType: " + type + "\n\n";
 
-		tooltipText += "Absorbs " + amount + " damage.\n";
+		tooltipText += "Absorbs " + totalAmount + " damage.\n";
 	}
 	
 }

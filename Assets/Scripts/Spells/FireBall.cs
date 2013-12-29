@@ -5,7 +5,7 @@ public class FireBall : Spell {
 	
 	public FireBall(){
 		name = "FireBall";
-		damage = 10;
+		damage = 6;
 		mana = 3;
 		type = "fire";
 		level = 1;

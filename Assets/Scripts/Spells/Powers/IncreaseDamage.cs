@@ -6,9 +6,11 @@ public class IncreaseDamage : Power {
 	
 	public IncreaseDamage(){
 		name = "IncreaseDamage";
-		amount = 2;
+		totalAmount = 2;
+		currentAmount = 2;
 		percent = 0;
 		effectOn = "self";
+		totalCoolDown = -1;
 		mana = 0;
 		type = "all";
 		active = true;
@@ -21,7 +23,8 @@ public class IncreaseDamage : Power {
 		if(castedSpell.damage == 0)
 			return false;
 		if((castedSpell.type == this.type) || (this.type == "all"))
-			castedSpell.damage += this.amount;
+			castedSpell.damage += this.currentAmount;
+		this.currentCooldDown = totalCoolDown;
 		this.active = false;
 		return false;
 	}
@@ -33,7 +36,7 @@ public class IncreaseDamage : Power {
 		tooltipText = "^C7ED8E6ff" + name + "\n";
 		tooltipText += "^CffffffffType: " + type + "\n\n";
 		
-		tooltipText += "Increases damage by " + amount + " on attack.\n";
+		tooltipText += "Increases damage by " + totalAmount + " on attack.\n";
 	}
 	
 }

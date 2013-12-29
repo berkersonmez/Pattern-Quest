@@ -89,9 +89,12 @@ public class Creature
 		return false;
 	}
 
-	public void updatePowers(){
+	public void updateCooldowns(){
 		foreach(Power power in powers){
 			power.update();
+		}
+		foreach(Spell spell in spellList){
+			spell.update();
 		}
 	}
 

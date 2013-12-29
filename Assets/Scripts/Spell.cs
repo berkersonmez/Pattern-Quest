@@ -12,6 +12,8 @@ public class Spell {
 	public string type;
 	public int heal=0;
 	public int healOverTime=0;
+	public int currentCooldDown=0;
+	public int totalCoolDown=0;
 	public int level=1;
 	public int maxLevel;
 	public bool isOneTick=false;	//This is an special variable to make 1 tick of any dot understandable
@@ -80,7 +82,13 @@ public class Spell {
 		// Combat text
 		int placement = target.isPlayer ? (int)CombatTextController.Placement.PLAYER : (int)CombatTextController.Placement.CREATURE;
 		CombatTextController.instance.deployText(name, currentDamage.ToString() + combatTextExtra, placement, Color.red);
+		this.currentCooldDown = this.totalCoolDown;
 		return true;		
+	}
+
+	public virtual void update(){
+		if(this.currentCooldDown > 0)
+			this.currentCooldDown--;
 	}
 
 	public virtual int applyCritical(Creature caster, int currentDamage) {

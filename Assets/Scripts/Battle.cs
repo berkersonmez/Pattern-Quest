@@ -100,6 +100,8 @@ public class Battle {
 		this.turn++;	
 		player.increaseMana(player.manaRegen);
 		creature.increaseMana(creature.manaRegen);
+		player.updateCooldowns();
+		creature.updateCooldowns();
 	}
 	
 	public void spellAnimComplete() {
@@ -168,9 +170,9 @@ public class Battle {
 			delayUpdate(0.4f);
 			if(whoseTurn == (int)Turn.PLAYER) {
 				DungeonController.instance.switchTurn(false);
-				passNextTurn();
 			} else {
 				DungeonController.instance.switchTurn(true);
+				passNextTurn();
 			}
 			whoseTurn = (whoseTurn + 1) % 2;
 			break;

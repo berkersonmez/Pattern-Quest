@@ -10,6 +10,7 @@ public class NonEndingFire : Spell {
 		turn = 3;
 		mana = 5;
 		type = "fire";
+		totalCoolDown = 3;
 		level = 1;
 		isOverTime = true;
 		shape.Add(6);
@@ -31,6 +32,8 @@ public class NonEndingFire : Spell {
 	
 	public override bool cast(Battle battle, Creature caster, Creature target){
 		string combatTextExtra = "";
+		if(this.currentCooldDown > 0)
+			return false;
 		if(caster.currentMana - mana < 0)
 			return false;
 		Spell temp = new Spell();
@@ -53,6 +56,8 @@ public class NonEndingFire : Spell {
 		CombatTextController.instance.deployText(name, currentDamage.ToString() + combatTextExtra, placement, Color.green);
 
 		battle.addActiveSpell(temp, target);
+		if(this.totalCoolDown > 0)
+			this.currentCooldDown = this.totalCoolDown;
 		return true;
 	}
 
