@@ -15,6 +15,7 @@ public class GameSaveController : MonoBehaviour {
 		public Item greenStone;
 		public List<string> spells = new List<string>();
 		public List<string> comboSpells = new List<string>();
+		public List<string> powers = new List<string>();
 		public int level;
 		public int xp;
 		public int gold;
@@ -92,6 +93,8 @@ public class GameSaveController : MonoBehaviour {
 			currentGame.spells.Add(spell.name);
 		foreach(Spell spell in player.comboSpells)
 			currentGame.comboSpells.Add(spell.name);
+		foreach(Spell spell in player.powers)
+			currentGame.powers.Add(spell.name);
 		save("GameSave", currentGame);
 	}
 	
@@ -111,6 +114,7 @@ public class GameSaveController : MonoBehaviour {
 				player.wearItem(currentGame.greenStone);
 			player.spellList = Globals.instance.getSpells(currentGame.spells, player);
 			player.comboSpells = Globals.instance.getSpells(currentGame.comboSpells, player);
+			player.powers = Globals.instance.getPowers(currentGame.powers, player);
 		}
 		return player;
 	}

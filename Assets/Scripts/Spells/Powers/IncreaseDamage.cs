@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class IncreaseDamage : Power {
 	
 	public IncreaseDamage(){
-		name = "AbsorbDamage";
+		name = "IncreaseDamage";
 		amount = 2;
 		percent = 0;
 		effectOn = "self";
@@ -25,6 +25,16 @@ public class IncreaseDamage : Power {
 			castedSpell.damage += this.amount;
 		this.active = false;
 		return false;
+	}
+
+	public override void setTooltipText() {
+		// Tooltip text for spell.
+		// Coloring: ^CRRGGBBAA*text*
+		
+		tooltipText = "^C7ED8E6ff" + name + "\n";
+		tooltipText += "^CffffffffType: " + type + "\n\n";
+		
+		tooltipText += "Increases damage by " + amount + " on attack.\n";
 	}
 	
 }

@@ -22,7 +22,8 @@ public class TownButton : MonoBehaviour {
 		else if (transform.name == "StatsButton") {
 			TownMenu.instance.statsWindow();
 			StatsController.instance.updateStats();
-		}
+		} else if (transform.name == "PowersButton")
+			TownMenu.instance.powersWindow();
 			
 	}
 }

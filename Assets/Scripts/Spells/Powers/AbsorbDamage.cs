@@ -36,5 +36,15 @@ public class AbsorbDamage : Power {
 			castedSpell.damage = castedSpell.damage * (percent / 100);
 		return false;
 	}
+
+	public override void setTooltipText() {
+		// Tooltip text for spell.
+		// Coloring: ^CRRGGBBAA*text*
+		
+		tooltipText = "^C7ED8E6ff" + name + "\n";
+		tooltipText += "^CffffffffType: " + type + "\n\n";
+
+		tooltipText += "Absorbs " + amount + " damage.\n";
+	}
 	
 }

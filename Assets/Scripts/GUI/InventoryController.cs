@@ -33,8 +33,10 @@ public class InventoryController : MonoBehaviour {
 			holder.setItem(item);
 			i++;
 		}
-		tk2dUIScrollableArea sa = inventoryListScrollArea.GetComponent<tk2dUIScrollableArea>();
-		sa.ContentLength = sa.MeasureContentLength();
+		if (i != 0) {
+			tk2dUIScrollableArea sa = inventoryListScrollArea.GetComponent<tk2dUIScrollableArea>();
+			sa.ContentLength = sa.MeasureContentLength();
+		}
 	}
 
 	public void refreshGearList() {

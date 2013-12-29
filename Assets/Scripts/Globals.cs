@@ -37,4 +37,18 @@ public class Globals : MonoBehaviour {
 		}
 		return spells;
 	}
+
+	public List<Power> getPowers(List<string> spellNamesList, Creature owner){
+		List<Power> spells = new List<Power>();
+		foreach(string name in spellNamesList){
+			if(name == "Basic Attack"){
+				continue;
+			}
+			System.Type spellObject = System.Type.GetType(name,true);
+			Power spell = (Power)(System.Activator.CreateInstance(spellObject));
+			spell.owner = owner;
+			spells.Add(spell);
+		}
+		return spells;
+	}
 }
