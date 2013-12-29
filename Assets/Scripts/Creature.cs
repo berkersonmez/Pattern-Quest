@@ -124,6 +124,7 @@ public class Creature
 	
 	public void play(Battle battle, ref Creature caster, ref Creature target){
 		Spell spell = this.spellList[0];
+		spell.owner = this;
 		DungeonController.instance.battle.castSpell(spell);
 		Debug.Log("oy oy oy");
 	}
