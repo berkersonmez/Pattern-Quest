@@ -5,8 +5,8 @@ public class FireBall : Spell {
 	
 	public FireBall(){
 		name = "FireBall";
-		damage = 6;
-		mana = 1;
+		damage = 10;
+		mana = 3;
 		type = "fire";
 		level = 1;
 		shape.Add(9);
@@ -29,7 +29,14 @@ public class FireBall : Spell {
 	public override bool cast(Battle battle, Creature caster, Creature target){
 		if(caster.currentMana - mana < 0)
 			return false;
-		int currentDamage = damage + caster.spellPower - target.armor;
+		Spell temp = new Spell();
+		temp = this.copy();
+		caster.react(temp,"self");
+		bool result = target.react(temp,"enemy");
+		if(result)
+			return true;
+
+		int currentDamage = temp.damage + caster.spellPower - target.armor;
 		if(currentDamage < 0)
 			currentDamage = 0;
 		caster.decreaseMana(mana);

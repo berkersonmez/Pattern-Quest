@@ -28,7 +28,7 @@ public class Player : Creature {
 		CombatTextController.instance.deployText(effectName, amount, (int)CombatTextController.Placement.PLAYER);
 	}
 
-	public void increaseMana(int amount, string effectName) {
+	public override void increaseMana(int amount, string effectName) {
 		currentMana += amount;
 		if(currentMana > mana)
 			currentMana = mana;

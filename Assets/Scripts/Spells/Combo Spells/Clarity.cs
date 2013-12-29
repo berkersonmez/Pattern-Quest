@@ -20,7 +20,7 @@ public class Clarity : ComboSpell {
 	public override bool requires(Queue<Spell> castedSpells){
 		int basic_attack_count = 0;
 		foreach(Spell spell in castedSpells){
-			if(spell.name == "Basic Attack")
+			if(spell.name == "BasicAttack")
 				basic_attack_count++;
 		}
 		if(basic_attack_count >= 2)

@@ -69,6 +69,9 @@ public class GameSaveController : MonoBehaviour {
 		spell = new Happiness();
 		spell.owner = player;
 		player.comboSpells.Add(spell);
+		Power power = new IncreaseDamage();
+		power.owner = player;
+		player.powers.Add(power);
 		player.level = 1;
 		saveGame();
 	}

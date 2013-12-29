@@ -5,7 +5,10 @@ public class Heal : Spell {
 	
 	public Heal(){
 		name = "Heal";
+		damage=0;
+		damageOverTime=0;
 		heal = 8;
+		healOverTime=0;
 		mana = 5;
 		type = "nature";
 		level = 1;

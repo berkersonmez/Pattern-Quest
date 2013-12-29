@@ -23,6 +23,7 @@ public class Battle {
 	public Battle(Player player, Creature creature){
 		this.player = player;
 		this.creature = creature;
+		creature.powers.Add(new AbsorbDamage());
 		turn = 0;
 		whoseTurn = (int)Turn.PLAYER;
 		DungeonController.instance.switchTurn(true);
@@ -130,7 +131,7 @@ public class Battle {
 		switch (state) {
 		case (int)State.ACTIVE_SPELL_EFFECT:
 			if (whoseTurn == (int)Turn.PLAYER) {
-				if (player.activateActiveSpell(creature, ref activeSpellsOnPlayer)) {
+				if (player.activateActiveSpell(this, creature, ref activeSpellsOnPlayer)) {
 					GameObject.Find("Avatar Creature").GetComponent<Avatar>().updateActiveSpellVisuals();
 					GameObject.Find("Avatar Player").GetComponent<Avatar>().updateActiveSpellVisuals();
 					state = (int)State.CAST_PHASE;
@@ -139,7 +140,7 @@ public class Battle {
 					delayUpdate(.7f);
 				}
 			} else {
-				if (creature.activateActiveSpell(player, ref activeSpellsOnCreature)) {
+				if (creature.activateActiveSpell(this, player, ref activeSpellsOnCreature)) {
 					GameObject.Find("Avatar Creature").GetComponent<Avatar>().updateActiveSpellVisuals();
 					GameObject.Find("Avatar Player").GetComponent<Avatar>().updateActiveSpellVisuals();
 					state = (int)State.CAST_PHASE;

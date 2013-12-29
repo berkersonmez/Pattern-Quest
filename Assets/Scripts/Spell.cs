@@ -8,12 +8,13 @@ public class Spell {
 	
 	public int damage=0;
 	public int damageOverTime=0;
-	public int mana;
+	public int mana=0;
 	public string type;
 	public int heal=0;
 	public int healOverTime=0;
 	public int level=1;
 	public int maxLevel;
+	public bool isOneTick=false;	//This is an special variable to make 1 tick of any dot understandable
 	public string name;
 	public string spriteName = "avatar_spell_0";
 	public int turn=0;
@@ -45,11 +46,30 @@ public class Spell {
 		this.mana = 0;
 	}
 
+	public Spell(string name, int damage, bool isOneTick){
+		this.name = name;
+		this.damage = damage;
+		this.isOneTick = isOneTick;
+		this.mana = 0;
+	}
+
 	public virtual bool cast(Battle battle, Creature caster, Creature target){
 		if(caster.currentMana - mana < 0)
 			return false;
+		Spell temp = new Spell();
+		temp = this.copy();
+		if(temp.isOneTick == false)
+			caster.react(temp,"self");
 		caster.decreaseMana(mana);
-		int currentDamage = damage + caster.spellPower - target.armor;
+		bool result = target.react(temp,"enemy");
+		if(result)
+			return true;
+
+		int currentDamage;
+		if(temp.isOneTick == true)
+			currentDamage = temp.damage;
+		else
+			currentDamage = temp.damage + caster.spellPower - target.armor;
 		if(currentDamage < 0)
 			currentDamage = 0;
 		target.decreaseHp(caster, currentDamage, name);
@@ -65,13 +85,15 @@ public class Spell {
 		}
 	}
 	
-	public virtual void turnEffect(ref Creature caster, ref Creature target){
-		float currentDamage = (float)(damageOverTime*turn - target.armor + caster.spellPower) / turn;
+	public virtual void turnEffect(Battle battle, ref Creature caster, ref Creature target){
+		if(this.damageOverTime > 0){
+			float currentDamage = (float)(damageOverTime*turn - target.armor + caster.spellPower) / turn;
+			Spell temp = new Spell(this.name,(int)currentDamage,true);
+			temp.cast(battle, caster, target);
+			return;
+		}
 		if(healOverTime > 0)
 			target.increaseHp(healOverTime, name);
-		else
-			target.decreaseHp(caster,(int)currentDamage, name);
-
 	}
 
 	public virtual void setTooltipText() {
@@ -82,5 +104,9 @@ public class Spell {
 		if (mana != 0) tooltipText += "Mana Cost: " + mana + "\n";
 		if (damage != 0) tooltipText += "Damage: " + damage + "\n";
 		if (heal != 0) tooltipText += "Heal: " + heal + "\n";
+	}
+
+	public Spell copy(){
+		return (Spell)this.MemberwiseClone();
 	}
 }

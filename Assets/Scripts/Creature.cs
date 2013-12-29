@@ -26,6 +26,7 @@ public class Creature
 	public List<string> spellNamesList = new List<string>();
 	public List<Spell> spellList = new List<Spell>();
 	public List<Spell> comboSpells = new List<Spell>();
+	public List<Power> powers = new List<Power>();
 	Queue<ActiveSpell> nextTurnsActiveSpells = new Queue<ActiveSpell>();
 	
 	public void setValues(){
@@ -61,7 +62,7 @@ public class Creature
 			currentMana = mana;
 	}
 
-	public void increaseMana(int amount, string effectName) {
+	public virtual void increaseMana(int amount, string effectName) {
 		currentMana += amount;
 		if(currentMana > mana)
 			currentMana = mana;
@@ -89,6 +90,25 @@ public class Creature
 			return null;
 	}
 
+	//False means spell is canceled or destroyed somehow
+	public bool react(Spell castedSpell, string effectOn){
+		foreach(Power power in powers){
+			if(power.active){
+				bool result = power.react(castedSpell, effectOn);
+				if(result == true){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	public void updatePowers(){
+		foreach(Power power in powers){
+			power.update();
+		}
+	}
+
 	public Spell getSpell(string name, int level){
 		foreach(Spell spell in spellList){
 			if(spell.name == name && spell.level == level)
@@ -99,14 +119,14 @@ public class Creature
 	
 	// Activate spells one by one to put a small delay.
 	// Return true if all spells in that turn finishes.
-	public bool activateActiveSpell(Creature caster, ref Queue<ActiveSpell> activeSpells) {
+	public bool activateActiveSpell(Battle battle, Creature caster, ref Queue<ActiveSpell> activeSpells) {
 		if (activeSpells.Count == 0) {
 			activeSpells = new Queue<ActiveSpell>(nextTurnsActiveSpells);
 			nextTurnsActiveSpells.Clear();
 			return true;
 		} else {
 			ActiveSpell activeSpell = activeSpells.Dequeue();
-			bool result = activeSpell.effect(caster, this);
+			bool result = activeSpell.effect(battle, caster, this);
 			if(result == true)
 				nextTurnsActiveSpells.Enqueue(activeSpell);
 			return false;
