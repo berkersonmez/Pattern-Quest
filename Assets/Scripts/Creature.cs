@@ -13,11 +13,12 @@ public class Creature
 	public int manaRegen=2;
 	public int hpRegen = 0;
 	public int currentMana=20;
-	public int spellPower;
+	public int spellPower=0;
 	public int armor = 0;
 	public int level=1;
 	public int spellPerTurn = 1;
 	public int criticalStrikeChance = 5;
+	public int brain=0;		//Test variable
 	public bool isPlayer=false;
 	public string spriteName;
 	public string type;
@@ -98,6 +99,15 @@ public class Creature
 		}
 	}
 
+	public void resetCooldowns(){
+		foreach(Power power in powers){
+			power.resetCooldown();
+		}
+		foreach(Spell spell in spellList){
+			spell.resetCooldown();
+		}
+	}
+
 	public Spell getSpell(string name, int level){
 		foreach(Spell spell in spellList){
 			if(spell.name == name && spell.level == level)
@@ -125,7 +135,15 @@ public class Creature
 	public void play(Battle battle, ref Creature caster, ref Creature target){
 		Spell spell = this.spellList[0];
 		spell.owner = this;
-		DungeonController.instance.battle.castSpell(spell);
+		battle.castSpell(spell);
+		/*Spell poi = new Poison();
+		poi.owner = this;
+		this.spellList.Add(poi);
+		if(brain==0){
+			DungeonController.instance.battle.castSpell(poi);
+			brain = 1;
+		}else
+			battle.castSpell(spell);*/
 		Debug.Log("oy oy oy");
 	}
 	

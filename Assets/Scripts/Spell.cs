@@ -61,18 +61,18 @@ public class Spell {
 			return false;
 		Spell temp = new Spell();
 		temp = this.copy();
-		if(temp.isOneTick == false)
+		//This means if the spell is not a psudo spell
+		if(temp.isOneTick == false){
+			if(temp.damage > 0)
+				temp.damage += caster.spellPower - target.armor;
 			caster.react(temp,"self",ref combatTextExtra);
-		caster.decreaseMana(mana);
+		}
+		caster.decreaseMana(temp.mana);
 		bool result = target.react(temp,"enemy",ref combatTextExtra);
 		if(result)
 			return true;
 
-		int currentDamage;
-		if(temp.isOneTick == true)
-			currentDamage = temp.damage;
-		else
-			currentDamage = temp.damage + caster.spellPower - target.armor;
+		int currentDamage = temp.damage;
 		if(currentDamage < 0)
 			currentDamage = 0;
 
@@ -89,6 +89,10 @@ public class Spell {
 	public virtual void update(){
 		if(this.currentCooldDown > 0)
 			this.currentCooldDown--;
+	}
+
+	public virtual void resetCooldown(){
+		this.currentCooldDown = 0;
 	}
 
 	public virtual int applyCritical(Creature caster, int currentDamage) {
@@ -110,8 +114,8 @@ public class Spell {
 	
 	public virtual void turnEffect(Battle battle, ref Creature caster, ref Creature target){
 		if(this.damageOverTime > 0){
-			float currentDamage = (float)(damageOverTime*turn - target.armor + caster.spellPower) / turn;
-			Spell temp = new Spell(this.name,(int)currentDamage,true);
+			int currentDamage = damageOverTime;
+			Spell temp = new Spell(this.name,currentDamage,true);
 			temp.cast(battle, caster, target);
 			return;
 		}

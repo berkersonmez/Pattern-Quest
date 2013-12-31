@@ -23,6 +23,8 @@ public class Battle {
 	public Battle(Player player, Creature creature){
 		this.player = player;
 		this.creature = creature;
+		player.resetCooldowns();
+		creature.resetCooldowns();
 		creature.powers.Add(new AbsorbDamage());
 		turn = 0;
 		whoseTurn = (int)Turn.PLAYER;
@@ -49,7 +51,14 @@ public class Battle {
 		if (state != (int)State.CAST_PHASE) return;
 		
 		castingSpell = spell;
+		state = (int)State.SPELL_ANIM;
+	}
 
+	public void castDrawedSpell(Spell spell){
+		if (state != (int)State.CAST_PHASE) return;
+		if (whoseTurn == (int)Turn.CREATURE) return;
+		
+		castingSpell = spell;
 		state = (int)State.SPELL_ANIM;
 	}
 
@@ -132,6 +141,10 @@ public class Battle {
 		
 		switch (state) {
 		case (int)State.ACTIVE_SPELL_EFFECT:
+			if (isAnyoneDead()) {
+				state = (int)State.END;
+				return;
+			}
 			if (whoseTurn == (int)Turn.PLAYER) {
 				if (player.activateActiveSpell(this, creature, ref activeSpellsOnPlayer)) {
 					GameObject.Find("Avatar Creature").GetComponent<Avatar>().updateActiveSpellVisuals();
@@ -139,7 +152,7 @@ public class Battle {
 					state = (int)State.CAST_PHASE;
 					delayUpdate(0.5f);
 				} else {
-					delayUpdate(.7f);
+					delayUpdate(1.4f);
 				}
 			} else {
 				if (creature.activateActiveSpell(this, player, ref activeSpellsOnCreature)) {
@@ -148,7 +161,7 @@ public class Battle {
 					state = (int)State.CAST_PHASE;
 					delayUpdate(0.5f);
 				} else {
-					delayUpdate(.7f);
+					delayUpdate(1.4f);
 				}
 			}
 			break;
@@ -164,6 +177,10 @@ public class Battle {
 		case (int)State.SPELL_EFFECT:
 			// TODO: Combo logic here?
 			castComboSpells();
+			if (isAnyoneDead()) {
+				state = (int)State.END;
+				return;
+			}
 			castedSpells.Clear();
 
 			state = (int)State.ACTIVE_SPELL_EFFECT;

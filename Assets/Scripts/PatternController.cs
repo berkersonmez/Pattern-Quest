@@ -257,7 +257,7 @@ public class PatternController : MonoBehaviour {
 		//Example values to test checkspell method
 		Spell spell = getCastedSpell(DungeonController.instance.player);
 		if(spell != null)
-			DungeonController.instance.battle.castSpell(spell);
+			DungeonController.instance.battle.castDrawedSpell(spell);
 	}
 	
 	public Spell getCastedSpell(Player player) {

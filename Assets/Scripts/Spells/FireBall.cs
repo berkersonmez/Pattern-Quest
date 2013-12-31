@@ -32,15 +32,16 @@ public class FireBall : Spell {
 			return false;
 		Spell temp = new Spell();
 		temp = this.copy();
+		temp.damage = temp.damage + caster.spellPower - target.armor;
 		caster.react(temp,"self",ref combatTextExtra);
 		bool result = target.react(temp,"enemy",ref combatTextExtra);
 		if(result)
 			return true;
 
-		int currentDamage = temp.damage + caster.spellPower - target.armor;
+		int currentDamage = temp.damage;
 		if(currentDamage < 0)
 			currentDamage = 0;
-		caster.decreaseMana(mana);
+		caster.decreaseMana(temp.mana);
 
 		currentDamage = applyCritical(caster, currentDamage);
 

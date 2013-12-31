@@ -38,12 +38,14 @@ public class NonEndingFire : Spell {
 			return false;
 		Spell temp = new Spell();
 		temp = this.copy();
+		temp.damage += (caster.spellPower - target.armor)/2;
+		temp.damageOverTime += (int)((float)(caster.spellPower - target.armor) / turn);
 		caster.react(temp,"self",ref combatTextExtra);
 		bool result = target.react(temp,"enemy",ref combatTextExtra);
 		if(result)
 			return true;
 
-		int currentDamage = temp.damage + caster.spellPower - target.armor;
+		int currentDamage = temp.damage;
 		if(currentDamage < 0)
 			currentDamage = 0;
 		caster.decreaseMana(temp.mana);

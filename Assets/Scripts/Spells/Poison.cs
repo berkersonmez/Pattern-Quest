@@ -30,10 +30,19 @@ public class Poison : Spell {
 	}
 		
 	public override bool cast(Battle battle, Creature caster, Creature target){
+		string combatTextExtra = "";
 		if(caster.currentMana - mana < 0)
 			return false;
+
+		Spell temp = new Spell();
+		temp = this.copy();
+		temp.damageOverTime += (int)((float)(caster.spellPower - target.armor) / turn);
+		caster.react(temp,"self",ref combatTextExtra);
 		caster.decreaseMana(mana);
-		battle.addActiveSpell(this, target);
+		bool result = target.react(temp,"enemy",ref combatTextExtra);
+		if(result == true)
+			return true;
+		battle.addActiveSpell(temp, target);
 		return true;
 	}
 

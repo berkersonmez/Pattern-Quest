@@ -5,7 +5,7 @@ public class BasicAttack : Spell {
 	
 	public BasicAttack(){
 		name = "BasicAttack";
-		damage = 6;
+		damage = 3;
 		mana = 0;
 		type = "fire";
 		level = 1;
@@ -15,12 +15,23 @@ public class BasicAttack : Spell {
 	
 	public override bool cast(Battle battle, Creature caster, Creature target){
 		string combatTextExtra = "";
-		int currentDamage = 3 + caster.spellPower - target.armor;
+		if(caster.currentMana - mana < 0)
+			return false;
+		Spell temp = new Spell();
+		temp = this.copy();
+		temp.damage += caster.spellPower/2 - target.armor;
+		caster.react(temp,"self",ref combatTextExtra);
+		bool result = target.react(temp,"enemy",ref combatTextExtra);
+		if(result)
+			return true;
+		
+		int currentDamage = temp.damage;
 		if(currentDamage < 0)
 			currentDamage = 0;
-
+		caster.decreaseMana(temp.mana);
+		
 		currentDamage = applyCritical(caster, currentDamage);
-
+		
 		target.decreaseHp(caster, currentDamage);
 		// Combat text
 		int placement = target.isPlayer ? (int)CombatTextController.Placement.PLAYER : (int)CombatTextController.Placement.CREATURE;

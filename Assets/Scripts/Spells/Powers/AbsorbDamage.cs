@@ -6,9 +6,9 @@ public class AbsorbDamage : Power {
 	
 	public AbsorbDamage(){
 		name = "AbsorbDamage";
-		totalAmount = 5;
-		currentAmount = 5;
-		percent = 0;
+		totalAmount = 0;
+		currentAmount = 0;
+		percent = 50;
 		effectOn = "enemy";
 		totalCoolDown = 1;
 		mana = 0;
@@ -41,8 +41,10 @@ public class AbsorbDamage : Power {
 		}
 		if(percent > 0) {
 			int tempDamage = castedSpell.damage;
-			castedSpell.damage = castedSpell.damage * (percent / 100);
+			castedSpell.damage = (int) ((float)(castedSpell.damage) * (float)percent / 100);
 			combatTextExtra += "(" + (tempDamage - castedSpell.damage) + ")";
+			this.active = false;
+			this.currentCooldDown = this.totalCoolDown;
 		}
 		return false;
 	}

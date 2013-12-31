@@ -29,6 +29,12 @@ public class Power : Spell {
 		this.percent = percent;
 	}
 
+	public override void resetCooldown(){
+		this.currentCooldDown = 0;
+		this.active = true;
+		this.remainingTurn = this.totalTurn;
+	}
+
 	public override void update(){
 		if(active == false){
 			if(currentCooldDown > 0)

@@ -7,7 +7,7 @@ public class SpellReflect : Power {
 	public SpellReflect(){
 		name = "SpellReflect";
 		effectOn = "enemy";
-		totalCoolDown = 5;
+		totalCoolDown = -1;
 		mana = 0;
 		type = "fire";
 		active = true;
@@ -19,7 +19,10 @@ public class SpellReflect : Power {
 			return false;
 		if(castedSpell.isOneTick == false){
 			this.active = false;
+			//We are doing this to get castedSpell's not edited version
+			castedSpell = castedSpell.owner.getSpell(castedSpell.name,castedSpell.level);
 			castedSpell.cast(DungeonController.instance.battle, castedSpell.owner, castedSpell.owner);
+			this.currentCooldDown = this.totalCoolDown;
 			//TODO: PRINT "REFLECTED" ON TARGET
 			return true;
 		}
@@ -33,7 +36,7 @@ public class SpellReflect : Power {
 		tooltipText = "^C7ED8E6ff" + name + "\n";
 		tooltipText += "^CffffffffType: " + type + "\n\n";
 		
-		tooltipText += "Absorbs " + totalAmount + " damage.\n";
+		tooltipText += "Reflects next spell cast on you.\n";
 	}
 	
 }
