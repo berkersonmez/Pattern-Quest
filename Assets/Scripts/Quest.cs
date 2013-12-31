@@ -210,4 +210,8 @@ public class Quest : MonoBehaviour {
 		if (rewardGold != 0) tooltipText += "-" + rewardGold + " gold\n";
 		if (rewardXP != 0) tooltipText += "-" + rewardXP + " XP\n";
 	}
+
+	public string getTooltipText() {
+		return tooltipText;
+	}
 }

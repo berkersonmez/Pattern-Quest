@@ -46,6 +46,7 @@ public class QuestButton : MonoBehaviour {
 			} else {
 				quest.accept();
 			}
+			QuestListController.instance.refreshQuestList();
 			Destroy(questParchement);
 		} else if (transform.name == "BackButton") {
 			Destroy(questParchement);
