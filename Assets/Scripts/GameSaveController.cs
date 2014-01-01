@@ -74,9 +74,6 @@ public class GameSaveController : MonoBehaviour {
 		Power power = new IncreaseDamage();
 		power.owner = player;
 		player.powers.Add(power);
-		power = new SpellReflect();
-		power.owner = player;
-		player.powers.Add(power);
 		player.level = 1;
 		saveGame();
 	}

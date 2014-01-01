@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dungeons>
+
 	<dungeon no="1">
 	    <creatures>
 			<creature>ufak</creature>
@@ -12,4 +13,12 @@
 			<creature>ufak</creature>
 		</creatures>
 	</dungeon>
+	<dungeon no="1">
+	    <creatures>
+			<creature>rat</creature>
+			<creature>rat</creature>
+			<creature>rat</creature>
+		</creatures>
+	</dungeon>
+	
 </dungeons>

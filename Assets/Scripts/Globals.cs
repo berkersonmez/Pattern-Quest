@@ -52,6 +52,20 @@ public class Globals : MonoBehaviour {
 		return spells;
 	}
 
+	public Spell createSpell(string className, string allParameters, Creature owner){
+		if(className == "Basic Attack"){
+			return null;
+		}
+		Debug.Log("ALL PARAMETERS: " + allParameters);
+		Debug.Log("CLASS NAME: " + className);
+		System.Type spellObject = System.Type.GetType(className,true);
+		Spell spell = (Spell)(System.Activator.CreateInstance(spellObject));
+		spell.owner = owner;
+		if(allParameters != null)
+			spell.setValues(allParameters);
+		return spell;
+	}
+
 	public List<Power> getPowers(List<string> spellNamesList, Creature owner){
 		List<Power> spells = new List<Power>();
 		foreach(string name in spellNamesList){

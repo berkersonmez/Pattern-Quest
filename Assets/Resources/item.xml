@@ -4,7 +4,7 @@
 		<name>Red Stone 1</name>
 	    <rarity>common</rarity>
 		<type>red</type>
-	    <damage>4,6</damage>
+	    <damage>1,2</damage>
 		<level>1</level>
 		<gold>3</gold>
 		<spriteName>avatar_item_0</spriteName>
@@ -13,7 +13,7 @@
 		<name>Blue Stone 1</name>
 	    <rarity>common</rarity>
 		<type>blue</type>
-	    <mana>1</mana>
+	    <mana>2</mana>
 		<manaRegen>1</manaRegen>
 		<level>1</level>
 		<gold>3</gold>
@@ -32,8 +32,8 @@
 	<item dropChance="10">
 		<name>sopa</name>
 		<type>red</type>
-	    <damage>7,9</damage>
-		<armor>2,3</armor>
+	    <damage>3,4</damage>
+		<armor>1,2</armor>
 	    <rarity>uncommon</rarity>
 		<hp>5</hp>
 	    <mana>5</mana>

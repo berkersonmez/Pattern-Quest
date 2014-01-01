@@ -33,6 +33,7 @@ public class XmlParse : MonoBehaviour {
 			if(creatureContent.Name == "damage"){
 				obj.damage = getValue(creatureContent.InnerText);
 				Spell spell = new Spell(obj.damage);
+				spell.owner = obj;
 				obj.spellList.Add(spell);
 			}
 			if(creatureContent.Name == "hp")
@@ -61,17 +62,18 @@ public class XmlParse : MonoBehaviour {
 			if(creatureContent.Name == "spellList"){
 				List<string> spellNamesList = new List<string>();
 				XmlNodeList xmlSpells = creatureContent.ChildNodes;
-				foreach (XmlNode xmlSpell in xmlSpells) {	
-					spellNamesList.Add(xmlSpell.InnerText);
-					List<Spell> globalSpells = Globals.instance.getSpells(spellNamesList, obj);
-					if ( globalSpells != null) {
-						foreach(Spell spell in globalSpells) {
-							obj.spellList.Add(spell);
-						}
+				foreach (XmlNode xmlSpell in xmlSpells) {
+					Debug.Log("GIRDI");
+					string className="";
+					string allParameters="";
+					className = getConstructor(xmlSpell.InnerText, ref allParameters);
+					spellNamesList.Add(className);
+					Spell newSpell = Globals.instance.createSpell(className, allParameters, obj);
+					obj.spellList.Add(newSpell);
+					Debug.Log(newSpell.name);
 					}
 				}
 	 	 	}
-		}
 		obj.setValues();
 		return obj;
 	}
@@ -191,7 +193,22 @@ public class XmlParse : MonoBehaviour {
 			return val;	
 		}
 	}
-	
+
+	public string getConstructor(string str, ref string allParameters){
+		string[] values = str.Split(':');
+		string className = values[0];
+		if(values.Length == 1){
+			allParameters = null;
+			Debug.Log("NO PARAMETERS: " + allParameters);
+			return className;
+		}
+		else{
+			allParameters = values[1];
+
+			return className;
+		}
+	}
+
 	public string getType(int typeCode){
 		switch(typeCode){
 		case 1:

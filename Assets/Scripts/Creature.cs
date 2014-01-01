@@ -134,16 +134,14 @@ public class Creature
 	
 	public void play(Battle battle, ref Creature caster, ref Creature target){
 		Spell spell = this.spellList[0];
-		spell.owner = this;
-		battle.castSpell(spell);
-		/*Spell poi = new Poison();
-		poi.owner = this;
-		this.spellList.Add(poi);
+		//battle.castSpell(spell);
 		if(brain==0){
-			DungeonController.instance.battle.castSpell(poi);
-			brain = 1;
-		}else
-			battle.castSpell(spell);*/
+			DungeonController.instance.battle.castSpell(this.spellList[1]);
+			brain = 5;
+		}else{
+			battle.castSpell(spell);
+			brain--;
+		}
 		Debug.Log("oy oy oy");
 	}
 	

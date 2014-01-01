@@ -1,22 +1,58 @@
 <creatures>	
 	<creature>
-		<name>ufak</name>
-		<damage>3</damage>
-		<hp>20</hp>
-		<mana>20</mana>
-		<manaRegen>2</manaRegen>
-		<spellPower>3</spellPower>
+		<name>Rat</name>
+		<damage>2</damage>
+		<hp>12</hp>
+		<mana>10</mana>
+		<manaRegen>1</manaRegen>
+		<spellPower>1</spellPower>
 		<level>1</level>
 		<type>insect</type>
 		<spriteName>avatar_creature_0</spriteName>
 		<gold>2</gold>
 		<items>
-			<item dropChance="35">Red Stone 1</item>
-			<item dropChance="15">sopa</item>
+			<item dropChance="8">Green Stone 1</item>
+			<item dropChance="8">Blue Stone 1</item>
+			<item dropChance="5">sopa</item>
+		</items>
+	</creature>
+	
+	<creature>
+		<name>Rat Master</name>
+		<damage>3</damage>
+		<hp>12</hp>
+		<mana>10</mana>
+		<manaRegen>1</manaRegen>
+		<spellPower>1</spellPower>
+		<level>1</level>
+		<type>insect</type>
+		<spriteName>avatar_creature_0</spriteName>
+		<gold>2</gold>
+		<items>
+			<item dropChance="8">Green Stone 1</item>
+			<item dropChance="8">Blue Stone 1</item>
+			<item dropChance="5">sopa</item>
 		</items>
 		<spellList>
-			<spell>FireBall</spell>
+			<spell>Poison:name=Rat Poison,dot=4,turn=5</spell>
 		</spellList>
+	</creature>
+	
+	<creature>
+		<name>ufak</name>
+		<damage>3</damage>
+		<hp>20</hp>
+		<mana>20</mana>
+		<manaRegen>2</manaRegen>
+		<spellPower>2</spellPower>
+		<level>1</level>
+		<type>insect</type>
+		<spriteName>avatar_creature_0</spriteName>
+		<gold>2</gold>
+		<items>
+			<item dropChance="15">Red Stone 1</item>
+			<item dropChance="5">sopa</item>
+		</items>
 	</creature>
 	<creature>
 		<name>kocaman</name>
@@ -30,11 +66,11 @@
 		<spriteName>avatar_creature_0</spriteName>
 		<gold>5</gold>
 		<items>
-			<item dropChance="55">Blue Stone 1</item>
-			<item dropChance="25">sopa</item>
+			<item dropChance="20">Blue Stone 1</item>
+			<item dropChance="15">sopa</item>
 		</items>
 		<spellList>
-			<spell>FireBall</spell>
+			<spell>FireBall:name=Fire Ball,damage=4</spell>
 		</spellList>
 	</creature>
 </creatures>

@@ -17,6 +17,21 @@ public class Poison : Spell {
 		shape.Add(6);
 		shape.Add(8);
 	}
+
+	public Poison(string name, int damageOverTime, int turn){
+		this.name = name;
+		damage = 0;
+		this.damageOverTime = damageOverTime;
+		this.turn = turn;
+		mana = 5;
+		type = "nature";
+		level = 1;
+		isOverTime = true;
+		spriteName = "avatar_spell_2";
+		shape.Add(8);
+		shape.Add(6);
+		shape.Add(8);
+	}
 		
 	public override bool increaseLevel(){
 		if(level == maxLevel)

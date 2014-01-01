@@ -48,11 +48,56 @@ public class Spell {
 		this.mana = 0;
 	}
 
+	public Spell(string name, int damageOverTime, int turn){
+		this.name = name;
+		this.damageOverTime = damageOverTime;
+		this.turn = turn;
+		this.isOverTime = true;
+	}
+
 	public Spell(string name, int damage, bool isOneTick){
 		this.name = name;
 		this.damage = damage;
 		this.isOneTick = isOneTick;
 		this.mana = 0;
+	}
+
+	public Spell(string allParameters){
+		string[] values = allParameters.Split(',');
+		for(int i=0; i<values.Length; i++){
+			string[] part = values[i].Split(':');
+			switch(part[0]){
+			case "name":
+				this.name = part[1];
+				break;
+			case "damage":
+				this.damage = int.Parse(part[1]);
+				break;
+			case "heal":
+				this.heal = int.Parse(part[1]);
+				break;
+			case "dot":
+				this.damageOverTime = int.Parse(part[1]);
+				this.isOverTime = true;
+				break;
+			case "hot":
+				this.healOverTime = int.Parse(part[1]);
+				this.isOverTime = true;
+				break;
+			case "turn":
+				this.turn = int.Parse(part[1]);
+				break;
+			case "mana":
+				this.mana = int.Parse(part[1]);
+				break;
+			case "cooldown":
+				this.totalCoolDown = int.Parse(part[1]);
+				break;
+			case "level":
+				this.level = int.Parse(part[1]);
+				break;
+			}
+		}
 	}
 
 	public virtual bool cast(Battle battle, Creature caster, Creature target){
@@ -65,23 +110,31 @@ public class Spell {
 		if(temp.isOneTick == false){
 			if(temp.damage > 0)
 				temp.damage += caster.spellPower - target.armor;
+			if(temp.damageOverTime > 0)
+				temp.damageOverTime += (int)((float)(caster.spellPower - target.armor) / turn);
+			if(temp.healOverTime > 0)
+				temp.healOverTime += (int)((float)(caster.spellPower) / turn);
 			caster.react(temp,"self",ref combatTextExtra);
 		}
 		caster.decreaseMana(temp.mana);
 		bool result = target.react(temp,"enemy",ref combatTextExtra);
 		if(result)
 			return true;
+		
+		if(this.damageOverTime > 0)
+			battle.addActiveSpell(temp, target);
+		else{
+			int currentDamage = temp.damage;
+			if(currentDamage < 0)
+				currentDamage = 0;
 
-		int currentDamage = temp.damage;
-		if(currentDamage < 0)
-			currentDamage = 0;
+			currentDamage = applyCritical(caster, currentDamage);
 
-		currentDamage = applyCritical(caster, currentDamage);
-
-		target.decreaseHp(caster, currentDamage);
+			target.decreaseHp(caster, currentDamage);
 		// Combat text
-		int placement = target.isPlayer ? (int)CombatTextController.Placement.PLAYER : (int)CombatTextController.Placement.CREATURE;
-		CombatTextController.instance.deployText(name, currentDamage.ToString() + combatTextExtra, placement, Color.red);
+			int placement = target.isPlayer ? (int)CombatTextController.Placement.PLAYER : (int)CombatTextController.Placement.CREATURE;
+			CombatTextController.instance.deployText(name, currentDamage.ToString() + combatTextExtra, placement, Color.red);
+		}
 		this.currentCooldDown = this.totalCoolDown;
 		return true;		
 	}
@@ -136,6 +189,44 @@ public class Spell {
 		if (mana != 0) tooltipText += "Mana Cost: " + mana + "\n";
 		if (damage != 0) tooltipText += "Damage: " + damage + "\n";
 		if (heal != 0) tooltipText += "Heal: " + heal + "\n";
+	}
+
+	public virtual void setValues(string allParameters){
+		string[] values = allParameters.Split(',');
+		for(int i=0; i<values.Length; i++){
+			string[] part = values[i].Split('=');
+			switch(part[0]){
+			case "name":
+				this.name = part[1];
+				break;
+			case "damage":
+				this.damage = int.Parse(part[1]);
+				break;
+			case "heal":
+				this.heal = int.Parse(part[1]);
+				break;
+			case "dot":
+				this.damageOverTime = int.Parse(part[1]);
+				this.isOverTime = true;
+				break;
+			case "hot":
+				this.healOverTime = int.Parse(part[1]);
+				this.isOverTime = true;
+				break;
+			case "turn":
+				this.turn = int.Parse(part[1]);
+				break;
+			case "mana":
+				this.mana = int.Parse(part[1]);
+				break;
+			case "cooldown":
+				this.totalCoolDown = int.Parse(part[1]);
+				break;
+			case "level":
+				this.level = int.Parse(part[1]);
+				break;
+			}
+		}
 	}
 
 	public Spell copy(){
