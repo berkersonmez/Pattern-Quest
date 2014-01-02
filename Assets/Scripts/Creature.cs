@@ -135,7 +135,7 @@ public class Creature
 	public void play(Battle battle, ref Creature caster, ref Creature target){
 		Spell spell = this.spellList[0];
 		//battle.castSpell(spell);
-		if(brain==0){
+		if(brain==0 && this.spellList.Count > 1){
 			DungeonController.instance.battle.castSpell(this.spellList[1]);
 			brain = 5;
 		}else{

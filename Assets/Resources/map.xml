@@ -13,12 +13,19 @@
 			<creature>ufak</creature>
 		</creatures>
 	</dungeon>
-	<dungeon no="1">
+	<dungeon no="3">
 	    <creatures>
-			<creature>rat</creature>
-			<creature>rat</creature>
-			<creature>rat</creature>
+			<creature>Rat</creature>
+			<creature>Rat</creature>
 		</creatures>
 	</dungeon>
-	
+	<dungeon no="4">
+	    <creatures>
+			<creature>Rat</creature>
+			<creature>Rat</creature>
+			<creature>Rat</creature>
+			<creature>Rat</creature>
+			<creature>Rat Master</creature>
+		</creatures>
+	</dungeon>
 </dungeons>

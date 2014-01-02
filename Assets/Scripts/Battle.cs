@@ -25,7 +25,6 @@ public class Battle {
 		this.creature = creature;
 		player.resetCooldowns();
 		creature.resetCooldowns();
-		creature.powers.Add(new AbsorbDamage());
 		turn = 0;
 		whoseTurn = (int)Turn.PLAYER;
 		DungeonController.instance.switchTurn(true);

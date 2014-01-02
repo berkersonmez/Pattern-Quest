@@ -50,9 +50,6 @@ public class GameSaveController : MonoBehaviour {
 		Spell spell = new FireBall();
 		spell.owner = player;
 		player.spellList.Add(spell);
-		spell = new Poison();
-		spell.owner = player;
-		player.spellList.Add(spell);
 		spell = new Heal();
 		spell.owner = player;
 		player.spellList.Add(spell);

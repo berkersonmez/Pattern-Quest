@@ -20,7 +20,7 @@
 	<creature>
 		<name>Rat Master</name>
 		<damage>3</damage>
-		<hp>12</hp>
+		<hp>30</hp>
 		<mana>10</mana>
 		<manaRegen>1</manaRegen>
 		<spellPower>1</spellPower>
