@@ -151,6 +151,7 @@ public class Spell {
 	public virtual int applyCritical(Creature caster, int currentDamage) {
 		int randomValue = Random.Range(1,100);
 		if(randomValue <= caster.criticalStrikeChance){
+			DungeonCamera.instance.shakeCamera(10);
 			currentDamage = currentDamage * 2;
 		}
 		return currentDamage;
