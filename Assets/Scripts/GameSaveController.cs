@@ -134,4 +134,8 @@ public class GameSaveController : MonoBehaviour {
 	    T deserializedObject = (T)bf.Deserialize(dataStream);
 	    return deserializedObject;
 	}
+
+	public int xpRequiredForLevel(int level) {
+		return (int) (100 * Mathf.Pow(1.5f, level - 2));
+	}
 }

@@ -76,6 +76,7 @@ public class Quest : MonoBehaviour {
 		SpellListController.instance.refreshSpellList();
 		SpellListController.instance.refreshComboList();
 		SpellListController.instance.refreshPowerList();
+		TownController.instance.checkLevelUp();
 		TownController.instance.updateTexts();
 	}
 

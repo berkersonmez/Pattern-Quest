@@ -64,7 +64,7 @@ public class DungeonController : MonoBehaviour {
 			LootWindow.instance.prepare();
 			allLootItems.AddRange(currentCreature.droppedItems);
 			allLootGold += currentCreature.gold;
-			allLootXP += currentCreature.level * 5; // TODO: Calculate XP
+			allLootXP += currentCreature.level * 21; // TODO: Calculate XP
 			player.slainCreature(currentCreature.name); // for quests (may count kills in this)
 			Invoke("switchWinWindow", .5f);
 		} else {
@@ -97,7 +97,7 @@ public class DungeonController : MonoBehaviour {
 			// END BATTLE SUCCESSFULLY
 			player.inventory.AddRange(allLootItems);
 			player.gold += allLootGold;
-			player.xp += allLootXP; // TODO: Level up here if necessary
+			player.xp += allLootXP;
 			GameSaveController.instance.player = player;
 			GameSaveController.instance.saveGame();
 			Application.LoadLevel("main");

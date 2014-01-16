@@ -28,42 +28,62 @@ public class TownMenu : MonoBehaviour {
 	
 	public void menuWindow() {
 		cameraTarget = menuPosition;
-		moveCamera = true;
+		System.Action action = new System.Action(windowChange);
+		CameraFade.StartAlphaFade( Color.black, false, .5f, 0, action );
+		//moveCamera = true;
 	}
 	
 	public void mapWindow() {
 		cameraTarget = mapPosition;
-		moveCamera = true;
+		System.Action action = new System.Action(windowChange);
+		CameraFade.StartAlphaFade( Color.black, false, .5f, 0, action );
+		//moveCamera = true;
 	}
 
 	public void inventoryWindow() {
 		cameraTarget = inventoryPosition;
-		moveCamera = true;
+		System.Action action = new System.Action(windowChange);
+		CameraFade.StartAlphaFade( Color.black, false, .5f, 0, action );
+		//moveCamera = true;
 	}
 
 	public void spellsWindow() {
 		cameraTarget = spellsPosition;
-		moveCamera = true;
+		System.Action action = new System.Action(windowChange);
+		CameraFade.StartAlphaFade( Color.black, false, .5f, 0, action );
+		//moveCamera = true;
 	}
 
 	public void drawPatternWindow() {
 		cameraTarget = drawPatternPosition;
-		moveCamera = true;
+		System.Action action = new System.Action(windowChange);
+		CameraFade.StartAlphaFade( Color.black, false, .5f, 0, action );
+		//moveCamera = true;
 	}
 
 	public void statsWindow() {
 		cameraTarget = statsPosition;
-		moveCamera = true;
+		System.Action action = new System.Action(windowChange);
+		CameraFade.StartAlphaFade( Color.black, false, .5f, 0, action );
+		//moveCamera = true;
 	}
 
 	public void powersWindow() {
 		cameraTarget = powersPosition;
-		moveCamera = true;
+		System.Action action = new System.Action(windowChange);
+		CameraFade.StartAlphaFade( Color.black, false, .5f, 0, action );
+		//moveCamera = true;
 	}
 
 	public void questsWindow() {
 		cameraTarget = questsPosition;
-		moveCamera = true;
+		System.Action action = new System.Action(windowChange);
+		CameraFade.StartAlphaFade( Color.black, false, .5f, 0, action );
+		//moveCamera = true;
+	}
+
+	void windowChange() {
+		transform.position = cameraTarget;
 	}
 	
 	void Update() {
