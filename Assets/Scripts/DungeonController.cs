@@ -64,7 +64,7 @@ public class DungeonController : MonoBehaviour {
 			LootWindow.instance.prepare();
 			allLootItems.AddRange(currentCreature.droppedItems);
 			allLootGold += currentCreature.gold;
-			allLootXP += currentCreature.level * 21; // TODO: Calculate XP
+			allLootXP += currentCreature.level * Globals.instance.xpPerCreatureLevel; // TODO: Calculate XP
 			player.slainCreature(currentCreature.name); // for quests (may count kills in this)
 			Invoke("switchWinWindow", .5f);
 		} else {

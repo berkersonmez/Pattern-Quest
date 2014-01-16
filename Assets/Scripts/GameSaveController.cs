@@ -136,6 +136,6 @@ public class GameSaveController : MonoBehaviour {
 	}
 
 	public int xpRequiredForLevel(int level) {
-		return (int) (100 * Mathf.Pow(1.5f, level - 2));
+		return (int) (Globals.instance.xpStartingReq * Mathf.Pow(Globals.instance.xpReqMultiplier, level - 2));
 	}
 }

@@ -92,6 +92,12 @@ public class LevelUpController : MonoBehaviour {
 		player.criticalStrikeChance += incrementCritChance * b_CritChance.spGiven;
 		StatsController.instance.updateStats();
 		GameSaveController.instance.saveGame();
+		b_Health.spGiven = 0;
+		b_Mana.spGiven = 0;
+		b_HpRegen.spGiven = 0;
+		b_ManaRegen.spGiven = 0;
+		b_Damage.spGiven = 0;
+		b_CritChance.spGiven = 0;
 		Destroy(gameObject);
 	}
 

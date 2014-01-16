@@ -7,6 +7,8 @@ public class Globals : MonoBehaviour {
 
 	public int statPointsPerLevel = 3;
 	public int xpPerCreatureLevel = 10;
+	public int xpStartingReq = 100;
+	public float xpReqMultiplier = 1.5f;
 	
 	void Awake() {
 		instance = this;
