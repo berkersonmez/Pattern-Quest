@@ -5,6 +5,8 @@ public class TownController : MonoBehaviour {
 
 	public static TownController instance;
 
+	public GameObject levelUpWindowPrefab;
+
 	private tk2dTextMesh textGold;
 	private tk2dTextMesh textLevel;
 	private tk2dTextMesh textXP;
@@ -23,12 +25,19 @@ public class TownController : MonoBehaviour {
 	public void checkLevelUp() {
 		Player player = GameSaveController.instance.getPlayer();
 		int xpReq = GameSaveController.instance.xpRequiredForLevel(player.level + 1);
+		int levelUpCount = 0;
 		while (player.xp >= xpReq) {
 			player.xp -= xpReq;
 			player.level++;
 			xpReq = GameSaveController.instance.xpRequiredForLevel(player.level + 1);
-			Debug.Log("LEVEL UP!");
-			// TODO: Level up things here!
+			levelUpCount++;
+		}
+		if (levelUpCount > 0) {
+			GameObject levelUpWindow = Instantiate(levelUpWindowPrefab) as GameObject;
+			levelUpWindow.transform.position = new Vector3(Camera.main.transform.position.x,
+			                                               Camera.main.transform.position.y,
+			                                               -7f);
+			levelUpWindow.GetComponent<LevelUpController>().initialize(levelUpCount);
 		}
 	}
 

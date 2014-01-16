@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 public class Globals : MonoBehaviour {
 	public static Globals instance;
+
+	public int statPointsPerLevel = 3;
+	public int xpPerCreatureLevel = 10;
 	
 	void Awake() {
 		instance = this;
