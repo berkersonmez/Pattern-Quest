@@ -16,6 +16,7 @@ public class TownMenu : MonoBehaviour {
 	public Vector3 statsPosition = new Vector3(-48, 0, -10);
 	public Vector3 powersPosition = new Vector3(24, 40, -10);
 	public Vector3 questsPosition = new Vector3(24, -40, -10);
+	public Vector3 characterMenuPosition = new Vector3(-24, -40, -10);
 	
 	private Vector3 cameraTarget;
 	private bool moveCamera = false;
@@ -28,58 +29,61 @@ public class TownMenu : MonoBehaviour {
 	
 	public void menuWindow() {
 		cameraTarget = menuPosition;
-		System.Action action = new System.Action(windowChange);
-		CameraFade.StartAlphaFade( Color.black, false, .5f, 0, action );
+		fadeOut();
 		//moveCamera = true;
 	}
 	
 	public void mapWindow() {
 		cameraTarget = mapPosition;
-		System.Action action = new System.Action(windowChange);
-		CameraFade.StartAlphaFade( Color.black, false, .5f, 0, action );
+		fadeOut();
 		//moveCamera = true;
 	}
 
 	public void inventoryWindow() {
 		cameraTarget = inventoryPosition;
-		System.Action action = new System.Action(windowChange);
-		CameraFade.StartAlphaFade( Color.black, false, .5f, 0, action );
+		fadeOut();
 		//moveCamera = true;
 	}
 
 	public void spellsWindow() {
 		cameraTarget = spellsPosition;
-		System.Action action = new System.Action(windowChange);
-		CameraFade.StartAlphaFade( Color.black, false, .5f, 0, action );
+		fadeOut();
 		//moveCamera = true;
 	}
 
 	public void drawPatternWindow() {
 		cameraTarget = drawPatternPosition;
-		System.Action action = new System.Action(windowChange);
-		CameraFade.StartAlphaFade( Color.black, false, .5f, 0, action );
+		fadeOut();
 		//moveCamera = true;
 	}
 
 	public void statsWindow() {
 		cameraTarget = statsPosition;
-		System.Action action = new System.Action(windowChange);
-		CameraFade.StartAlphaFade( Color.black, false, .5f, 0, action );
+		fadeOut();
 		//moveCamera = true;
 	}
 
 	public void powersWindow() {
 		cameraTarget = powersPosition;
-		System.Action action = new System.Action(windowChange);
-		CameraFade.StartAlphaFade( Color.black, false, .5f, 0, action );
+		fadeOut();
 		//moveCamera = true;
 	}
 
 	public void questsWindow() {
 		cameraTarget = questsPosition;
+		fadeOut();
+		//moveCamera = true;
+	}
+
+	public void characterMenuWindow() {
+		cameraTarget = characterMenuPosition;
+		fadeOut();
+		//moveCamera = true;
+	}
+
+	void fadeOut() {
 		System.Action action = new System.Action(windowChange);
 		CameraFade.StartAlphaFade( Color.black, false, .5f, 0, action );
-		//moveCamera = true;
 	}
 
 	void windowChange() {

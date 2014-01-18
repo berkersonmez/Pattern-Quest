@@ -26,6 +26,7 @@ public class TownButton : MonoBehaviour {
 			TownMenu.instance.powersWindow();
 		else if (transform.name == "QuestsButton")
 			TownMenu.instance.questsWindow();
-			
+		else if (transform.name == "CharacterMenuButton")
+			TownMenu.instance.characterMenuWindow();
 	}
 }
