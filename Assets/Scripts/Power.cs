@@ -51,4 +51,45 @@ public class Power : Spell {
 		}
 	}
 
+	public override void change(string allParameters){
+		string[] values = allParameters.Split(',');
+		for(int i=0; i<values.Length; i++){
+			string[] part = values[i].Split('=');
+			switch(part[0]){
+			case "name":
+				this.name = part[1];
+				break;
+			case "damage":
+				this.damage += int.Parse(part[1]);
+				break;
+			case "heal":
+				this.heal += int.Parse(part[1]);
+				break;
+			case "dot":
+				this.damageOverTime += int.Parse(part[1]);
+				this.isOverTime = true;
+				break;
+			case "hot":
+				this.healOverTime += int.Parse(part[1]);
+				this.isOverTime = true;
+				break;
+			case "turn":
+				this.totalTurn += int.Parse(part[1]);
+				break;
+			case "mana":
+				this.mana += int.Parse(part[1]);
+				break;
+			case "cooldown":
+				this.totalCoolDown += int.Parse(part[1]);
+				break;
+			case "level":
+				this.level += int.Parse(part[1]);
+				break;
+			case "amount":
+				this.totalAmount += int.Parse(part[1]);
+				break;
+			}
+		}
+	}
+
 }

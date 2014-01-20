@@ -59,6 +59,9 @@ public class GameSaveController : MonoBehaviour {
 		spell = new BasicAttack();
 		spell.owner = player;
 		player.spellList.Add(spell);
+		spell = new SoulRipper();
+		spell.owner = player;
+		player.spellList.Add(spell);
 		spell = new Douball();
 		spell.owner = player;
 		player.comboSpells.Add(spell);
