@@ -30,11 +30,11 @@ public class StatsController : MonoBehaviour {
 		}
 		avatar.owner.restoreHealthMana();
 		avatar.updateHealthAndMana();
-		textDamage.text = "Damage: " + avatar.owner.damage;
-		textSpellDmg.text = "Spell Power: " + avatar.owner.spellPower;
-		textArmor.text = "Armor: " + avatar.owner.armor;
-		textHpRegen.text = "HP Regen: " + avatar.owner.hpRegen + "/turn";
-		textManaRegen.text = "Mana Regen: " + avatar.owner.manaRegen + "/turn";
+		textDamage.text = "Damage: " + avatar.owner.Damage;
+		textSpellDmg.text = "Spell Power: " + avatar.owner.SpellPower;
+		textArmor.text = "Armor: " + avatar.owner.Armor;
+		textHpRegen.text = "HP Regen: " + avatar.owner.HpRegen + "/turn";
+		textManaRegen.text = "Mana Regen: " + avatar.owner.ManaRegen + "/turn";
 		textCritChance.text = "Crit. Chance: " + avatar.owner.criticalStrikeChance + "%";
 		textDamage.Commit();
 		textSpellDmg.Commit();

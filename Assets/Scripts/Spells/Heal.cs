@@ -36,7 +36,7 @@ public class Heal : Spell {
 		string combatTextExtra = "";
 		if(caster.currentMana - mana < 0)
 			return false;
-		int currentHeal = heal + caster.spellPower;
+		int currentHeal = heal + caster.SpellPower;
 		caster.decreaseMana(mana);
 		caster.increaseHp(currentHeal);
 		// Combat text
@@ -49,7 +49,7 @@ public class Heal : Spell {
 		// Tooltip text for spell.
 		// Coloring: ^CRRGGBBAA*text*
 		Creature caster = owner;
-		int currentHeal = heal + caster.spellPower;
+		int currentHeal = heal + caster.SpellPower;
 
 		tooltipText = "^C7ED8E6ff" + name + "\n";
 		tooltipText += "^CffffffffType: " + type + "\n";

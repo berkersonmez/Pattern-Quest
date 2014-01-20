@@ -29,10 +29,28 @@ public class Creature
 	public List<Spell> comboSpells = new List<Spell>();
 	public List<Power> powers = new List<Power>();
 	Queue<ActiveSpell> nextTurnsActiveSpells = new Queue<ActiveSpell>();
-	
+
+	// Percentage value increases (0.1 = 10% increase)
+	public float damagePercent = 0;
+	public float hpPercent = 0;
+	public float manaPercent = 0;
+	public float manaRegenPercent = 0;
+	public int hpRegenPercent = 0;
+	public float spellPowerPercent = 0;
+	public float armorPercent = 0;
+
+	// Getters apply percentages to find real values
+	public int Damage {get {return (int)(damage + damage * damagePercent);}}
+	public int Hp {get {return (int)(hp + hp * hpPercent);}}
+	public int Mana {get {return (int)(mana + mana * manaPercent);}}
+	public int ManaRegen {get {return (int)(manaRegen + manaRegen * manaRegenPercent);}}
+	public int HpRegen {get {return (int)(hpRegen + hpRegen * hpRegenPercent);}}
+	public int SpellPower {get {return (int)(spellPower + spellPower * spellPowerPercent);}}
+	public int Armor {get {return (int)(armor + armor * armorPercent);}}
+
 	public void setValues(){
-		this.currentHp = this.hp;
-		this.currentMana = this.mana;
+		this.currentHp = this.Hp;
+		this.currentMana = this.Mana;
 		//Spell spell = new Spell(damage);
 		//Debug.Log(spell.damage);
 		//this.spellList.Add(spell);
@@ -40,8 +58,8 @@ public class Creature
 	
 	public void increaseHp(int amount) {
 		currentHp += amount;
-		if(currentHp > hp)
-			currentHp = hp;
+		if(currentHp > Hp)
+			currentHp = Hp;
 	}
 	
 	public virtual void decreaseHp(Creature caster, int amount) {
@@ -52,8 +70,8 @@ public class Creature
 
 	public virtual void increaseMana(int amount){
 		currentMana += amount;
-		if(currentMana > mana)
-			currentMana = mana;
+		if(currentMana > Mana)
+			currentMana = Mana;
 	}
 	
 	public void decreaseMana(int amount) {
@@ -61,8 +79,8 @@ public class Creature
 	}
 	
 	public void restoreHealthMana() {
-		currentHp = hp;
-		currentMana = mana;
+		currentHp = Hp;
+		currentMana = Mana;
 	}
 
 	public List<ComboSpell> getComboSpells(Queue<Spell> castedSpells){

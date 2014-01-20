@@ -28,8 +28,8 @@ public class Player : Creature {
 
 	public override void increaseMana(int amount) {
 		currentMana += amount;
-		if(currentMana > mana)
-			currentMana = mana;
+		if(currentMana > Mana)
+			currentMana = Mana;
 	}
 
 	public Item wearItem(Item item) {

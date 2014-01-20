@@ -38,8 +38,8 @@ public class NonEndingFire : Spell {
 			return false;
 		Spell temp = new Spell();
 		temp = this.copy();
-		temp.damage += (caster.spellPower - target.armor)/2;
-		temp.damageOverTime += (int)((float)(caster.spellPower - target.armor) / turn);
+		temp.damage += (caster.SpellPower - target.Armor)/2;
+		temp.damageOverTime += (int)((float)(caster.SpellPower - target.Armor) / turn);
 		caster.react(temp,"self",ref combatTextExtra);
 		bool result = target.react(temp,"enemy",ref combatTextExtra);
 		if(result)
@@ -67,8 +67,8 @@ public class NonEndingFire : Spell {
 		// Tooltip text for spell.
 		// Coloring: ^CRRGGBBAA*text*
 		Creature caster = owner;
-		int currentDamage = damage + caster.spellPower;
-		float currentDamageOverTime = (float)(damageOverTime*turn + caster.spellPower) / turn;
+		int currentDamage = damage + caster.SpellPower;
+		float currentDamageOverTime = (float)(damageOverTime*turn + caster.SpellPower) / turn;
 
 
 		tooltipText = "^C7ED8E6ff" + name + "\n";

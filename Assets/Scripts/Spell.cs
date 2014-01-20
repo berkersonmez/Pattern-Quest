@@ -186,11 +186,11 @@ public class Spell {
 		//This means if the spell is not a psudo spell
 		if(temp.isOneTick == false){
 			if(temp.damage > 0)
-				temp.damage += caster.spellPower - target.armor;
+				temp.damage += caster.SpellPower - target.Armor;
 			if(temp.damageOverTime > 0)
-				temp.damageOverTime += (int)((float)(caster.spellPower - target.armor) / turn);
+				temp.damageOverTime += (int)((float)(caster.SpellPower - target.Armor) / turn);
 			if(temp.healOverTime > 0)
-				temp.healOverTime += (int)((float)(caster.spellPower) / turn);
+				temp.healOverTime += (int)((float)(caster.SpellPower) / turn);
 			caster.react(temp,"self",ref combatTextExtra);
 		}
 		caster.decreaseMana(temp.mana);

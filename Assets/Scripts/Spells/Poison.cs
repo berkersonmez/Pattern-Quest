@@ -51,7 +51,7 @@ public class Poison : Spell {
 
 		Spell temp = new Spell();
 		temp = this.copy();
-		temp.damageOverTime += (int)((float)(caster.spellPower - target.armor) / turn);
+		temp.damageOverTime += (int)((float)(caster.SpellPower - target.Armor) / turn);
 		caster.react(temp,"self",ref combatTextExtra);
 		caster.decreaseMana(mana);
 		bool result = target.react(temp,"enemy",ref combatTextExtra);
@@ -65,7 +65,7 @@ public class Poison : Spell {
 		// Tooltip text for spell.
 		// Coloring: ^CRRGGBBAA*text*
 		Creature caster = owner;
-		float currentDamageOverTime = (float)(damageOverTime*turn + caster.spellPower) / turn;
+		float currentDamageOverTime = (float)(damageOverTime*turn + caster.SpellPower) / turn;
 
 		tooltipText = "^C7ED8E6ff" + name + "\n";
 		tooltipText += "^CffffffffType: " + type + "\n";

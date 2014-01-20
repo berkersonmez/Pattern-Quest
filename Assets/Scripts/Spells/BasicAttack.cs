@@ -19,7 +19,7 @@ public class BasicAttack : Spell {
 			return false;
 		Spell temp = new Spell();
 		temp = this.copy();
-		temp.damage += caster.spellPower/2 - target.armor;
+		temp.damage += caster.SpellPower/2 - target.Armor;
 		caster.react(temp,"self",ref combatTextExtra);
 		bool result = target.react(temp,"enemy",ref combatTextExtra);
 		if(result)

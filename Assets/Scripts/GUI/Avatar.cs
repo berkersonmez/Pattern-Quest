@@ -78,11 +78,11 @@ public class Avatar : MonoBehaviour {
 
 	public void updateHealthAndMana() {
 		if (owner != null) {
-			manaBar.Value = (float)owner.currentMana / owner.mana;
-			manaText.text = owner.currentMana + "/" + owner.mana;
+			manaBar.Value = (float)owner.currentMana / owner.Mana;
+			manaText.text = owner.currentMana + "/" + owner.Mana;
 			manaText.Commit();
-			healthBar.Value = (float)owner.currentHp / owner.hp;
-			healthText.text = owner.currentHp + "/" + owner.hp;
+			healthBar.Value = (float)owner.currentHp / owner.Hp;
+			healthText.text = owner.currentHp + "/" + owner.Hp;
 			healthText.Commit();
 		}
 	}

@@ -106,10 +106,10 @@ public class Battle {
 	
 	public void passNextTurn(){
 		this.turn++;	
-		player.increaseHp(player.hpRegen);
-		creature.increaseHp(creature.hpRegen);
-		player.increaseMana(player.manaRegen);
-		creature.increaseMana(creature.manaRegen);
+		player.increaseHp(player.HpRegen);
+		creature.increaseHp(creature.HpRegen);
+		player.increaseMana(player.ManaRegen);
+		creature.increaseMana(creature.ManaRegen);
 		player.updateCooldowns();
 		creature.updateCooldowns();
 	}

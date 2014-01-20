@@ -1,10 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Reflection;
 
 [System.Serializable]
 public class TalentRank {
 
 	public string description;
+
+	public string[] changeVariableNames; // Ex: damage, spellPower, armor
+	public int[] changeVariableValues;
+
+	public string[] changeVariableNamesFloat; // Ex damagePercent, spellPowerPercent
+	public float[] changeVariableValuesFloat;
 
 	public string[] addSpell; // Spell names to add
 	public string[] addCombo;
@@ -15,6 +22,18 @@ public class TalentRank {
 
 	public void activate() {
 		Player player = GameSaveController.instance.getPlayer();
+		for (int i = 0; i < changeVariableNames.Length; i++) {
+			string varName = changeVariableNames[i];
+			int varValue = changeVariableValues[i];
+			FieldInfo info = player.GetType().GetField(varName);
+			info.SetValue(player, (int)info.GetValue(player) + varValue);
+		}
+		for (int i = 0; i < changeVariableNamesFloat.Length; i++) {
+			string varName = changeVariableNamesFloat[i];
+			float varValue = changeVariableValuesFloat[i];
+			FieldInfo info = player.GetType().GetField(varName);
+			info.SetValue(player, (float)info.GetValue(player) + varValue);
+		}
 		foreach (string addName in addSpell) {
 			player.spellList.Add(Globals.instance.getSpell(addName, player));
 		}
@@ -37,6 +56,18 @@ public class TalentRank {
 
 	public void deactivate() {
 		Player player = GameSaveController.instance.getPlayer();
+		for (int i = 0; i < changeVariableNames.Length; i++) {
+			string varName = changeVariableNames[i];
+			int varValue = changeVariableValues[i];
+			FieldInfo info = player.GetType().GetField(varName);
+			info.SetValue(player, (int)info.GetValue(player) - varValue);
+		}
+		for (int i = 0; i < changeVariableNamesFloat.Length; i++) {
+			string varName = changeVariableNamesFloat[i];
+			float varValue = changeVariableValuesFloat[i];
+			FieldInfo info = player.GetType().GetField(varName);
+			info.SetValue(player, (float)info.GetValue(player) - varValue);
+		}
 		foreach (string addName in addSpell) {
 			player.unlearnSpell(addName, "Spell");
 		}

@@ -17,7 +17,7 @@ public class Douball : ComboSpell {
 		Spell fireBall = caster.getSpell("FireBall",1);
 		if(fireBall == null)
 			return false;
-		int currentDamage = (fireBall.damage + caster.spellPower - target.armor) / 2;
+		int currentDamage = (fireBall.damage + caster.SpellPower - target.Armor) / 2;
 
 		currentDamage = applyCritical(caster, currentDamage);
 
@@ -46,7 +46,7 @@ public class Douball : ComboSpell {
 		Spell fireBall = caster.getSpell("FireBall",1);
 		if(fireBall == null)
 			return;
-		int currentDamage = (fireBall.damage + caster.spellPower) / 4;
+		int currentDamage = (fireBall.damage + caster.SpellPower) / 4;
 
 		tooltipText = "^C7ED8E6ff" + name + "\n";
 		tooltipText += "^CffffffffType: " + type + "\n";

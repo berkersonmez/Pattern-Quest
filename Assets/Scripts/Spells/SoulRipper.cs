@@ -22,7 +22,7 @@ public class SoulRipper : Spell {
 			return false;
 		Spell temp = new Spell();
 		temp = this.copy();
-		temp.damage = (int)((float)target.hp * this.percent / 100.0);
+		temp.damage = (int)((float)target.Hp * this.percent / 100.0);
 		caster.react(temp,"self",ref combatTextExtra);
 		bool result = target.react(temp,"enemy",ref combatTextExtra);
 		if(result)
@@ -44,7 +44,7 @@ public class SoulRipper : Spell {
 		// Tooltip text for spell.
 		// Coloring: ^CRRGGBBAA*text*
 		Creature caster = owner;
-		int currentDamage = damage + caster.spellPower;
+		int currentDamage = damage + caster.SpellPower;
 		
 		tooltipText = "^C7ED8E6ff" + name + "\n";
 		tooltipText += "^CffffffffType: " + type + "\n";
