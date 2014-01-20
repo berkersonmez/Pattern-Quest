@@ -53,6 +53,7 @@ public class Talent : MonoBehaviour {
 		while (rank > 0) {
 			rank--;
 			ranks[rank].deactivate();
+			player.tp++;
 		}
 		player.setTalentRank(id, rank);
 		GameSaveController.instance.saveGame();

@@ -64,6 +64,12 @@ public class TownController : MonoBehaviour {
 		textTP.Commit();
 	}
 
+	public void resetTalents() {
+		foreach (Talent talent in talents) {
+			talent.deactivate();
+		}
+	}
+
 	void Update() {
 		if (Input.GetButtonDown("Fire1")) {
 			Tooltip.instance.hideTooltip();

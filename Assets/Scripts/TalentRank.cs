@@ -63,7 +63,7 @@ public class TalentRank {
 		string spellName = values[0];
 		Spell spell = player.getSpell(spellName, type);
 		if (spell != null) {
-			//spell.change(values[1]);
+			spell.change(values[1]);
 		}
 	}
 
@@ -73,7 +73,7 @@ public class TalentRank {
 		string spellName = values[0];
 		Spell spell = player.getSpell(spellName, type);
 		if (spell != null) {
-			//spell.unchange(values[1]);
+			spell.unchange(values[1]);
 		}
 	}
 }

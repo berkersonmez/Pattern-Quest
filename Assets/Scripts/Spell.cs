@@ -139,6 +139,44 @@ public class Spell {
 		}
 	}
 
+	public virtual void unchange(string allParameters){
+		string[] values = allParameters.Split(',');
+		for(int i=0; i<values.Length; i++){
+			string[] part = values[i].Split('=');
+			switch(part[0]){
+			case "name":
+				this.name = part[1];
+				break;
+			case "damage":
+				this.damage -= int.Parse(part[1]);
+				break;
+			case "heal":
+				this.heal -= int.Parse(part[1]);
+				break;
+			case "dot":
+				this.damageOverTime -= int.Parse(part[1]);
+				this.isOverTime = true;
+				break;
+			case "hot":
+				this.healOverTime -= int.Parse(part[1]);
+				this.isOverTime = true;
+				break;
+			case "turn":
+				this.turn -= int.Parse(part[1]);
+				break;
+			case "mana":
+				this.mana -= int.Parse(part[1]);
+				break;
+			case "cooldown":
+				this.totalCoolDown -= int.Parse(part[1]);
+				break;
+			case "level":
+				this.level -= int.Parse(part[1]);
+				break;
+			}
+		}
+	}
+
 	public virtual bool cast(Battle battle, Creature caster, Creature target){
 		string combatTextExtra = "";
 		if(caster.currentMana - mana < 0)
