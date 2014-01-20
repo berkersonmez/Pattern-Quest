@@ -10,14 +10,17 @@ public class TownController : MonoBehaviour {
 	private tk2dTextMesh textGold;
 	private tk2dTextMesh textLevel;
 	private tk2dTextMesh textXP;
+	private tk2dTextMesh textTP;
 
 	public Quest[] quests;
+	public Talent[] talents;
 
 	void Start () {
 		instance = this;
 		textGold = GameObject.Find("Gold").GetComponent<tk2dTextMesh>();
 		textLevel = GameObject.Find("Level").GetComponent<tk2dTextMesh>();
 		textXP = GameObject.Find("XP").GetComponent<tk2dTextMesh>();
+		textTP = GameObject.Find("Talent Points").GetComponent<tk2dTextMesh>();
 		checkLevelUp();
 		updateTexts();
 	}
@@ -29,6 +32,7 @@ public class TownController : MonoBehaviour {
 		while (player.xp >= xpReq) {
 			player.xp -= xpReq;
 			player.level++;
+			player.tp++;
 			xpReq = GameSaveController.instance.xpRequiredForLevel(player.level + 1);
 			levelUpCount++;
 		}
@@ -49,6 +53,15 @@ public class TownController : MonoBehaviour {
 		textGold.Commit();
 		textLevel.Commit();
 		textXP.Commit();
+	}
+
+	public void updateTalentGUI() {
+		Player player = GameSaveController.instance.getPlayer();
+		foreach (Talent talent in talents) {
+			talent.refreshGUI();
+		}
+		textTP.text = "Talent Points left: " + player.tp;
+		textTP.Commit();
 	}
 
 	void Update() {

@@ -28,5 +28,9 @@ public class TownButton : MonoBehaviour {
 			TownMenu.instance.questsWindow();
 		else if (transform.name == "CharacterMenuButton")
 			TownMenu.instance.characterMenuWindow();
+		else if (transform.name == "TalentsButton") {
+			TownController.instance.updateTalentGUI();
+			TownMenu.instance.talentsWindow();
+		}
 	}
 }

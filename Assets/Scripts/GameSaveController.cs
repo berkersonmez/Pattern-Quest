@@ -16,8 +16,10 @@ public class GameSaveController : MonoBehaviour {
 		public List<string> spells = new List<string>();
 		public List<string> comboSpells = new List<string>();
 		public List<string> powers = new List<string>();
+		public List<KeyValuePair<int, int>> talents = new List<KeyValuePair<int, int>>();
 		public int level;
 		public int xp;
+		public int tp;
 		public int gold;
 		public string playerName;
 		public Dictionary<int,Dictionary<string,int>> questSlayCounter;
@@ -75,6 +77,9 @@ public class GameSaveController : MonoBehaviour {
 		power.owner = player;
 		player.powers.Add(power);
 		player.level = 1;
+		player.tp = 10; // TEST
+		player.xp = 0;
+		player.gold = 0;
 		saveGame();
 	}
 	
@@ -85,12 +90,14 @@ public class GameSaveController : MonoBehaviour {
 		currentGame.level = player.level;
 		currentGame.playerName = player.name;
 		currentGame.xp = player.xp;
+		currentGame.tp = player.tp;
 		currentGame.gold = player.gold;
 		currentGame.inventory = player.inventory;
 		currentGame.redStone = player.redStone;
 		currentGame.blueStone = player.blueStone;
 		currentGame.greenStone = player.greenStone;
 		currentGame.questSlayCounter = player.questSlayCounter;
+		currentGame.talents = player.talents;
 		foreach(Spell spell in player.spellList)
 			currentGame.spells.Add(spell.name);
 		foreach(Spell spell in player.comboSpells)
@@ -106,8 +113,10 @@ public class GameSaveController : MonoBehaviour {
 			player.level = currentGame.level;
 			player.name = currentGame.playerName;
 			player.xp = currentGame.xp;
+			player.tp = currentGame.tp;
 			player.gold = currentGame.gold;
 			player.inventory= currentGame.inventory;
+			player.talents = currentGame.talents;
 			if (currentGame.redStone != null && currentGame.redStone.type != "")
 				player.wearItem(currentGame.redStone);
 			if (currentGame.blueStone != null && currentGame.blueStone.type != "")

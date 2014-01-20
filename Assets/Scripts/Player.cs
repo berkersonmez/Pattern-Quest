@@ -5,10 +5,12 @@ using System.Collections.Generic;
 public class Player : Creature {
 
 	public int xp;
+	public int tp;
 	public Item redStone;
 	public Item blueStone;
 	public Item greenStone;
 	public List<Item> inventory = new List<Item>();
+	public List<KeyValuePair<int, int>> talents = new List<KeyValuePair<int, int>>();
 
 	public Dictionary<int,Dictionary<string,int>> questSlayCounter = new Dictionary<int, Dictionary<string,int>>();
 	
@@ -73,5 +75,61 @@ public class Player : Creature {
 		armor -= item.armor;
 		manaRegen -= item.manaRegen;
 		hpRegen -= item.hpRegen;
+	}
+
+	public int getTalentRank(int talentID) {
+		foreach (KeyValuePair<int, int> pair in talents) {
+			if (pair.Key == talentID) {
+				return pair.Value;
+			}
+		}
+		return 0;
+	}
+
+	public void setTalentRank(int talentID, int rank) {
+		int foundIndex = -1;
+		for (int i = 0; i < talents.Count; i++) {
+			if (talents[i].Key == talentID) {
+				foundIndex = i;
+			}
+		}
+		if (foundIndex != -1) {
+			talents[foundIndex] = new KeyValuePair<int, int>(talentID, rank);
+		} else {
+			talents.Add(new KeyValuePair<int, int>(talentID, rank));
+		}
+	}
+
+	public Spell getSpell(string name, string type) {
+		if (type == "Spell") {
+			foreach (Spell spell in spellList) {
+				if (spell.name == name) return spell;
+			}
+		} else if (type == "Combo") {
+			foreach (Spell spell in comboSpells) {
+				if (spell.name == name) return spell;
+			}
+		} else if (type == "Power") {
+			foreach (Spell spell in powers) {
+				if (spell.name == name) return spell;
+			}
+		}
+		return null;
+	}
+
+	public void unlearnSpell(string name, string type) {
+		if (type == "Spell") {
+			for (int i = 0; i < spellList.Count; i++) {
+				if (spellList[i].name == name) spellList.RemoveAt(i);
+			}
+		} else if (type == "Combo") {
+			for (int i = 0; i < comboSpells.Count; i++) {
+				if (comboSpells[i].name == name) comboSpells.RemoveAt(i);
+			}
+		} else if (type == "Power") {
+			for (int i = 0; i < powers.Count; i++) {
+				if (powers[i].name == name) powers.RemoveAt(i);
+			}
+		}
 	}
 }
