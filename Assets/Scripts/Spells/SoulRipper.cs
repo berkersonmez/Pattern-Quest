@@ -16,7 +16,7 @@ public class SoulRipper : Spell {
 		shape.Add(9);
 	}
 	
-	public override bool cast(Battle battle, Creature caster, Creature target){
+	public override bool cast(Battle battle, Creature caster, Creature target, int critIncrease){
 		string combatTextExtra = "";
 		if(caster.currentMana - mana < 0)
 			return false;

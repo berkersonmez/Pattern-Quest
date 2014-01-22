@@ -6,6 +6,7 @@ public class PatternButton : MonoBehaviour {
 	public int x;
 	public int y;
 	public bool highlighted = false;
+	public bool critPoint = false;
 	
 	private tk2dSprite sprite;
 	
@@ -22,6 +23,16 @@ public class PatternButton : MonoBehaviour {
 	public void unhighlight() {
 		highlighted = false;
 		sprite.SetSprite("pattern_circle");
+	}
+
+	public void makeCritPoint() {
+		critPoint = true;
+		sprite.color = Color.red;
+	}
+
+	public void clearCritPoint() {
+		critPoint = false;
+		sprite.color = Color.white;
 	}
 	
 	public void onHover() {

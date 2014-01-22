@@ -30,7 +30,7 @@ public class NonEndingFire : Spell {
 		}
 	}
 	
-	public override bool cast(Battle battle, Creature caster, Creature target){
+	public override bool cast(Battle battle, Creature caster, Creature target, int critIncrease){
 		string combatTextExtra = "";
 		if(this.currentCooldDown > 0)
 			return false;
@@ -50,7 +50,7 @@ public class NonEndingFire : Spell {
 			currentDamage = 0;
 		caster.decreaseMana(temp.mana);
 
-		currentDamage = applyCritical(caster, currentDamage);
+		currentDamage = applyCritical(caster, currentDamage, critIncrease);
 
 		target.decreaseHp(caster, currentDamage);
 		// Combat text

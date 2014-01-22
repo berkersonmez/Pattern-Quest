@@ -12,7 +12,7 @@ public class Clarity : ComboSpell {
 		level = 1;
 	}
 	
-	public override bool cast(Battle battle, Creature caster, Creature target){
+	public override bool cast(Battle battle, Creature caster, Creature target, int critIncrease){
 		string combatTextExtra = "";
 		caster.increaseMana(damage);
 		// Combat text

@@ -177,7 +177,7 @@ public class Spell {
 		}
 	}
 
-	public virtual bool cast(Battle battle, Creature caster, Creature target){
+	public virtual bool cast(Battle battle, Creature caster, Creature target, int critDamageIncrease){
 		string combatTextExtra = "";
 		if(caster.currentMana - mana < 0)
 			return false;
@@ -205,7 +205,7 @@ public class Spell {
 			if(currentDamage < 0)
 				currentDamage = 0;
 
-			currentDamage = applyCritical(caster, currentDamage);
+			currentDamage = applyCritical(caster, currentDamage, critDamageIncrease);
 
 			target.decreaseHp(caster, currentDamage);
 		// Combat text
@@ -225,11 +225,10 @@ public class Spell {
 		this.currentCooldDown = 0;
 	}
 
-	public virtual int applyCritical(Creature caster, int currentDamage) {
-		int randomValue = Random.Range(1,100);
-		if(randomValue <= caster.criticalStrikeChance){
+	public virtual int applyCritical(Creature caster, int currentDamage, int critDamageIncrease) {
+		if(critDamageIncrease > 0){
 			DungeonCamera.instance.shakeCamera(10);
-			currentDamage = currentDamage * 2;
+			currentDamage = (int) (currentDamage + currentDamage * ((float)critDamageIncrease / 10));
 		}
 		return currentDamage;
 	}
@@ -247,7 +246,7 @@ public class Spell {
 		if(this.damageOverTime > 0){
 			int currentDamage = damageOverTime;
 			Spell temp = new Spell(this.name,currentDamage,true);
-			temp.cast(battle, caster, target);
+			temp.cast(battle, caster, target, 0);
 			return;
 		}
 		if(healOverTime > 0) {

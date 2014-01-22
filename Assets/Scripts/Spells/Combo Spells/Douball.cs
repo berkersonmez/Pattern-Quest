@@ -12,14 +12,14 @@ public class Douball : ComboSpell {
 		level = 1;
 	}
 	
-	public override bool cast(Battle battle, Creature caster, Creature target){
+	public override bool cast(Battle battle, Creature caster, Creature target, int critIncrease){
 		string combatTextExtra = "";
 		Spell fireBall = caster.getSpell("FireBall",1);
 		if(fireBall == null)
 			return false;
 		int currentDamage = (fireBall.damage + caster.SpellPower - target.Armor) / 2;
 
-		currentDamage = applyCritical(caster, currentDamage);
+		currentDamage = applyCritical(caster, currentDamage, critIncrease);
 
 		target.decreaseHp(caster, currentDamage);
 		// Combat text

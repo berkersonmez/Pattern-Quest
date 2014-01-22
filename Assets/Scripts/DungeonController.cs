@@ -56,6 +56,10 @@ public class DungeonController : MonoBehaviour {
 	public void switchTurn(bool isPlayersTurn) {
 		playerAvatar.visualizeTurn(isPlayersTurn);
 		mobAvatar.visualizeTurn(!isPlayersTurn);
+		PatternController.instance.clearCritPoints();
+		if (isPlayersTurn) {
+			PatternController.instance.setCritPoints();
+		}
 	}
 	
 	public void finishBattle(bool playerWon) {

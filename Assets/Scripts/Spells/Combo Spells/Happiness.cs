@@ -16,7 +16,7 @@ public class Happiness : ComboSpell {
 		spriteName = "avatar_spell_1";
 	}
 	
-	public override bool cast(Battle battle, Creature caster, Creature target){
+	public override bool cast(Battle battle, Creature caster, Creature target, int critIncrease){
 		battle.addActiveSpell(this, caster);
 		return true;
 	}

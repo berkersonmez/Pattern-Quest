@@ -26,7 +26,7 @@ public class FireBall : Spell {
 	
 	}
 		
-	public override bool cast(Battle battle, Creature caster, Creature target){
+	public override bool cast(Battle battle, Creature caster, Creature target, int critDamageIncrease){
 		string combatTextExtra = "";
 		if(caster.currentMana - mana < 0)
 			return false;
@@ -43,7 +43,7 @@ public class FireBall : Spell {
 			currentDamage = 0;
 		caster.decreaseMana(temp.mana);
 
-		currentDamage = applyCritical(caster, currentDamage);
+		currentDamage = applyCritical(caster, currentDamage, critDamageIncrease);
 
 		target.decreaseHp(caster, currentDamage);
 		// Combat text

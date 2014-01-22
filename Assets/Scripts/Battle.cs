@@ -19,6 +19,8 @@ public class Battle {
 	public Queue <ActiveSpell> activeSpellsOnCreature = new Queue<ActiveSpell>();
 	public Spell castingSpell;
 
+	private int castingCritDamage = 0; // 1 = 10% increase
+
 	
 	public Battle(Player player, Creature creature){
 		this.player = player;
@@ -53,12 +55,13 @@ public class Battle {
 		state = (int)State.SPELL_ANIM;
 	}
 
-	public void castDrawedSpell(Spell spell){
+	public void castDrawedSpell(Spell spell, int castingCritDamage){
 		if (state != (int)State.CAST_PHASE) return;
 		if (whoseTurn == (int)Turn.CREATURE) return;
 		
 		castingSpell = spell;
 		state = (int)State.SPELL_ANIM;
+		this.castingCritDamage = castingCritDamage;
 	}
 
 	public void castComboSpells(){
@@ -67,7 +70,8 @@ public class Battle {
 			if(comboSpells == null)
 				return;
 			foreach(ComboSpell combo in comboSpells){
-				combo.cast(this,player,creature);
+				combo.cast(this,player,creature,castingCritDamage);
+				castingCritDamage = 0;
 			}
 			this.comboSpells.Clear();
 		} else {
@@ -75,7 +79,8 @@ public class Battle {
 			if(comboSpells == null)
 				return;
 			foreach(ComboSpell combo in comboSpells){
-				combo.cast(this,creature,player);
+				combo.cast(this,creature,player, castingCritDamage);
+				castingCritDamage = 0;
 			}
 			this.comboSpells.Clear();
 		}
@@ -117,11 +122,12 @@ public class Battle {
 	public void spellAnimComplete() {
 		bool result;
 		if (whoseTurn == (int)Turn.PLAYER) {
-			result = castingSpell.cast(this, player, creature);
+			result = castingSpell.cast(this, player, creature, castingCritDamage);
 		} else {
-			result = castingSpell.cast(this, creature, player);
+			result = castingSpell.cast(this, creature, player, castingCritDamage);
 		}
 		state = (int)State.CAST_PHASE;
+		castingCritDamage = 0;
 		
 		Debug.Log("sonuc: " + result);
 		if(result == true)

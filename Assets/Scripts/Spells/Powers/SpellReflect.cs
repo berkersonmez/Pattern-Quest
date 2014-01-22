@@ -21,7 +21,7 @@ public class SpellReflect : Power {
 			this.active = false;
 			//We are doing this to get castedSpell's not edited version
 			castedSpell = castedSpell.owner.getSpell(castedSpell.name,castedSpell.level);
-			castedSpell.cast(DungeonController.instance.battle, castedSpell.owner, castedSpell.owner);
+			castedSpell.cast(DungeonController.instance.battle, castedSpell.owner, castedSpell.owner, 0);
 			this.currentCooldDown = this.totalCoolDown;
 			//TODO: PRINT "REFLECTED" ON TARGET
 			return true;

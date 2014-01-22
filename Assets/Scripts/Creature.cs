@@ -18,6 +18,7 @@ public class Creature
 	public int level=1;
 	public int spellPerTurn = 1;
 	public int criticalStrikeChance = 5;
+	public int critDamageIncrease = 1; // Shows how many nodes will be "crit point". Each increases damage 10%
 	public int brain=0;		//Test variable
 	public bool isPlayer=false;
 	public string spriteName;

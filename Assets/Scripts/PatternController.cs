@@ -14,7 +14,7 @@ public class PatternController : MonoBehaviour {
 	public List<GameObject> bridges = new List<GameObject>();
 		
 	
-	void Start() {
+	void Awake() {
 		instance = this;
 		createButtons();
 	}
@@ -56,9 +56,14 @@ public class PatternController : MonoBehaviour {
 		}
 	}
 	
-	public List<int> convertToDirectional() {
+	public List<int> convertToDirectional(ref int critPointCount) {
+		critPointCount = 0;
 		List<int> dirRep = new List<int>();
-		for (int i = 1 ; i < pattern.Count ; i++) {
+		for (int i = 0 ; i < pattern.Count ; i++) {
+			if (buttons[pattern[i][0], pattern[i][1]].critPoint) {
+				critPointCount++;
+			}
+			if (i == 0) continue;
 			int[] dirDiff = new int[2];
 			dirDiff[0] = pattern[i][0] - pattern[i-1][0];
 			dirDiff[1] = pattern[i][1] - pattern[i-1][1];
@@ -245,9 +250,10 @@ public class PatternController : MonoBehaviour {
 			Debug.Log("(x:" + node[0] + "y:" + node[1] + ")");
 		}
 		Debug.Log("===============");
-		
+
+		int critPointCount = 0;
 		// Debug this to see directional rep.
-		directions = this.convertToDirectional();
+		directions = this.convertToDirectional(ref critPointCount);
 		
 		pattern.Clear();
 		foreach(GameObject bridge in bridges) {
@@ -256,8 +262,27 @@ public class PatternController : MonoBehaviour {
 		bridges.Clear();
 		//Example values to test checkspell method
 		Spell spell = getCastedSpell(DungeonController.instance.player);
-		if(spell != null)
-			DungeonController.instance.battle.castDrawedSpell(spell);
+		if(spell != null) {
+			DungeonController.instance.battle.castDrawedSpell(spell, critPointCount);
+		}
+	}
+
+	public void setCritPoints() {
+		Player player = DungeonController.instance.player;
+		int randomValue = Random.Range(1,100);
+		if(randomValue <= player.criticalStrikeChance){
+			for (int i = 0; i < player.critDamageIncrease; i++) {
+				buttons[Random.Range(0, 4), Random.Range(0, 4)].makeCritPoint();
+			}
+		}
+	}
+
+	public void clearCritPoints() {
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 4; j++) {
+				buttons[i,j].clearCritPoint();
+			}
+		}
 	}
 	
 	public Spell getCastedSpell(Player player) {
@@ -279,5 +304,5 @@ public class PatternController : MonoBehaviour {
 			return true;
 		}else
 			return false;
-		}
+	}
 }
