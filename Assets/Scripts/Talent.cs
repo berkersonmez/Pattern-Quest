@@ -21,7 +21,7 @@ public class Talent : MonoBehaviour {
 	private tk2dTextMesh t_rank;
 	// --------------
 
-	void Start() {
+	void Awake() {
 		Player player = GameSaveController.instance.getPlayer();
 		rank = player.getTalentRank(id);
 		uiItem = GetComponent<tk2dUIItem>();

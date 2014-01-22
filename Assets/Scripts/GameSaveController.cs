@@ -9,20 +9,7 @@ public class GameSaveController : MonoBehaviour {
 	
 	[System.Serializable]
 	public class GameSave {
-		public List<Item> inventory;
-		public Item redStone;
-		public Item blueStone;
-		public Item greenStone;
-		public List<string> spells = new List<string>();
-		public List<string> comboSpells = new List<string>();
-		public List<string> powers = new List<string>();
-		public List<KeyValuePair<int, int>> talents = new List<KeyValuePair<int, int>>();
-		public int level;
-		public int xp;
-		public int tp;
-		public int gold;
-		public string playerName;
-		public Dictionary<int,Dictionary<string,int>> questSlayCounter;
+		public Player player;
 		// Other variables to save goes here.
 	}
 	
@@ -30,10 +17,11 @@ public class GameSaveController : MonoBehaviour {
 	
 	public GameSave currentGame;
 	public static BinaryFormatter bf = new BinaryFormatter();
-	public Player player;
+	public Player player = null;
 	
 	void Start () {
 		instance = this;
+		player = null;
 	}
 	
 	public bool loadGame() {
@@ -85,48 +73,13 @@ public class GameSaveController : MonoBehaviour {
 	
 	// Collect data to "currentGame" in this method before save.
 	public void saveGame() {
-		currentGame.spells.Clear();
-		currentGame.comboSpells.Clear();
-		currentGame.level = player.level;
-		currentGame.playerName = player.name;
-		currentGame.xp = player.xp;
-		currentGame.tp = player.tp;
-		currentGame.gold = player.gold;
-		currentGame.inventory = player.inventory;
-		currentGame.redStone = player.redStone;
-		currentGame.blueStone = player.blueStone;
-		currentGame.greenStone = player.greenStone;
-		currentGame.questSlayCounter = player.questSlayCounter;
-		currentGame.talents = player.talents;
-		foreach(Spell spell in player.spellList)
-			currentGame.spells.Add(spell.name);
-		foreach(Spell spell in player.comboSpells)
-			currentGame.comboSpells.Add(spell.name);
-		foreach(Spell spell in player.powers)
-			currentGame.powers.Add(spell.name);
+		currentGame.player = player;
 		save("GameSave", currentGame);
 	}
 	
 	public Player getPlayer() {
 		if (player == null) {
-			player = new Player();
-			player.level = currentGame.level;
-			player.name = currentGame.playerName;
-			player.xp = currentGame.xp;
-			player.tp = currentGame.tp;
-			player.gold = currentGame.gold;
-			player.inventory= currentGame.inventory;
-			player.talents = currentGame.talents;
-			if (currentGame.redStone != null && currentGame.redStone.type != "")
-				player.wearItem(currentGame.redStone);
-			if (currentGame.blueStone != null && currentGame.blueStone.type != "")
-				player.wearItem(currentGame.blueStone);
-			if (currentGame.greenStone != null && currentGame.greenStone.type != "")
-				player.wearItem(currentGame.greenStone);
-			player.spellList = Globals.instance.getSpells(currentGame.spells, player);
-			player.comboSpells = Globals.instance.getSpells(currentGame.comboSpells, player);
-			player.powers = Globals.instance.getPowers(currentGame.powers, player);
-			player.questSlayCounter = currentGame.questSlayCounter;
+			player = currentGame.player;
 		}
 		return player;
 	}

@@ -25,6 +25,7 @@ public class Avatar : MonoBehaviour {
 		nameText = transform.Find("Text").GetComponent<tk2dTextMesh>();
 		avatarSprite = transform.Find("Avatar").GetComponent<tk2dSprite>();
 		activeSpellsList = transform.Find("ActiveSpells").gameObject;
+		owner = null;
 	}
 	
 	public void deadAnim() {

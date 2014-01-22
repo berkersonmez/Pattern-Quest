@@ -26,7 +26,7 @@ public class StatsController : MonoBehaviour {
 
 	public void updateStats() {
 		if (avatar.owner == null) {
-			avatar.setOwner(GameSaveController.instance.player);
+			avatar.setOwner(GameSaveController.instance.getPlayer());
 		}
 		avatar.owner.restoreHealthMana();
 		avatar.updateHealthAndMana();
