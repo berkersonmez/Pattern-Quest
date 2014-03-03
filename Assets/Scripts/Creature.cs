@@ -18,7 +18,7 @@ public class Creature
 	public int armor = 0;
 	public int level=1;
 	public int spellPerTurn = 1;
-	public int criticalStrikeChance = 5;
+	public int criticalStrikeChance = 30;
 	public int critDamageIncrease = 1; // Shows how many nodes will be "crit point". Each increases damage 10%
 	public int brain=0;		//Test variable
 	public bool isPlayer=false;
@@ -171,6 +171,12 @@ public class Creature
 	
 	public Creature (string type, int level){
 		//GET CREATURES FROM AN EXTERNAL FILE
+	}
+
+	public bool learnSpell(Spell spell){
+		spell.owner = this;
+		this.spellList.Add(spell);
+		return true;
 	}
 }
 
