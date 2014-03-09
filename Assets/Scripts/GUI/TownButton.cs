@@ -31,6 +31,10 @@ public class TownButton : MonoBehaviour {
 		else if (transform.name == "TalentsButton") {
 			TownController.instance.updateTalentGUI();
 			TownMenu.instance.talentsWindow();
+		} else if (transform.name == "Right Map") {
+			TownMenu.instance.mapWindowRight();
+		} else if (transform.name == "Left Map") {
+			TownMenu.instance.mapWindowLeft();
 		}
 	}
 }

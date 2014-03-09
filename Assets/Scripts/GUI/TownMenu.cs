@@ -8,7 +8,7 @@ public class TownMenu : MonoBehaviour {
 	public tk2dCamera cam;
 	public float cameraSmooth = 100f;
 	public Vector3 menuPosition = new Vector3(0, 0, -10);
-	public Vector3 mapPosition = new Vector3(24, 0, -10);
+	public Vector3 mapPosition = new Vector3(72, 0, -10);
 	public Vector3 shopPosition = new Vector3(-24, 0, -10);
 	public Vector3 inventoryPosition = new Vector3(-24, 0, -10);
 	public Vector3 spellsPosition = new Vector3(0, 40, -10);
@@ -31,61 +31,71 @@ public class TownMenu : MonoBehaviour {
 	public void menuWindow() {
 		cameraTarget = menuPosition;
 		fadeOut();
-		//moveCamera = true;
+		moveCamera = false;
 	}
 	
 	public void mapWindow() {
 		cameraTarget = mapPosition;
 		fadeOut();
-		//moveCamera = true;
+		moveCamera = false;
+	}
+	
+	public void mapWindowRight() {
+		cameraTarget = transform.position + new Vector3(24, 0, 0);
+		moveCamera = true;
+	}
+	
+	public void mapWindowLeft() {
+		cameraTarget = transform.position - new Vector3(24, 0, 0);
+		moveCamera = true;
 	}
 
 	public void inventoryWindow() {
 		cameraTarget = inventoryPosition;
 		fadeOut();
-		//moveCamera = true;
+		moveCamera = false;
 	}
 
 	public void spellsWindow() {
 		cameraTarget = spellsPosition;
 		fadeOut();
-		//moveCamera = true;
+		moveCamera = false;
 	}
 
 	public void drawPatternWindow() {
 		cameraTarget = drawPatternPosition;
 		fadeOut();
-		//moveCamera = true;
+		moveCamera = false;
 	}
 
 	public void statsWindow() {
 		cameraTarget = statsPosition;
 		fadeOut();
-		//moveCamera = true;
+		moveCamera = false;
 	}
 
 	public void powersWindow() {
 		cameraTarget = powersPosition;
 		fadeOut();
-		//moveCamera = true;
+		moveCamera = false;
 	}
 
 	public void questsWindow() {
 		cameraTarget = questsPosition;
 		fadeOut();
-		//moveCamera = true;
+		moveCamera = false;
 	}
 
 	public void characterMenuWindow() {
 		cameraTarget = characterMenuPosition;
 		fadeOut();
-		//moveCamera = true;
+		moveCamera = false;
 	}
 
 	public void talentsWindow() {
 		cameraTarget = talentsPosition;
 		fadeOut();
-		//moveCamera = true;
+		moveCamera = false;
 	}
 
 	void fadeOut() {
