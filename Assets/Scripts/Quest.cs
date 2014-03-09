@@ -8,6 +8,7 @@ public class Quest : MonoBehaviour {
 	public string questName;
 	public string description;
 
+	public int unlocksAtLevel;
 	public string[] collectItems;
 	public int[] collectItemCounts;
 	public bool removeCollectedItems = true;
@@ -26,14 +27,38 @@ public class Quest : MonoBehaviour {
 	private string tooltipText;
 
 	private tk2dUIItem uiItem;
+	private Player player;
+	private bool isEnabled;
+	private tk2dSprite s_button;
 	public GameObject questParchementPrefab;
 	
 	void Start() {
 		uiItem = GetComponent<tk2dUIItem>();
-		uiItem.OnClick += OnClick;
+		uiItem.OnDown += OnDown;
+		uiItem.OnRelease += OnRelease;
+		player = GameSaveController.instance.getPlayer();
+		s_button = transform.Find("ButtonGraphic").GetComponent<tk2dSprite>();
+	}
+	
+	void OnDown() {
+		Invoke("OnHold", .5f);
+	}
+	
+	void OnRelease() {
+		if (IsInvoking("OnHold")) {
+			CancelInvoke("OnHold");
+			OnClick();
+		}
+	}
+	
+	void OnHold() {
+		setLockInfoText();
+		Tooltip.instance.setText(tooltipText);
+		Tooltip.instance.showTooltip(transform.position);
 	}
 
 	void OnClick() {
+		if (!isEnabled) return;
 		setTooltipText();
 		GameObject questParchement = Instantiate(questParchementPrefab) as GameObject;
 		questParchement.transform.parent = this.transform.parent;
@@ -48,12 +73,10 @@ public class Quest : MonoBehaviour {
 	}
 
 	public bool isAccepted() {
-		Player player = GameSaveController.instance.getPlayer();
 		return player.questSlayCounter.ContainsKey(id);
 	}
 
 	public void accept() {
-		Player player = GameSaveController.instance.getPlayer();
 		player.questSlayCounter.Add(id, new Dictionary<string, int>());
 		foreach(string creatureName in slayEnemies) {
 			player.questSlayCounter[id].Add(creatureName, 0);
@@ -61,13 +84,11 @@ public class Quest : MonoBehaviour {
 	}
 
 	public void decline() {
-		Player player = GameSaveController.instance.getPlayer();
 		player.questSlayCounter.Remove(id);
 
 	}
 
 	public void complete() {
-		Player player = GameSaveController.instance.getPlayer();
 		player.questSlayCounter.Remove(id);
 		removeTargetedItems();
 		getRewards();
@@ -81,7 +102,6 @@ public class Quest : MonoBehaviour {
 	}
 
 	public bool checkCompletion() {
-		Player player = GameSaveController.instance.getPlayer();
 
 		// Reach level
 		if (player.level < reachLevel) return false;
@@ -107,7 +127,6 @@ public class Quest : MonoBehaviour {
 	}
 
 	public bool learnedSpell(string spellName) {
-		Player player = GameSaveController.instance.getPlayer();
 		bool found = false;
 		foreach (Spell spell in player.spellList) {
 			if (spell.name == spellName) {
@@ -119,7 +138,6 @@ public class Quest : MonoBehaviour {
 	}
 
 	public int collectedItemCount(string itemName) {
-		Player player = GameSaveController.instance.getPlayer();
 		int count = 0;
 		foreach (Item playerItem in player.inventory) {
 			if (playerItem.name == itemName) count++;
@@ -129,7 +147,6 @@ public class Quest : MonoBehaviour {
 
 	public void removeTargetedItems() {
 		if (removeCollectedItems) {
-			Player player = GameSaveController.instance.getPlayer();
 			for (int i = 0; i < collectItems.Length; i++) {
 				string itemName = collectItems[i];
 				int itemCountToDelete = collectItemCounts[i];
@@ -148,12 +165,10 @@ public class Quest : MonoBehaviour {
 
 	public int slainEnemyCount(string itemName) {
 		if (!isAccepted()) return 0;
-		Player player = GameSaveController.instance.getPlayer();
 		return player.questSlayCounter[id][itemName];
 	}
 
 	public void getRewards() {
-		Player player = GameSaveController.instance.getPlayer();
 		foreach (string rewardName in rewardItems) {
 			player.inventory.Add(XmlParse.instance.getItem(rewardName));
 		}
@@ -177,7 +192,6 @@ public class Quest : MonoBehaviour {
 		tooltipText += description + "\n\n";
 		tooltipText += "Requirements:\n";
 		if (reachLevel != 0) {
-			Player player = GameSaveController.instance.getPlayer();
 			tooltipText += player.level < reachLevel ? "^CBD0000ff" : "^C018F2Cff";
 			tooltipText += "-Reach level " + reachLevel + "\n";
 		}
@@ -210,6 +224,23 @@ public class Quest : MonoBehaviour {
 		}
 		if (rewardGold != 0) tooltipText += "-" + rewardGold + " gold\n";
 		if (rewardXP != 0) tooltipText += "-" + rewardXP + " XP\n";
+	}
+	
+	void setLockInfoText() {
+		tooltipText = "^Cbab14aff" + questName;
+		if (unlocksAtLevel > 0) {
+			tooltipText += "\n^CffffffffUnlocks at Level: " + unlocksAtLevel;
+		}
+	}
+	
+	void Update() {
+		if (player.level >= unlocksAtLevel) {
+			isEnabled = true;
+			s_button.color = new Color(1f, 1f, 1f, 1f);
+		} else {
+			isEnabled = false;
+			s_button.color = new Color(1f, 1f, 1f, .4f);
+		}
 	}
 
 	public string getTooltipText() {
