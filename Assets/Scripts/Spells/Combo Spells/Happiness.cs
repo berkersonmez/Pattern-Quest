@@ -14,7 +14,7 @@ public class Happiness : ComboSpell {
 		type = "nature";
 		level = 1;
 		isOverTime = true;
-		spriteName = "avatar_spell_1";
+		spriteName = "avatar_spell_12";
 	}
 	
 	public override bool cast(Battle battle, Creature caster, Creature target, int critIncrease){

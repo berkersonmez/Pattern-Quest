@@ -13,7 +13,7 @@ public class Poison : Spell {
 		type = "nature";
 		level = 1;
 		isOverTime = true;
-		spriteName = "avatar_spell_2";
+		spriteName = "avatar_spell_7";
 		shape.Add(8);
 		shape.Add(6);
 		shape.Add(8);

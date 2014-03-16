@@ -7,7 +7,7 @@
 	    <damage>1,2</damage>
 		<level>1</level>
 		<gold>3</gold>
-		<spriteName>avatar_item_0</spriteName>
+		<spriteName>avatar_item_3</spriteName>
 	</item>
 	<item dropChance="30">
 		<name>Blue Stone 1</name>
@@ -17,7 +17,7 @@
 		<manaRegen>1</manaRegen>
 		<level>1</level>
 		<gold>3</gold>
-		<spriteName>avatar_item_0</spriteName>
+		<spriteName>avatar_item_2</spriteName>
 	</item>
 	<item dropChance="30">
 		<name>Green Stone 1</name>
@@ -27,7 +27,7 @@
 		<armor>2</armor>
 		<level>1</level>
 		<gold>3</gold>
-		<spriteName>avatar_item_0</spriteName>
+		<spriteName>avatar_item_5</spriteName>
 	</item>
 	<item dropChance="10">
 		<name>sopa</name>
@@ -39,6 +39,6 @@
 	    <mana>5</mana>
 		<level>1</level>
 		<gold>10</gold>
-		<spriteName>avatar_item_1</spriteName>
+		<spriteName>avatar_item_6</spriteName>
 	</item>
 </items>

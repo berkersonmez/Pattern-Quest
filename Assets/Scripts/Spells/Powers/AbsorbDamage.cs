@@ -16,6 +16,7 @@ public class AbsorbDamage : Power {
 		type = "fire";
 		active = true;
 		level = 1;
+		spriteName = "avatar_spell_5";
 	}
 
 	public override bool react(Spell castedSpell, string effectOn, ref string combatTextExtra){

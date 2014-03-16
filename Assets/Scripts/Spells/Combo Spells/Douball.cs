@@ -11,6 +11,7 @@ public class Douball : ComboSpell {
 		mana = 0;
 		type = "nature";
 		level = 1;
+		spriteName = "avatar_spell_3";
 	}
 	
 	public override bool cast(Battle battle, Creature caster, Creature target, int critIncrease){

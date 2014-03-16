@@ -13,7 +13,7 @@ public class Heal : Spell {
 		mana = 5;
 		type = "nature";
 		level = 1;
-		spriteName = "avatar_spell_1";
+		spriteName = "avatar_spell_4";
 		shape.Add(6);
 		shape.Add(6);
 		shape.Add(7);

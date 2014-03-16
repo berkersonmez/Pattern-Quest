@@ -8,7 +8,7 @@
 		<spellPower>1</spellPower>
 		<level>1</level>
 		<type>insect</type>
-		<spriteName>avatar_creature_0</spriteName>
+		<spriteName>avatar_creature_1</spriteName>
 		<gold>2</gold>
 		<items>
 			<item dropChance="8">Green Stone 1</item>
@@ -26,7 +26,7 @@
 		<spellPower>1</spellPower>
 		<level>1</level>
 		<type>insect</type>
-		<spriteName>avatar_creature_0</spriteName>
+		<spriteName>avatar_creature_2</spriteName>
 		<gold>2</gold>
 		<items>
 			<item dropChance="8">Green Stone 1</item>
@@ -47,7 +47,7 @@
 		<spellPower>2</spellPower>
 		<level>1</level>
 		<type>insect</type>
-		<spriteName>avatar_creature_0</spriteName>
+		<spriteName>avatar_creature_3</spriteName>
 		<gold>2</gold>
 		<items>
 			<item dropChance="15">Red Stone 1</item>
@@ -63,7 +63,7 @@
 		<spellPower>4</spellPower>
 		<level>1</level>
 		<type>insect</type>
-		<spriteName>avatar_creature_0</spriteName>
+		<spriteName>avatar_creature_4</spriteName>
 		<gold>5</gold>
 		<items>
 			<item dropChance="20">Blue Stone 1</item>

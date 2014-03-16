@@ -45,17 +45,29 @@ public class DungeonCamera : MonoBehaviour {
 	
 	public void battleWindow() {
 		cameraTarget = battlePosition;
-		moveCamera = true;
+		fadeOut();
+		moveCamera = false;
 	}
 	
 	public void winWindow() {
 		cameraTarget = winPosition;
-		moveCamera = true;
+		fadeOut();
+		moveCamera = false;
 	}
 	
 	public void loseWindow() {
 		cameraTarget = losePosition;
-		moveCamera = true;
+		fadeOut();
+		moveCamera = false;
+	}
+	
+	void fadeOut() {
+		System.Action action = new System.Action(windowChange);
+		CameraFade.StartAlphaFade( Color.black, false, .5f, 0, action );
+	}
+	
+	void windowChange() {
+		transform.position = cameraTarget;
 	}
 	
 	void Update() {

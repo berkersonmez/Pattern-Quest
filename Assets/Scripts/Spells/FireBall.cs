@@ -13,6 +13,7 @@ public class FireBall : Spell {
 		shape.Add(9);
 		shape.Add(2);
 		shape.Add(9);
+		spriteName = "avatar_spell_3";
 	}
 		
 	public override bool increaseLevel(){

@@ -18,6 +18,7 @@ public class NonEndingFire : Spell {
 		shape.Add(2);
 		shape.Add(4);
 		shape.Add(8);
+		spriteName = "avatar_spell_10";
 	}
 	
 	public override bool increaseLevel(){

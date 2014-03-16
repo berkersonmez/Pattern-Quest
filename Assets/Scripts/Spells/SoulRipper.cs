@@ -15,6 +15,7 @@ public class SoulRipper : Spell {
 		shape.Add(2);
 		shape.Add(9);
 		shape.Add(9);
+		spriteName = "avatar_spell_9";
 	}
 	
 	public override bool cast(Battle battle, Creature caster, Creature target, int critIncrease){

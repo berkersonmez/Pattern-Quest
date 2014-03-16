@@ -12,6 +12,7 @@ public class BasicAttack : Spell {
 		level = 1;
 		shape.Add(9);
 		shape.Add(9);
+		spriteName = "avatar_spell_8";
 	}
 	
 	public override bool cast(Battle battle, Creature caster, Creature target, int critIncrease){

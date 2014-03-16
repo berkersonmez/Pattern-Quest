@@ -11,6 +11,7 @@ public class Clarity : ComboSpell {
 		mana = 0;
 		type = "fire";
 		level = 1;
+		spriteName = "avatar_spell_6";
 	}
 	
 	public override bool cast(Battle battle, Creature caster, Creature target, int critIncrease){

@@ -13,7 +13,7 @@ public class LifeDrain : Spell {
 		type = "nature";
 		level = 1;
 		isOverTime = true;
-		spriteName = "avatar_spell_2";
+		spriteName = "avatar_spell_11";
 		shape.Add(2);
 		shape.Add(2);
 		shape.Add(9);
