@@ -96,6 +96,7 @@ public class DungeonController : MonoBehaviour {
 	void nextBattleClick() {
 		if (currentCreature != null) {
 			DungeonCamera.instance.battleWindow();
+			player.changeManaPercent(player.manaRegenPercentBetweenBattles);//For "Mana Rest" Talent
 			startBattle();
 		} else {
 			// END BATTLE SUCCESSFULLY

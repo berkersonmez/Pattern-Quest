@@ -112,6 +112,8 @@ public class Player : Creature {
 			}
 		} else if (type == "Power") {
 			foreach (Spell spell in powers) {
+				Debug.Log(spell.name);
+				Debug.Log(name);
 				if (spell.name == name) return spell;
 			}
 		}

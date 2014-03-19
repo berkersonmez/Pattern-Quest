@@ -90,9 +90,11 @@ public class TalentRank {
 
 	public void applyChangeSpell(string changeString, string type) {
 		Player player = GameSaveController.instance.getPlayer();
+		Debug.Log(changeString);
 		string[] values = changeString.Split(':');
 		string spellName = values[0];
 		Spell spell = player.getSpell(spellName, type);
+		Debug.Log(spell.name);
 		if (spell != null) {
 			spell.change(values[1]);
 		}

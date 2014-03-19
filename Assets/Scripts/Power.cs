@@ -52,9 +52,11 @@ public class Power : Spell {
 	}
 
 	public override void change(string allParameters){
+		Debug.Log("DEGiSTiRiLiYOR");
 		string[] values = allParameters.Split(',');
 		for(int i=0; i<values.Length; i++){
 			string[] part = values[i].Split('=');
+
 			switch(part[0]){
 			case "name":
 				this.name = part[1];
@@ -87,6 +89,9 @@ public class Power : Spell {
 				break;
 			case "amount":
 				this.totalAmount += int.Parse(part[1]);
+				break;
+			case "percent":
+				this.percent += int.Parse(part[1]);
 				break;
 			}
 		}

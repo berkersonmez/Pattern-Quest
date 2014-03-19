@@ -12,6 +12,7 @@ public class Creature
 	public int currentHp=25;
 	public int mana=20;
 	public int manaRegen=2;
+	public int manaRegenPercentBetweenBattles=0;
 	public int hpRegen = 0;
 	public int currentMana=20;
 	public int spellPower=0;
@@ -62,6 +63,22 @@ public class Creature
 		currentHp += amount;
 		if(currentHp > Hp)
 			currentHp = Hp;
+	}
+
+	public void changeHpPercent(int percent){
+		currentHp += (int) ((float)percent/100 * hp);
+		if(currentHp < 0)
+			currentHp = 0;
+		if(currentHp > Hp)
+			currentHp = Hp;
+	}
+
+	public void changeManaPercent(int percent){
+		currentMana += (int) ((float)percent/100 * mana);
+		if(currentMana < 0)
+			currentMana = 0;
+		if(currentMana > mana)
+			currentMana = mana;
 	}
 	
 	public virtual void decreaseHp(Creature caster, int amount) {

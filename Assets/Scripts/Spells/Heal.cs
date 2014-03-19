@@ -37,8 +37,16 @@ public class Heal : Spell {
 		string combatTextExtra = "";
 		if(caster.currentMana - mana < 0)
 			return false;
-		int currentHeal = heal + caster.SpellPower;
-		caster.decreaseMana(mana);
+		Spell temp = new Spell();
+		temp = this.copy();
+		temp.heal = temp.heal + caster.SpellPower;
+		caster.react(temp,"self",ref combatTextExtra);
+		caster.decreaseMana(temp.mana);
+		int currentHeal = temp.heal;
+		if(currentHeal < 0)
+			currentHeal = 0;
+		currentHeal = applyCritical(caster, currentHeal, critIncrease);
+
 		caster.increaseHp(currentHeal);
 		// Combat text
 		int placement = caster.isPlayer ? (int)CombatTextController.Placement.PLAYER : (int)CombatTextController.Placement.CREATURE;

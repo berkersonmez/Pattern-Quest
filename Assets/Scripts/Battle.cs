@@ -9,7 +9,7 @@ public class Battle {
 	public Creature player;
 	public Creature creature;
 	public Creature dead=null;
-	public int turn=0;
+	public int turn=1;
 	public int state=0;
 	public int whoseTurn=0;
 	public float delayUpdateUntil = 0f;
@@ -27,7 +27,7 @@ public class Battle {
 		this.creature = creature;
 		player.resetCooldowns();
 		creature.resetCooldowns();
-		turn = 0;
+		turn = 1;
 		whoseTurn = (int)Turn.PLAYER;
 		DungeonController.instance.switchTurn(true);
 	}

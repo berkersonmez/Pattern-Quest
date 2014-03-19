@@ -135,6 +135,9 @@ public class Spell {
 			case "level":
 				this.level += int.Parse(part[1]);
 				break;
+			case "percent":
+				this.level += int.Parse(part[1]);
+				break;
 			}
 		}
 	}
