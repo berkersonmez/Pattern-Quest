@@ -6,6 +6,8 @@ using System.Collections.Generic;
 public class Player : Creature {
 
 	public int xp;
+	public float xpBonus;
+	public float goldBonus;
 	public int tp;
 	public Item redStone;
 	public Item blueStone;

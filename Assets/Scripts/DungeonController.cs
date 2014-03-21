@@ -101,8 +101,8 @@ public class DungeonController : MonoBehaviour {
 		} else {
 			// END BATTLE SUCCESSFULLY
 			player.inventory.AddRange(allLootItems);
-			player.gold += allLootGold;
-			player.xp += allLootXP;
+			player.gold += (int) (allLootGold * (1+player.goldBonus));
+			player.xp += (int) (allLootXP * (1+player.xpBonus));
 			GameSaveController.instance.player = player;
 			GameSaveController.instance.saveGame();
 			Application.LoadLevel("main");

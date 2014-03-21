@@ -47,8 +47,6 @@ public class GameSaveController : MonoBehaviour {
 		player.learnSpell(spell);
 		spell = new SoulRipper();
 		player.learnSpell(spell);
-		spell = new LifeDrain();
-		player.learnSpell(spell);
 		spell = new Douball();
 		spell.owner = player;
 		player.comboSpells.Add(spell);

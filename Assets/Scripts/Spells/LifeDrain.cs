@@ -8,7 +8,7 @@ public class LifeDrain : Spell {
 		name = "Life Drain";
 		damage = 0;
 		damageOverTime = 5;
-		turn = 5;
+		turn = 4;
 		mana = 10;
 		type = "nature";
 		level = 1;
@@ -16,7 +16,7 @@ public class LifeDrain : Spell {
 		spriteName = "avatar_spell_11";
 		shape.Add(2);
 		shape.Add(2);
-		shape.Add(9);
+		shape.Add(9);	
 		shape.Add(8);
 		shape.Add(2);
 		shape.Add(2);
