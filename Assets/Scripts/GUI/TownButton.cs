@@ -11,8 +11,10 @@ public class TownButton : MonoBehaviour {
 	}
 
 	void OnClick() {
-		if (transform.name == "MapButton")
-			TownMenu.instance.mapWindow();
+		if (transform.name == "MapButton") {
+			TownMenu.instance.mapWindow ();
+			TownController.instance.updateQuestsGUI();
+		}
 		else if (transform.name == "BackButton")
 			TownMenu.instance.menuWindow();
 		else if (transform.name == "InventoryButton")

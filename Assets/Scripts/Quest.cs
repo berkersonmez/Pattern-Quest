@@ -9,6 +9,7 @@ public class Quest : MonoBehaviour {
 	public string description;
 
 	public int unlocksAtLevel;
+	public bool isRepeatable;
 	public string[] collectItems;
 	public int[] collectItemCounts;
 	public bool removeCollectedItems = true;
@@ -28,7 +29,8 @@ public class Quest : MonoBehaviour {
 
 	private tk2dUIItem uiItem;
 	private Player player;
-	private bool isEnabled;
+	private bool isEnabled = true;
+	private bool isCompleted;
 	private tk2dSprite s_button;
 	public GameObject questParchementPrefab;
 	
@@ -68,6 +70,7 @@ public class Quest : MonoBehaviour {
 		parchementText.Commit();
 		QuestButton qButton = questParchement.transform.Find("AcceptDeclineButton").GetComponent<QuestButton>();
 		qButton.initialize(this);
+		if (isCompleted) qButton.gameObject.SetActive(false);
 		qButton = questParchement.transform.Find("BackButton").GetComponent<QuestButton>();
 		qButton.initialize(this);
 	}
@@ -81,11 +84,12 @@ public class Quest : MonoBehaviour {
 		foreach(string creatureName in slayEnemies) {
 			player.questSlayCounter[id].Add(creatureName, 0);
 		}
+		s_button.SetSprite("map_sign_3");
 	}
 
 	public void decline() {
 		player.questSlayCounter.Remove(id);
-
+		s_button.SetSprite("map_sign_1");
 	}
 
 	public void complete() {
@@ -99,6 +103,10 @@ public class Quest : MonoBehaviour {
 		SpellListController.instance.refreshPowerList();
 		TownController.instance.checkLevelUp();
 		TownController.instance.updateTexts();
+		if (!isRepeatable) {player.completedQuests.Add(id);
+		s_button.SetSprite("map_sign_2");
+		isCompleted = true;
+		}
 	}
 
 	public bool checkCompletion() {
@@ -233,13 +241,24 @@ public class Quest : MonoBehaviour {
 		}
 	}
 	
-	void Update() {
+	public void update() {
 		if (player.level >= unlocksAtLevel) {
 			isEnabled = true;
 			s_button.color = new Color(1f, 1f, 1f, 1f);
+			collider.enabled = true;
 		} else {
+			if (isEnabled == false) return;
 			isEnabled = false;
-			s_button.color = new Color(1f, 1f, 1f, .4f);
+			s_button.color = new Color(1f, 1f, 1f, 0f);
+			collider.enabled = false;
+		}
+		if (player.isCompletedQuest(id)) {
+			s_button.SetSprite("map_sign_2");
+			isCompleted = true;
+		} else if (isAccepted ()) {
+			s_button.SetSprite("map_sign_3");
+		} else {
+			s_button.SetSprite("map_sign_1");
 		}
 	}
 

@@ -16,7 +16,8 @@ public class Player : Creature {
 	public List<KeyValuePair<int, int>> talents = new List<KeyValuePair<int, int>>();
 
 	public Dictionary<int,Dictionary<string,int>> questSlayCounter = new Dictionary<int, Dictionary<string,int>>();
-	
+	public List<int> completedQuests = new List<int>();
+
 	public Player(){
 		isPlayer = true;
 		spellPerTurn = 2;
@@ -136,5 +137,9 @@ public class Player : Creature {
 				if (powers[i].name == name) powers.RemoveAt(i);
 			}
 		}
+	}
+
+	public bool isCompletedQuest(int questID) {
+		return (completedQuests.IndexOf(questID) != -1);
 	}
 }

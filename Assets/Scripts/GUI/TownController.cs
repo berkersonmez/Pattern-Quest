@@ -64,6 +64,12 @@ public class TownController : MonoBehaviour {
 		textTP.Commit();
 	}
 
+	public void updateQuestsGUI() {
+		foreach (Quest quest in quests) {
+			quest.update();
+		}
+	}
+
 	public void resetTalents() {
 		foreach (Talent talent in talents) {
 			talent.deactivate();
