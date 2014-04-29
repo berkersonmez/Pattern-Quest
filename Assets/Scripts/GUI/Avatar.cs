@@ -29,7 +29,6 @@ public class Avatar : MonoBehaviour {
 	}
 	
 	public void deadAnim() {
-		
 		avatarSprite.color = new Color(.2f, .2f, .2f);
 	}
 	

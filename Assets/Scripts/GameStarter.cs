@@ -7,6 +7,7 @@ public class GameStarter : MonoBehaviour {
 	tk2dTextMesh loadingText;
 	tk2dUITextInput playerNameInput;
 	tk2dUIItem playerCreateButton;
+	GameObject avatarSelection;
 	
 	private int newSaveSlotId;
 
@@ -17,6 +18,7 @@ public class GameStarter : MonoBehaviour {
 		loadingText = GameObject.Find("Loading Text").GetComponent<tk2dTextMesh>();
 		playerNameInput = GameObject.Find("Player Name Input").GetComponent<tk2dUITextInput>();
 		playerCreateButton = GameObject.Find("Create Char Button").GetComponent<tk2dUIItem>();
+		avatarSelection = GameObject.Find("AvatarSelection");
 		playerCreateButton.OnClick += OnCreateClick;
 		
 		DontDestroyOnLoad(GameObject.Find("_LevelDescriptor"));
@@ -38,8 +40,9 @@ public class GameStarter : MonoBehaviour {
 	}
 	
 	public void newSaveGame(int newSaveSlotId) {
-		playerNameInput.transform.position = new Vector3(-6.8f, 15.1f, -1f);
+		playerNameInput.transform.position = new Vector3(-6.8f, 16f, -1f);
 		playerCreateButton.transform.position = new Vector3(0, -15.8f, -1f);
+		avatarSelection.transform.position = new Vector3(0f, 6f, -1f);
 		Camera.main.transform.position = new Vector3(0f, 0f, -10f);
 		loadingText.text = "Enter character name:";
 		loadingText.Commit();
@@ -49,7 +52,7 @@ public class GameStarter : MonoBehaviour {
 	
 	void OnCreateClick() {
 		if (playerNameInput.Text != "") {
-			GameSaveController.instance.makeNewSave(playerNameInput.Text, newSaveSlotId);
+			GameSaveController.instance.makeNewSave(playerNameInput.Text, newSaveSlotId, AvatarSelection.instance.getSelectedAvatar());
 			Application.LoadLevel("main");
 		}
 	}

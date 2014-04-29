@@ -46,10 +46,11 @@ public class GameSaveController : MonoBehaviour {
 		return true;
 	}
 	
-	public void makeNewSave(string playerName, int slot) {
+	public void makeNewSave(string playerName, int slot, string avatarSpriteName) {
 		currentGame = new GameSave();
 		player = new Player();
 		player.name = playerName;
+		player.spriteName = avatarSpriteName;
 		Spell spell = new FireBall();
 		player.learnSpell(spell);
 		spell = new Heal();
