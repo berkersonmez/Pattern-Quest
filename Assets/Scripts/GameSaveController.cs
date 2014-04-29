@@ -18,22 +18,35 @@ public class GameSaveController : MonoBehaviour {
 	public GameSave currentGame;
 	public static BinaryFormatter bf = new BinaryFormatter();
 	public Player player = null;
+	public int currentSlot;
 	
 	void Start () {
 		instance = this;
 		player = null;
 	}
 	
-	public bool loadGame() {
-		currentGame = load<GameSave>("GameSave");
+	public bool loadGame(int slot) {
+		currentGame = load<GameSave>("GameSave" + slot);
 		if (currentGame == null) {
 			return false;
 		}
-		player = getPlayer();
+		player = getPlayerOverride();
+		currentSlot = slot;
 		return true;
 	}
 	
-	public void makeNewSave(string playerName) {
+	public bool loadGame(int slot, out Player slotPlayer) {
+		GameSave slotGame = load<GameSave>("GameSave" + slot);
+		if (slotGame == null) {
+			slotPlayer = null;
+			return false;
+		}
+		slotPlayer = getPlayerOverride(slotGame);
+		currentSlot = slot;
+		return true;
+	}
+	
+	public void makeNewSave(string playerName, int slot) {
 		currentGame = new GameSave();
 		player = new Player();
 		player.name = playerName;
@@ -63,20 +76,36 @@ public class GameSaveController : MonoBehaviour {
 		player.tp = 10; // TEST
 		player.xp = 0;
 		player.gold = 0;
+		currentSlot = slot;
 		saveGame();
 	}
 	
 	// Collect data to "currentGame" in this method before save.
 	public void saveGame() {
 		currentGame.player = player;
-		save("GameSave", currentGame);
+		save("GameSave" + currentSlot, currentGame);
 	}
 	
+	// Gets player lazily
 	public Player getPlayer() {
 		if (player == null) {
 			player = currentGame.player;
 		}
 		return player;
+	}
+	
+	// Gets player directly
+	public Player getPlayerOverride() {
+		player = currentGame.player;
+		return currentGame.player;
+	}
+	
+	public Player getPlayerOverride(GameSave slotGame) {
+		return slotGame.player;
+	}
+	
+	public void deleteSave(int slot) {
+		PlayerPrefs.DeleteKey("GameSave" + slot);
 	}
 
     public void save(string prefKey, object serializableObject) {
