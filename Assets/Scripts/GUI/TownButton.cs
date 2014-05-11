@@ -38,7 +38,7 @@ public class TownButton : MonoBehaviour {
 		} else if (transform.name == "Left Map") {
 			TownMenu.instance.mapWindowLeft();
 		} else if (transform.name == "QuizButton") {
-			Notification.activate("Answer all questions correctly to learn the gold prize!",
+			Notification.activate("Answer all questions correctly to get the gold prize!",
 			                      () => {TownMenu.instance.quizWindow(); QuizController.instance.startQuiz();});
 		}
 	}
