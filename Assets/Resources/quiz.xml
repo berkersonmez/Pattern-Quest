@@ -9,7 +9,7 @@
 			<choice id="2">Steve Jobs</choice>
 			<choice id="3">Ken Levine</choice>
 		</choices>
-		<answer>1</answer>
+		<answer>0</answer>
 	</question>
 	<question>
 		<id>1</id>
@@ -20,6 +20,6 @@
 			<choice id="2">Maybe</choice>
 			<choice id="3">Probably</choice>
 		</choices>
-		<answer>1</answer>
+		<answer>2</answer>
 	</question>
 </questions>
