@@ -4,7 +4,7 @@
 		<id>0</id>
 		<query>Which person is a developer for this game?</query>
 		<choices>
-			<choice id="0">Oguz Onur Kul</choice>
+			<choice id="0">Berker Sonmez</choice>
 			<choice id="1">Mark Zuckerberg</choice>
 			<choice id="2">Steve Jobs</choice>
 			<choice id="3">Ken Levine</choice>
@@ -13,13 +13,46 @@
 	</question>
 	<question>
 		<id>1</id>
-		<query>Example question?</query>
+		<query>3+5?</query>
 		<choices>
-			<choice id="0">Yes</choice>
-			<choice id="1">No</choice>
-			<choice id="2">Maybe</choice>
-			<choice id="3">Probably</choice>
+			<choice id="0">3'ün 5'in lafı olmaz</choice>
+			<choice id="1">4</choice>
+			<choice id="2">8</choice>
+			<choice id="3">1</choice>
 		</choices>
 		<answer>2</answer>
+	</question>
+	<question>
+		<id>2</id>
+		<query>Which one is the best teacher in ITU?</query>
+		<choices>
+			<choice id="0">Mahmut</choice>
+			<choice id="1">Osman</choice>
+			<choice id="2">Faruk</choice>
+			<choice id="3">Serkan</choice>
+		</choices>
+		<answer>3</answer>
+	</question>
+	<question>
+		<id>3</id>
+		<query>Which one is the best faculty in ITU?</query>
+		<choices>
+			<choice id="0">Computer</choice>
+			<choice id="1">Osman</choice>
+			<choice id="2">Faruk</choice>
+			<choice id="3">Serkan</choice>
+		</choices>
+		<answer>0</answer>
+	</question>
+	<question>
+		<id>4</id>
+		<query>Which one is the better?</query>
+		<choices>
+			<choice id="0">AA</choice>
+			<choice id="1">BB</choice>
+			<choice id="2">CC</choice>
+			<choice id="3">DD</choice>
+		</choices>
+		<answer>0</answer>
 	</question>
 </questions>
