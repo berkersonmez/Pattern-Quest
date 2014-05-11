@@ -64,6 +64,7 @@ public class QuizController : MonoBehaviour {
 	private void pass() {
 		GameSaveController.instance.getPlayer().gold += prizeGold;
 		GameSaveController.instance.saveGame();
+		TownController.instance.updateTexts();
 		Notification.activate("You have completed the quiz successfully! This experience helped you to gain some gold!",
 		                      () => exitQuiz());
 	}
