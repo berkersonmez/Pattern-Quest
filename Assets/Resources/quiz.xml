@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <questions>	
 	<question>
-		<id>1</id>
+		<id>0</id>
 		<query>Which person is a developer for this game?</query>
 		<choices>
-			<choice id="1">Oguz Onur Kul</choice>
-			<choice id="2">Mark Zuckerberg</choice>
-			<choice id="3">Steve Jobs</choice>
-			<choice id="4">Ken Levine</choice>
+			<choice id="0">Oguz Onur Kul</choice>
+			<choice id="1">Mark Zuckerberg</choice>
+			<choice id="2">Steve Jobs</choice>
+			<choice id="3">Ken Levine</choice>
+		</choices>
+		<answer>1</answer>
+	</question>
+	<question>
+		<id>1</id>
+		<query>Example question?</query>
+		<choices>
+			<choice id="0">Yes</choice>
+			<choice id="1">No</choice>
+			<choice id="2">Maybe</choice>
+			<choice id="3">Probably</choice>
 		</choices>
 		<answer>1</answer>
 	</question>
