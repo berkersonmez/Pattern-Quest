@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
+using System.Linq;
 
 public class XmlParse : MonoBehaviour {
 	
@@ -11,6 +12,7 @@ public class XmlParse : MonoBehaviour {
 	public TextAsset spellXML;
 	public TextAsset creatureXML;
 	public TextAsset mapXML;
+	public TextAsset quizXML;
 	
 	public List<Item> itemList = new List<Item>();
 	public List<Spell> spellList = new List<Spell>();
@@ -76,6 +78,33 @@ public class XmlParse : MonoBehaviour {
 	 	 	}
 		obj.setValues();
 		return obj;
+	}
+	
+	public Question getRandomUnansweredQuestion() {
+		Question question = new Question();
+		XmlDocument xmlDoc = new XmlDocument();
+		xmlDoc.LoadXml(quizXML.text);
+		XmlNodeList xmlQuestions = xmlDoc.GetElementsByTagName("question");
+		
+		var exclude = GameSaveController.instance.getPlayer().answeredQuestions;
+		var range = Enumerable.Range(0, xmlQuestions.Count).Where(i => !exclude.Contains(i));
+		int randomNode;
+		try {
+			randomNode = range.ElementAt(Random.Range(0, xmlQuestions.Count - exclude.Count));
+		} catch (System.Exception e) {
+			Debug.Log("Exception happened: " + e.Message);
+			return null;
+		}
+		
+		XmlNode qNode = xmlQuestions.Item(randomNode);
+		question.id = randomNode;
+		question.query = qNode.SelectSingleNode("query").InnerText;
+		question.answer = int.Parse(qNode.SelectSingleNode("answer").InnerText);
+		XmlNodeList choices = qNode.SelectSingleNode("choices").ChildNodes;
+		foreach(XmlNode choice in choices) {
+			question.addChoice(int.Parse(choice.SelectSingleNode("@id").Value), choice.InnerText);
+		}
+		return question;
 	}
 	
 	public Queue<string> getMapCreatures(int dungeonNo){
