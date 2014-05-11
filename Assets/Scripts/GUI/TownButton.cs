@@ -37,6 +37,8 @@ public class TownButton : MonoBehaviour {
 			TownMenu.instance.mapWindowRight();
 		} else if (transform.name == "Left Map") {
 			TownMenu.instance.mapWindowLeft();
+		} else if (transform.name == "ShopButton") {
+			StoreManager.instance.openStore();
 		}
 	}
 }
