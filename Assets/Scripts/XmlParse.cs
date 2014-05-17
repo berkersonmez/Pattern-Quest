@@ -13,20 +13,75 @@ public class XmlParse : MonoBehaviour {
 	public TextAsset creatureXML;
 	public TextAsset mapXML;
 	public TextAsset quizXML;
+	public TextAsset storeXML;
+	
+	private XmlDocument _itemDoc;
+	private XmlDocument _creatureDoc;
+	private XmlDocument _quizDoc;
+	private XmlDocument _mapDoc;
+	private XmlDocument _storeDoc;
+	
+	public XmlDocument ItemDoc {
+		get {
+			if (_itemDoc == null) {
+				_itemDoc = new XmlDocument();
+				_itemDoc.LoadXml(itemXML.text);
+			}
+			return _itemDoc;
+		}
+	}
+	
+	public XmlDocument CreatureDoc {
+		get {
+			if (_creatureDoc == null) {
+				_creatureDoc = new XmlDocument();
+				_creatureDoc.LoadXml(creatureXML.text);
+			}
+			return _creatureDoc;
+		}
+	}
+	
+	public XmlDocument QuizDoc {
+		get {
+			if (_quizDoc == null) {
+				_quizDoc = new XmlDocument();
+				_quizDoc.LoadXml(quizXML.text);
+			}
+			return _quizDoc;
+		}
+	}
+	
+	public XmlDocument MapDoc {
+		get {
+			if (_mapDoc == null) {
+				_mapDoc = new XmlDocument();
+				_mapDoc.LoadXml(mapXML.text);
+			}
+			return _mapDoc;
+		}
+	}
+	
+	public XmlDocument StoreDoc {
+		get {
+			if (_storeDoc == null) {
+				_storeDoc = new XmlDocument();
+				_storeDoc.LoadXml(storeXML.text);
+			}
+			return _storeDoc;
+		}
+	}
 	
 	public List<Item> itemList = new List<Item>();
 	public List<Spell> spellList = new List<Spell>();
 	
-	void Start() {
+	void Awake() {
 		instance = this;
 	}
 	
 	public Creature getCreature(string creatureName){
 		Creature obj = new Creature();
-		XmlDocument xmlDoc = new XmlDocument();
-		xmlDoc.LoadXml(creatureXML.text);
 		
-		XmlNode datNode = xmlDoc.SelectSingleNode("/creatures/creature[name='" + creatureName + "']");
+		XmlNode datNode = CreatureDoc.SelectSingleNode("/creatures/creature[name='" + creatureName + "']");
 		XmlNodeList creatureContentList = datNode.ChildNodes;
 		
 		foreach (XmlNode creatureContent in creatureContentList) {
@@ -80,11 +135,48 @@ public class XmlParse : MonoBehaviour {
 		return obj;
 	}
 	
+	public List<StoreGood> getStoreGoods() {
+		List<StoreGood> goods = new List<StoreGood>();
+		XmlNodeList xmlGoods = StoreDoc.GetElementsByTagName("good");
+		
+		foreach (XmlNode xmlGood in xmlGoods) {
+			StoreGood good = new StoreGood();
+			good.name = xmlGood.SelectSingleNode("name").InnerText;
+			if (good.name == "") continue;
+			good.description = xmlGood.SelectSingleNode("description").InnerText;
+			good.itemID = xmlGood.SelectSingleNode("itemID").InnerText;
+			good.category = xmlGood.SelectSingleNode("category").InnerText;
+			good.spriteName = xmlGood.SelectSingleNode("spriteName").InnerText;
+			good.realName = xmlGood.SelectSingleNode("realName").InnerText;
+			good.costType = xmlGood.SelectSingleNode("costType").InnerText;
+			good.costAmount = int.Parse(xmlGood.SelectSingleNode("costAmount").InnerText);
+			goods.Add(good);
+		}
+		return goods;
+	}
+	
+	public List<StoreCurrencyPack> getStoreCurrencyPacks() {
+		List<StoreCurrencyPack> packs = new List<StoreCurrencyPack>();
+		XmlNodeList xmlGoods = StoreDoc.GetElementsByTagName("pack");
+		
+		foreach (XmlNode xmlGood in xmlGoods) {
+			StoreCurrencyPack pack = new StoreCurrencyPack();
+			pack.name = xmlGood.SelectSingleNode("name").InnerText;
+			if (pack.name == "") continue;
+			pack.description = xmlGood.SelectSingleNode("description").InnerText;
+			pack.itemID = xmlGood.SelectSingleNode("itemID").InnerText;
+			pack.productID = xmlGood.SelectSingleNode("productID").InnerText;
+			pack.cost = xmlGood.SelectSingleNode("cost").InnerText;
+			pack.size = int.Parse(xmlGood.SelectSingleNode("size").InnerText);
+			pack.type = xmlGood.SelectSingleNode("type").InnerText;
+			packs.Add(pack);
+		}
+		return packs;
+	}
+	
 	public Question getRandomUnansweredQuestion() {
 		Question question = new Question();
-		XmlDocument xmlDoc = new XmlDocument();
-		xmlDoc.LoadXml(quizXML.text);
-		XmlNodeList xmlQuestions = xmlDoc.GetElementsByTagName("question");
+		XmlNodeList xmlQuestions = QuizDoc.GetElementsByTagName("question");
 		
 		var exclude = GameSaveController.instance.getPlayer().answeredQuestions;
 		var range = Enumerable.Range(0, xmlQuestions.Count).Where(i => !exclude.Contains(i));
@@ -107,10 +199,53 @@ public class XmlParse : MonoBehaviour {
 		return question;
 	}
 	
+	
+	
+	public Item getItemByStoreId(string storeId) {
+		Item obj = new Item();
+		
+		XmlNode datNode = ItemDoc.SelectSingleNode("/items/item[storeId='" + storeId + "']");
+		if(datNode == null)
+			return null;
+		
+		XmlNodeList itemContentList = datNode.ChildNodes;
+		
+		foreach (XmlNode itemContent in itemContentList) {
+			if(itemContent.Name == "name"){
+				if(itemContent.InnerText != null)
+					obj.name = itemContent.InnerText;		
+			}
+			if(itemContent.Name == "damage"){
+				obj.damage = getValue(itemContent.InnerText);
+			}
+			if(itemContent.Name == "type"){
+				obj.type = itemContent.InnerText;
+			}
+			if(itemContent.Name == "rarity")
+				obj.rarity = itemContent.InnerText;
+			if(itemContent.Name == "armor")
+				obj.armor = getValue(itemContent.InnerText);
+			if(itemContent.Name == "hp")
+				obj.hp = getValue(itemContent.InnerText);
+			if(itemContent.Name == "mana")
+				obj.mana = getValue(itemContent.InnerText);
+			if(itemContent.Name == "manaRegen")
+				obj.manaRegen = getValue(itemContent.InnerText);
+			if(itemContent.Name == "level")
+				obj.level = getValue(itemContent.InnerText);
+			if(itemContent.Name == "spriteName")
+				obj.spriteName = itemContent.InnerText;
+			if(itemContent.Name == "gold")
+				obj.gold = getValue(itemContent.InnerText);
+		}
+		
+		//Fixes empty and wrong values
+		obj.setValues();
+		return obj;
+	}
+	
 	public Queue<string> getMapCreatures(int dungeonNo){
-		XmlDocument xmlDoc = new XmlDocument();
-		xmlDoc.LoadXml(mapXML.text);
-		XmlNodeList xmlCreatures = xmlDoc.SelectNodes("dungeons/dungeon[@no = '"+ dungeonNo +"']/creatures/creature");
+		XmlNodeList xmlCreatures = MapDoc.SelectNodes("dungeons/dungeon[@no = '"+ dungeonNo +"']/creatures/creature");
 		
 		Queue<string> creatureNames = new Queue<string>();
 		
@@ -157,10 +292,8 @@ public class XmlParse : MonoBehaviour {
 	
 	public Item getItem(string name){
 		Item obj = new Item();
-		XmlDocument xmlDoc = new XmlDocument();
-		xmlDoc.LoadXml(itemXML.text);
 		
-		XmlNode datNode = xmlDoc.SelectSingleNode("/items/item[name='" + name + "']");
+		XmlNode datNode = ItemDoc.SelectSingleNode("/items/item[name='" + name + "']");
 		if(datNode == null)
 			return null;
 		XmlNodeList itemContentList = datNode.ChildNodes;

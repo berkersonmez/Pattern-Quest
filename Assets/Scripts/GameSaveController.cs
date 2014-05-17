@@ -77,6 +77,7 @@ public class GameSaveController : MonoBehaviour {
 		player.tp = 10; // TEST
 		player.xp = 0;
 		player.gold = 0;
+		player.crystal = 0;
 		currentSlot = slot;
 		saveGame();
 	}

@@ -41,4 +41,16 @@
 		<gold>10</gold>
 		<spriteName>avatar_item_6</spriteName>
 	</item>
+	<item dropChance="0">
+		<name>Bat of Pain</name>
+		<type>red</type>
+	    <damage>9</damage>
+		<armor>4</armor>
+	    <rarity>rare</rarity>
+		<hp>10</hp>
+	    <mana>10</mana>
+		<level>1</level>
+		<gold>20</gold>
+		<spriteName>avatar_item_7</spriteName>
+	</item>
 </items>

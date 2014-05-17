@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<store>
+	<goods>
+		<good>
+			<name></name>
+			<description></description>
+			<itemID></itemID>
+			<category></category> <!-- "item", "spell", "power", "combo" -->
+			<spriteName></spriteName>
+			<realName></realName> <!-- this is the class name for spells ex: name:"Life Drain" => realName:"LifeDrain" -->
+			<costType></costType> <!-- "gold", "crystal" -->
+			<costAmount></costAmount>
+		</good>
+		<good>
+			<name>Bat of Pain</name>
+			<description>Bring pain to enemies with its high damage capability.</description>
+			<itemID>item_1</itemID>
+			<category>item</category>
+			<spriteName>avatar_item_7</spriteName>
+			<realName></realName>
+			<costType>gold</costType>
+			<costAmount>500</costAmount>
+		</good>
+		<good>
+			<name>Test of Pain</name>
+			<description>Bring pain to enemies with its high damage capability.</description>
+			<itemID>item_3</itemID>
+			<category>item</category>
+			<spriteName>avatar_item_6</spriteName>
+			<realName></realName>
+			<costType>crystal</costType>
+			<costAmount>1200</costAmount>
+		</good>
+		<good>
+			<name>Life Drain</name>
+			<description>Drains hp from enemy to you every turn for several turns.</description>
+			<itemID>item_2</itemID>
+			<category>spell</category>
+			<spriteName>avatar_spell_11</spriteName>
+			<realName>LifeDrain</realName>
+			<costType>crystal</costType>
+			<costAmount>100</costAmount>
+		</good>
+	</goods>
+	<currencyPacks>
+		<pack>
+			<name>Small Crystal Pack</name>
+			<description>Small Crystal Pack</description>
+			<itemID>currency_1</itemID>
+			<productID>small_currency_pack</productID>
+			<cost>0.99 €</cost>
+			<size>100</size>
+			<type>crystal</type>
+		</pack>
+		<pack>
+			<name>Medium Crystal Pack</name>
+			<description>Medium Crystal Pack</description>
+			<itemID>currency_2</itemID>
+			<productID>medium_currency_pack</productID>
+			<cost>4.99 €</cost>
+			<size>1000</size>
+			<type>crystal</type>
+		</pack>
+		<pack>
+			<name>Big Crystal Pack</name>
+			<description>Big Crystal Pack</description>
+			<itemID>currency_3</itemID>
+			<productID>big_currency_pack</productID>
+			<cost>14.99 €</cost>
+			<size>5000</size>
+			<type>crystal</type>
+		</pack>
+	</currencyPacks>
+</store>

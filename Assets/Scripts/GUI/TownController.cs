@@ -7,17 +7,19 @@ public class TownController : MonoBehaviour {
 
 	public GameObject levelUpWindowPrefab;
 
-	private tk2dTextMesh textGold;
+	private GameObject[] textGold;
 	private tk2dTextMesh textLevel;
 	private tk2dTextMesh textXP;
 	private tk2dTextMesh textTP;
+	private GameObject[] textCrystal;
 
 	public Quest[] quests;
 	public Talent[] talents;
 
 	void Start () {
 		instance = this;
-		textGold = GameObject.Find("Gold").GetComponent<tk2dTextMesh>();
+		textGold = GameObject.FindGameObjectsWithTag("GoldText");
+		textCrystal = GameObject.FindGameObjectsWithTag("CrystalText");
 		textLevel = GameObject.Find("Level").GetComponent<tk2dTextMesh>();
 		textXP = GameObject.Find("XP").GetComponent<tk2dTextMesh>();
 		textTP = GameObject.Find("Talent Points").GetComponent<tk2dTextMesh>();
@@ -47,10 +49,18 @@ public class TownController : MonoBehaviour {
 
 	public void updateTexts() {
 		Player player = GameSaveController.instance.getPlayer();
-		textGold.text = "Gold: " + player.gold;
+		foreach (GameObject tg in textGold) {
+			tk2dTextMesh tgTextMesh = tg.GetComponent<tk2dTextMesh>();
+			tgTextMesh.text = player.gold.ToString();
+			tgTextMesh.Commit();
+		}
+		foreach (GameObject tc in textCrystal) {
+			tk2dTextMesh tcTextMesh = tc.GetComponent<tk2dTextMesh>();
+			tcTextMesh.text = player.crystal.ToString();
+			tcTextMesh.Commit();
+		}
 		textLevel.text = "Level: " + player.level;
 		textXP.text = "XP: " + player.xp + "/" + GameSaveController.instance.xpRequiredForLevel(player.level + 1);
-		textGold.Commit();
 		textLevel.Commit();
 		textXP.Commit();
 	}

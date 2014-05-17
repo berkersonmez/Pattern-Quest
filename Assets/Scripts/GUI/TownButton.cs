@@ -40,6 +40,17 @@ public class TownButton : MonoBehaviour {
 		} else if (transform.name == "QuizButton") {
 			Notification.activate("Answer all questions correctly to get the gold prize!",
 			                      () => {TownMenu.instance.quizWindow(); QuizController.instance.startQuiz();});
+		} else if (transform.name == "ShopButton") {
+			StoreManager.instance.refreshStoreLists();
+			TownMenu.instance.storeWindow();
+		} else if (transform.name == "ShopCombosButton") {
+			TownMenu.instance.storeCombosWindow();
+		} else if (transform.name == "ShopItemsButton") {
+			TownMenu.instance.storeItemsWindow();
+		} else if (transform.name == "ShopPowersButton") {
+			TownMenu.instance.storePowersWindow();
+		} else if (transform.name == "ShopSpellsButton") {
+			TownMenu.instance.storeSpellsWindow();
 		}
 	}
 }
