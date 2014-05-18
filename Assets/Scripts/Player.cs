@@ -118,17 +118,15 @@ public class Player : Creature {
 	public Spell getSpell(string name, string type) {
 		if (type == "Spell") {
 			foreach (Spell spell in spellList) {
-				if (spell.name == name) return spell;
+				if (spell.idName == name) return spell;
 			}
 		} else if (type == "Combo") {
 			foreach (Spell spell in comboSpells) {
-				if (spell.name == name) return spell;
+				if (spell.idName == name) return spell;
 			}
 		} else if (type == "Power") {
 			foreach (Spell spell in powers) {
-				Debug.Log(spell.name);
-				Debug.Log(name);
-				if (spell.name == name) return spell;
+				if (spell.idName == name) return spell;
 			}
 		}
 		return null;
@@ -137,15 +135,15 @@ public class Player : Creature {
 	public void unlearnSpell(string name, string type) {
 		if (type == "Spell") {
 			for (int i = 0; i < spellList.Count; i++) {
-				if (spellList[i].name == name) spellList.RemoveAt(i);
+				if (spellList[i].idName == name) spellList.RemoveAt(i);
 			}
 		} else if (type == "Combo") {
 			for (int i = 0; i < comboSpells.Count; i++) {
-				if (comboSpells[i].name == name) comboSpells.RemoveAt(i);
+				if (comboSpells[i].idName == name) comboSpells.RemoveAt(i);
 			}
 		} else if (type == "Power") {
 			for (int i = 0; i < powers.Count; i++) {
-				if (powers[i].name == name) powers.RemoveAt(i);
+				if (powers[i].idName == name) powers.RemoveAt(i);
 			}
 		}
 	}

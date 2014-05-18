@@ -26,7 +26,7 @@ public class Happiness : ComboSpell {
 	public override bool requires(Queue<Spell> castedSpells){
 		int casted_heal_count = 0;
 		foreach(Spell spell in castedSpells){
-			if(spell.name == "Heal")
+			if(spell.idName == "Heal")
 				casted_heal_count++;
 		}
 		if(casted_heal_count >= 2)

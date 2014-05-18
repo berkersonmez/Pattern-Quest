@@ -23,7 +23,7 @@ public class SpellReflect : Power {
 		if(castedSpell.isOneTick == false){
 			this.active = false;
 			//We are doing this to get castedSpell's not edited version
-			castedSpell = castedSpell.owner.getSpell(castedSpell.name,castedSpell.level);
+			castedSpell = castedSpell.owner.getSpell(castedSpell.idName,castedSpell.level);
 			castedSpell.cast(DungeonController.instance.battle, castedSpell.owner, castedSpell.owner, 0);
 			this.currentCooldDown = this.totalCoolDown;
 			//TODO: PRINT "REFLECTED" ON TARGET

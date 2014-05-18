@@ -137,7 +137,7 @@ public class Quest : MonoBehaviour {
 	public bool learnedSpell(string spellName) {
 		bool found = false;
 		foreach (Spell spell in player.spellList) {
-			if (spell.name == spellName) {
+			if (spell.idName == spellName) {
 				found = true;
 				break;
 			}

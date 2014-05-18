@@ -7,6 +7,7 @@ public class Douball : ComboSpell {
 	
 	public Douball(){
 		name = "Douball";
+		idName = "Douball";
 		damage = 0;
 		mana = 0;
 		type = "nature";

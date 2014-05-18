@@ -148,7 +148,7 @@ public class Creature
 
 	public Spell getSpell(string name, int level){
 		foreach(Spell spell in spellList){
-			if(spell.name == name && spell.level == level)
+			if(spell.idName == name && spell.level == level)
 				return spell;
 		}
 		return null;
