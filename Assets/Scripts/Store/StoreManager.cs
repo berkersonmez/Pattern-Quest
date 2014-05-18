@@ -19,6 +19,10 @@ public class StoreManager : MonoBehaviour {
 		public static List<StoreGood> getGoodsInCategory(string category) {
 			return storeGoods.Where(g => g.category == category).ToList();
 		}
+		
+		public static StoreCurrencyPack getCurrencyPackByItemId(string itemID) {
+			return storeCurrencyPacks.SingleOrDefault(p => p.itemID == itemID);
+		}
 	}
 
 	public static StoreManager instance;
@@ -42,7 +46,11 @@ public class StoreManager : MonoBehaviour {
 	
 	// Purchased with market
 	void OnItemPurchased(PurchasableVirtualItem item) {
-		// TODO: Fill
+		StoreCurrencyPack currencyPack = Local.getCurrencyPackByItemId(item.ItemId);
+		if (currencyPack.type == "crystal") {
+			GameSaveController.instance.getPlayer().crystal += currencyPack.size;
+		}
+		
 		TownController.instance.updateTexts();
 		refreshStoreLists();
 		GameSaveController.instance.saveGame();
