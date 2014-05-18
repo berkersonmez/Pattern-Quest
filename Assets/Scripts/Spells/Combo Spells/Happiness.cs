@@ -7,6 +7,7 @@ public class Happiness : ComboSpell {
 	
 	public Happiness(){
 		name = "Happiness";
+		idName = "Happiness";
 		damage = 0;
 		healOverTime = 3;
 		turn = 5;

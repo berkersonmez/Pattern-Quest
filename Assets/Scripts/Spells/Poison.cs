@@ -6,6 +6,7 @@ public class Poison : Spell {
 	
 	public Poison(){
 		name = "Poison";
+		idName = "Poison";
 		damage = 0;
 		damageOverTime = 3;
 		turn = 3;

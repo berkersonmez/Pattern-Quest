@@ -14,9 +14,15 @@ public class WearButton : MonoBehaviour {
 	}
 	
 	void OnClick() {
-		// TODO: Item level requirement control
-		GameSaveController.instance.player.wearItem(item);
-
+		// Basic level check
+		if (item.level > GameSaveController.instance.getPlayer().level) {
+			Notification.activate("Your character level is too low to wear this item.", null);
+		}
+		if (item.type == "consumable") {
+			GameSaveController.instance.player.consumeItem(item);
+		} else {
+			GameSaveController.instance.player.wearItem(item);
+		}
 		InventoryController.instance.refreshGearList();
 		InventoryController.instance.refreshItemList();
 		GameSaveController.instance.saveGame();

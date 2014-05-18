@@ -7,6 +7,7 @@ public class Rampage : Power {
 	
 	public Rampage(){
 		name = "Rampage";
+		idName = "Rampage";
 		percent = 10;
 		effectOn = "self";
 		totalCoolDown = -1;

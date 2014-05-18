@@ -5,7 +5,8 @@ using System.Collections;
 public class NonEndingFire : Spell {
 	
 	public NonEndingFire(){
-		name = "NonEndingFire";
+		name = "Non-Ending Fire";
+		idName = "NonEndingFire";
 		damage = 4;
 		damageOverTime = 2;
 		turn = 3;

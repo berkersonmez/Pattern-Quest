@@ -6,6 +6,7 @@ public class Heal : Spell {
 	
 	public Heal(){
 		name = "Heal";
+		idName = "Heal";
 		damage=0;
 		damageOverTime=0;
 		heal = 8;

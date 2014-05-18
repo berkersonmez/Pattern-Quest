@@ -64,6 +64,15 @@ public class Player : Creature {
 		hpRegen += item.hpRegen;
 		return swapped;
 	}
+	
+	// Defines consuming behaviors
+	public void consumeItem(Item item) {
+		if (item.type != "consumable") return;
+		if (item.effect.Contains("talent_reset")) {
+			TownController.instance.resetTalents();
+		}
+		this.inventory.Remove(item);
+	}
 
 	public void slainCreature(string creatureName) {
 		// for quests (may count kills in this for stats)

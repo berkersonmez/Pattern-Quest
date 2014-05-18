@@ -6,6 +6,7 @@ public class SoulRipper : Spell {
 	
 	public SoulRipper(){
 		name = "Soul Ripper";
+		idName = "SoulRipper";
 		percent = 10;
 		mana = 3;
 		type = "fire";

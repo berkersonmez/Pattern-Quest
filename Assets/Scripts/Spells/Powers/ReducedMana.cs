@@ -6,7 +6,8 @@ using System.Collections.Generic;
 public class ReducedMana : Power {
 	
 	public ReducedMana(){
-		name = "ReducedMana";
+		name = "Reduced Mana";
+		idName = "ReducedMana";
 		percent = 50;
 		effectOn = "self";
 		totalCoolDown = -1;

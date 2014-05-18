@@ -24,6 +24,7 @@ public class TownMenu : MonoBehaviour {
 	public Vector3 storeItemsPosition = new Vector3(96, 80, -10);
 	public Vector3 storePowersPosition = new Vector3(168, 80, -10);
 	public Vector3 storeSpellsPosition = new Vector3(120, 80, -10);
+	public Vector3 storeCrystalPacksPosition = new Vector3(192, 80, -10);
 	
 	private Vector3 cameraTarget;
 	private bool moveCamera = false;
@@ -136,6 +137,12 @@ public class TownMenu : MonoBehaviour {
 	
 	public void storeSpellsWindow() {
 		cameraTarget = storeSpellsPosition;
+		fadeOut();
+		moveCamera = false;
+	}
+	
+	public void storeCrystalPacksWindow() {
+		cameraTarget = storeCrystalPacksPosition;
 		fadeOut();
 		moveCamera = false;
 	}

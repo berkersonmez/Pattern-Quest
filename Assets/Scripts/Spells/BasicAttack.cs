@@ -5,7 +5,8 @@ using System.Collections;
 public class BasicAttack : Spell {
 	
 	public BasicAttack(){
-		name = "BasicAttack";
+		name = "Basic Attack";
+		idName = "BasicAttack";
 		damage = 3;
 		mana = 0;
 		type = "fire";

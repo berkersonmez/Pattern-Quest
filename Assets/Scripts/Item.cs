@@ -18,6 +18,7 @@ public class Item {
 	public int gold;
 	public float dropChance;
 	public string spriteName;
+	public string effect;
 
 	public string tooltipText;
 	

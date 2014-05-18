@@ -299,35 +299,35 @@ public class XmlParse : MonoBehaviour {
 		XmlNodeList itemContentList = datNode.ChildNodes;
 		
 		foreach (XmlNode itemContent in itemContentList) {
-		if(itemContent.Name == "name"){
-			if(itemContent.InnerText != null)
-				obj.name = itemContent.InnerText;		
-		}
-		if(itemContent.Name == "damage"){
-			obj.damage = getValue(itemContent.InnerText);
-		}
-		if(itemContent.Name == "type"){
-			obj.type = itemContent.InnerText;
-		}
-		if(itemContent.Name == "rarity")
-			obj.rarity = itemContent.InnerText;
-		if(itemContent.Name == "armor")
-			obj.armor = getValue(itemContent.InnerText);
-		if(itemContent.Name == "hp")
-			obj.hp = getValue(itemContent.InnerText);
-		if(itemContent.Name == "mana")
-			obj.mana = getValue(itemContent.InnerText);
-		if(itemContent.Name == "manaRegen")
-			obj.manaRegen = getValue(itemContent.InnerText);
-		if(itemContent.Name == "level")
-			obj.level = getValue(itemContent.InnerText);
-		if(itemContent.Name == "spriteName")
-			obj.spriteName = itemContent.InnerText;
-		if(itemContent.Name == "gold")
-			obj.gold = getValue(itemContent.InnerText);
+			if(itemContent.Name == "name"){
+				if(itemContent.InnerText != null)
+					obj.name = itemContent.InnerText;		
+			}
+			if(itemContent.Name == "damage"){
+				obj.damage = getValue(itemContent.InnerText);
+			}
+			if(itemContent.Name == "type"){
+				obj.type = itemContent.InnerText;
+			}
+			if(itemContent.Name == "rarity")
+				obj.rarity = itemContent.InnerText;
+			if(itemContent.Name == "armor")
+				obj.armor = getValue(itemContent.InnerText);
+			if(itemContent.Name == "hp")
+				obj.hp = getValue(itemContent.InnerText);
+			if(itemContent.Name == "mana")
+				obj.mana = getValue(itemContent.InnerText);
+			if(itemContent.Name == "manaRegen")
+				obj.manaRegen = getValue(itemContent.InnerText);
+			if(itemContent.Name == "level")
+				obj.level = getValue(itemContent.InnerText);
+			if(itemContent.Name == "spriteName")
+				obj.spriteName = itemContent.InnerText;
+			if(itemContent.Name == "gold")
+				obj.gold = getValue(itemContent.InnerText);
+			if(itemContent.Name == "effect")
+				obj.effect = itemContent.InnerText;
 	  	}
-
-
 		//Fixes empty and wrong values
 		obj.setValues();
 	  	return obj;

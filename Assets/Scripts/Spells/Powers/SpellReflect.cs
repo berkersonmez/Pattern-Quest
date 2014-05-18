@@ -6,7 +6,8 @@ using System.Collections.Generic;
 public class SpellReflect : Power {
 	
 	public SpellReflect(){
-		name = "SpellReflect";
+		name = "Spell Reflect";
+		idName = "SpellReflect";
 		effectOn = "enemy";
 		totalCoolDown = -1;
 		mana = 0;

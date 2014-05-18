@@ -7,6 +7,7 @@ public class ItemHolder : MonoBehaviour {
 	public Item item;
 	public tk2dSprite avatar; // Assign using inspector
 	public tk2dTextMesh text; // Assign using inspector
+	public tk2dTextMesh t_wearButton; // Assign using inspector
 	private tk2dUIItem itemUI;
 
 	void Start () {
@@ -24,6 +25,15 @@ public class ItemHolder : MonoBehaviour {
 		if (text != null) {
 			text.text = item.name;
 			text.Commit();
+		}
+		if (t_wearButton != null) {
+			if (item.type == "consumable") {
+				t_wearButton.text = "Use";
+				t_wearButton.Commit();
+			} else {
+				t_wearButton.text = "Wear";
+				t_wearButton.Commit();
+			}
 		}
 	}
 

@@ -6,7 +6,8 @@ using System.Collections.Generic;
 public class IncreaseDamage : Power {
 	
 	public IncreaseDamage(){
-		name = "IncreaseDamage";
+		name = "Increase Damage";
+		idName = "IncreaseDamage";
 		totalAmount = 2;
 		currentAmount = 2;
 		percent = 0;

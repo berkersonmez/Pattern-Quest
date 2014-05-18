@@ -53,4 +53,12 @@
 		<gold>20</gold>
 		<spriteName>avatar_item_7</spriteName>
 	</item>
+	<item dropChance="10">
+		<name>Scroll of Unlearn</name>
+		<type>consumable</type>
+	    <rarity>rare</rarity>
+	    <effect>talent_reset</effect>
+		<gold>50</gold>
+		<spriteName>avatar_item_8</spriteName>
+	</item>
 </items>

@@ -51,6 +51,8 @@ public class TownButton : MonoBehaviour {
 			TownMenu.instance.storePowersWindow();
 		} else if (transform.name == "ShopSpellsButton") {
 			TownMenu.instance.storeSpellsWindow();
+		} else if (transform.name == "BuyCrystalPacksButton") {
+			TownMenu.instance.storeCrystalPacksWindow();
 		}
 	}
 }

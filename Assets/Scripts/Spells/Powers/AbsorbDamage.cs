@@ -6,7 +6,8 @@ using System.Collections.Generic;
 public class AbsorbDamage : Power {
 	
 	public AbsorbDamage(){
-		name = "AbsorbDamage";
+		name = "Absorb Damage";
+		idName = "AbsorbDamage";
 		totalAmount = 0;
 		currentAmount = 0;
 		percent = 50;

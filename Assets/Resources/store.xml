@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <store>
 	<goods>
+		<!-- ITEMS -->
 		<good>
 			<name></name>
 			<description></description>
 			<itemID></itemID>
 			<category></category> <!-- "item", "spell", "power", "combo" -->
 			<spriteName></spriteName>
-			<realName></realName> <!-- this is the class name for spells ex: name:"Life Drain" => realName:"LifeDrain" -->
+			<realName></realName> <!-- this is the class/identifier name for goods ex: name:"Life Drain" => realName:"LifeDrain" -->
 			<costType></costType> <!-- "gold", "crystal" -->
 			<costAmount></costAmount>
 		</good>
@@ -17,7 +18,7 @@
 			<itemID>item_1</itemID>
 			<category>item</category>
 			<spriteName>avatar_item_7</spriteName>
-			<realName></realName>
+			<realName>Bat of Pain</realName>
 			<costType>gold</costType>
 			<costAmount>500</costAmount>
 		</good>
@@ -27,10 +28,21 @@
 			<itemID>item_3</itemID>
 			<category>item</category>
 			<spriteName>avatar_item_6</spriteName>
-			<realName></realName>
+			<realName>sopa</realName>
 			<costType>crystal</costType>
 			<costAmount>1200</costAmount>
 		</good>
+		<good>
+			<name>Scroll of Unlearn</name>
+			<description>Resets your talents!</description>
+			<itemID>item_4</itemID>
+			<category>item</category>
+			<spriteName>avatar_item_8</spriteName>
+			<realName>Scroll of Unlearn</realName>
+			<costType>gold</costType>
+			<costAmount>100</costAmount>
+		</good>
+		<!-- SPELLS -->
 		<good>
 			<name>Life Drain</name>
 			<description>Drains hp from enemy to you every turn for several turns.</description>
@@ -41,32 +53,34 @@
 			<costType>crystal</costType>
 			<costAmount>100</costAmount>
 		</good>
+		<!-- COMBOS -->
+		<!-- POWERS -->
 	</goods>
 	<currencyPacks>
 		<pack>
 			<name>Small Crystal Pack</name>
-			<description>Small Crystal Pack</description>
+			<description>For the price of a 500gr bottle of water.</description>
 			<itemID>currency_1</itemID>
 			<productID>small_currency_pack</productID>
-			<cost>0.99 €</cost>
+			<cost>$0.99</cost>
 			<size>100</size>
 			<type>crystal</type>
 		</pack>
 		<pack>
-			<name>Medium Crystal Pack</name>
-			<description>Medium Crystal Pack</description>
+			<name>Mid Crystal Pack</name>
+			<description>Stop eating Big Mac one day and buy this!</description>
 			<itemID>currency_2</itemID>
 			<productID>medium_currency_pack</productID>
-			<cost>4.99 €</cost>
+			<cost>$4.99</cost>
 			<size>1000</size>
 			<type>crystal</type>
 		</pack>
 		<pack>
 			<name>Big Crystal Pack</name>
-			<description>Big Crystal Pack</description>
+			<description>Best value!</description>
 			<itemID>currency_3</itemID>
 			<productID>big_currency_pack</productID>
-			<cost>14.99 €</cost>
+			<cost>$14.99</cost>
 			<size>5000</size>
 			<type>crystal</type>
 		</pack>

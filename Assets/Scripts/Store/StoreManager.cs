@@ -40,14 +40,49 @@ public class StoreManager : MonoBehaviour {
 		StoreEvents.OnItemPurchased += OnItemPurchased;
 	}
 	
+	// Purchased with market
 	void OnItemPurchased(PurchasableVirtualItem item) {
-		
+		// TODO: Fill
+		TownController.instance.updateTexts();
+		refreshStoreLists();
+		GameSaveController.instance.saveGame();
+	}
+	
+	// Purchased with virtual good
+	public void OnItemPurchasedInGame(StoreGood good) {
+		Player player = GameSaveController.instance.getPlayer();
+		switch (good.category) {
+			case "item":
+			Item item = XmlParse.instance.getItem(good.realName);
+			player.inventory.Add(item);
+			InventoryController.instance.refreshItemList();
+			break;
+			case "spell":
+			player.spellList.Add(Globals.instance.getSpell(good.realName, player));
+			SpellListController.instance.refreshSpellList();
+			break;
+			case "combo":
+			player.comboSpells.Add(Globals.instance.getSpell(good.realName, player));
+			SpellListController.instance.refreshComboList();
+			break;
+			case "power":
+			player.powers.Add(Globals.instance.getPower(good.realName, player));
+			SpellListController.instance.refreshPowerList();
+			break;
+		}
+		refreshStoreLists();
+		TownController.instance.updateTexts();
+		GameSaveController.instance.saveGame();
 	}
 	
 	public void refreshStoreLists() {
 		StoreCategoryController[] controllers = FindObjectsOfType(typeof(StoreCategoryController)) as StoreCategoryController[];
 		foreach (StoreCategoryController controller in controllers) {
 			controller.refrestItemList();
+		}
+		StoreCurrencyPackListController[] packControllers = FindObjectsOfType(typeof(StoreCurrencyPackListController)) as StoreCurrencyPackListController[];
+		foreach (StoreCurrencyPackListController packController in packControllers) {
+			packController.refrestItemList();
 		}
 	}
 	

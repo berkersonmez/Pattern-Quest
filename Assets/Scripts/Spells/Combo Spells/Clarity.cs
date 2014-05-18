@@ -7,6 +7,7 @@ public class Clarity : ComboSpell {
 	
 	public Clarity(){
 		name = "Clarity";
+		idName = "Clarity";
 		damage = 3;
 		mana = 0;
 		type = "fire";

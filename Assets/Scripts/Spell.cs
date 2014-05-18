@@ -19,6 +19,7 @@ public class Spell {
 	public int maxLevel;
 	public bool isOneTick=false;	//This is an special variable to make 1 tick of any dot understandable
 	public string name;
+	public string idName; // This name should be same as the class name for the spell!
 	public string spriteName = "avatar_spell_0";
 	public int turn=0;
 	public bool isOverTime=false;

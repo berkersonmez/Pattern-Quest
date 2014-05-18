@@ -6,6 +6,7 @@ public class LifeDrain : Spell {
 	
 	public LifeDrain(){
 		name = "Life Drain";
+		idName = "LifeDrain";
 		damage = 0;
 		damageOverTime = 5;
 		turn = 4;
