@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 [System.Serializable]
 public class AbsorbDamage : Power {
@@ -44,8 +45,8 @@ public class AbsorbDamage : Power {
 				this.currentAmount = this.totalAmount;
 				if(this.justForThisBattle == true){
 					//In this bracket "Absorb Power" power should be removed from the power list of the creature\\
-					//var firstMatch = castedSpell.owner.powers.First(s => s.Name == this.name);
-					castedSpell.owner.powers.Remove (this);
+					var firstMatch = castedSpell.owner.powers.First(s => s.idName == this.idName);
+					castedSpell.owner.powers.Remove(firstMatch);
 					Debug.Log("Absorb Bitti");
 				}
 			}

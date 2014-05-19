@@ -185,8 +185,8 @@ public class Creature
 		Spell spell = this.spellList[0];
 		//battle.castSpell(spell);
 		bool isAbsorbActive = false;
-		Spell lastEatenSpell = this.eatenSpells[0];
-		Spell secondEatenSpell = this.eatenSpells[1];
+		Spell lastEatenSpell = this.eatenSpells[eatenSpells.Count - 1];
+		Spell secondEatenSpell = this.eatenSpells[eatenSpells.Count - 2];
 		if(lastEatenSpell.type == secondEatenSpell.type)
 			if(lastEatenSpell.damage + lastEatenSpell.damageOverTime > 0 &&
 			   secondEatenSpell.damage + secondEatenSpell.damageOverTime > 0)
