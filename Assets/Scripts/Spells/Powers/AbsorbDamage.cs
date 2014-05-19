@@ -10,7 +10,7 @@ public class AbsorbDamage : Power {
 		idName = "AbsorbDamage";
 		totalAmount = 0;
 		currentAmount = 0;
-		percent = 50;
+		percent = 0;
 		effectOn = "enemy";
 		totalCoolDown = 1;
 		mana = 0;
@@ -23,6 +23,9 @@ public class AbsorbDamage : Power {
 	public override bool react(Spell castedSpell, string effectOn, ref string combatTextExtra){
 		if(effectOn != this.effectOn)
 			return false;
+		if(castedSpell.type != this.type)
+			if(this.type != "all")
+				return false;
 		if(currentAmount > 0){
 			if(currentAmount <= castedSpell.damage){
 				castedSpell.damage -= currentAmount;
@@ -39,6 +42,12 @@ public class AbsorbDamage : Power {
 				this.active = false;
 				this.currentCooldDown = this.totalCoolDown;
 				this.currentAmount = this.totalAmount;
+				if(this.justForThisBattle == true){
+					//In this bracket "Absorb Power" power should be removed from the power list of the creature\\
+					//var firstMatch = castedSpell.owner.powers.First(s => s.Name == this.name);
+					castedSpell.owner.powers.Remove (this);
+					Debug.Log("Absorb Bitti");
+				}
 			}
 			return false;
 		}

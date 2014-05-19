@@ -30,6 +30,7 @@ public class Creature
 	public List<Item> droppedItems = new List<Item>();
 	public List<string> spellNamesList = new List<string>();
 	public List<Spell> spellList = new List<Spell>();
+	public List<Spell> eatenSpells = new List<Spell>();//eskiden queue idi ,save temizleme yok mu
 	public List<Spell> comboSpells = new List<Spell>();
 	public List<Power> powers = new List<Power>();
 	Queue<ActiveSpell> nextTurnsActiveSpells = new Queue<ActiveSpell>();
@@ -144,6 +145,16 @@ public class Creature
 		foreach(Spell spell in spellList){
 			spell.resetCooldown();
 		}
+		eatenSpells.Clear();
+	}
+
+	public void finishBattle(){
+		foreach(Power power in powers){
+			if(power.justForThisBattle == true){
+				powers.Remove(power);
+				return;
+			}
+		}
 	}
 
 	public Spell getSpell(string name, int level){
@@ -173,6 +184,25 @@ public class Creature
 	public void play(Battle battle, ref Creature caster, ref Creature target){
 		Spell spell = this.spellList[0];
 		//battle.castSpell(spell);
+		bool isAbsorbActive = false;
+		Spell lastEatenSpell = this.eatenSpells[0];
+		Spell secondEatenSpell = this.eatenSpells[1];
+		if(lastEatenSpell.type == secondEatenSpell.type)
+			if(lastEatenSpell.damage + lastEatenSpell.damageOverTime > 0 &&
+			   secondEatenSpell.damage + secondEatenSpell.damageOverTime > 0)
+				foreach(Spell spello in spellList)
+					if(spello.name == "Absorb Damage" && spello.type == lastEatenSpell.type){
+						foreach(Power power in this.powers){
+							if(power.name == "Absorb Damage"){
+								isAbsorbActive = true;
+								Debug.Log("var");
+							}	
+						}
+						if(isAbsorbActive == false){
+							battle.castSpell(spello);
+					   		Debug.Log(spello.name + spello.type + spello.damage);
+						}
+					}
 		if(brain==0 && this.spellList.Count > 1){
 			DungeonController.instance.battle.castSpell(this.spellList[1]);
 			brain = 5;
@@ -180,9 +210,10 @@ public class Creature
 			battle.castSpell(spell);
 			brain--;
 		}
-		Debug.Log("oy oy oy");
 	}
-	
+
+
+
 	public Creature (){
 		
 	}

@@ -117,14 +117,20 @@ public class Battle {
 		creature.increaseMana(creature.ManaRegen);
 		player.updateCooldowns();
 		creature.updateCooldowns();
+		//foreach(Spell elem in creature.eatenSpells)
+		//	Debug.Log(elem.name + " : " + elem.damage);
 	}
 	
 	public void spellAnimComplete() {
 		bool result;
 		if (whoseTurn == (int)Turn.PLAYER) {
 			result = castingSpell.cast(this, player, creature, castingCritDamage);
+			if(result)
+				creature.eatenSpells.Add(castingSpell);
 		} else {
 			result = castingSpell.cast(this, creature, player, castingCritDamage);
+			if(result)
+				player.eatenSpells.Add(castingSpell);
 		}
 		state = (int)State.CAST_PHASE;
 		castingCritDamage = 0;

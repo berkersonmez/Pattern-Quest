@@ -12,6 +12,7 @@ public class Power : Spell {
 	public int totalAmount;
 	public int remainingTurn=-1;	//turn count if the power is active for only some spesific turns
 	public int totalTurn=-1;		//-1 means it is active until it is dispelled
+	public bool justForThisBattle = false;
 
 	//True means reaction ended the spell no need to complete it in the spell.cast part
 	public virtual bool react(Spell castedSpell, string effectOn, ref string combatTextExtra){
@@ -27,6 +28,15 @@ public class Power : Spell {
 		this.totalAmount = amount;
 		this.currentAmount = amount;
 		this.percent = percent;
+	}
+
+	public override bool cast(Battle battle, Creature caster, Creature target, int critDamageIncrease){
+		Power temp = new Power();
+		temp = this.copy();
+		temp.currentAmount = 7;
+		temp.justForThisBattle = true;
+		caster.powers.Add(temp);
+		return true;
 	}
 
 	public override void resetCooldown(){
@@ -136,6 +146,10 @@ public class Power : Spell {
 				break;
 			}
 		}
+	}
+
+	public Power copy(){
+		return (Power)this.MemberwiseClone();
 	}
 
 }
