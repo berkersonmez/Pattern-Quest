@@ -129,6 +129,17 @@ public class Creature
 		return false;
 	}
 
+	public void checkPowers(){
+		Power toDelete = new Power();
+		foreach(Power power in powers){
+			if(power.justForThisBattle == true && power.currentAmount == 0 && power.percent == 0){
+				toDelete = power;
+				break;
+			}
+		}
+		powers.Remove(toDelete);
+	}
+
 	public void updateCooldowns(){
 		foreach(Power power in powers){
 			power.update();

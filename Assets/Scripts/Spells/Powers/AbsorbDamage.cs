@@ -45,8 +45,6 @@ public class AbsorbDamage : Power {
 				this.currentAmount = this.totalAmount;
 				if(this.justForThisBattle == true){
 					//In this bracket "Absorb Power" power should be removed from the power list of the creature\\
-					var firstMatch = castedSpell.owner.powers.First(s => s.idName == this.idName);
-					castedSpell.owner.powers.Remove(firstMatch);
 					Debug.Log("Absorb Bitti");
 				}
 			}

@@ -183,8 +183,8 @@ public class Battle {
 			break;
 		case (int)State.CAST_PHASE:
 			if (whoseTurn == (int)Turn.CREATURE) {
+				creature.checkPowers();
 				creature.play(this,ref creature,ref player);
-				
 			}
 			break;
 		case (int)State.SPELL_EFFECT:
