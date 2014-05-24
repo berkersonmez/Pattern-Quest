@@ -35,6 +35,7 @@ public class DungeonController : MonoBehaviour {
 		buttonMainMenu.OnClick += mainMenuClick;
 		playerAvatar.setOwner(player);
 		enterDungeon();
+		LevelDescriptor.instance.goToMapOnLoad = true;
 	}
 	
 	public void enterDungeon() {
@@ -118,6 +119,7 @@ public class DungeonController : MonoBehaviour {
 	void mainMenuClick() {
 		// END BATTLE UNSUCCESSFUL
 		// Loot is not saved
+		GameSaveController.instance.saveGame();
 		Application.LoadLevel("main");
 	}
 	

@@ -25,6 +25,9 @@ public class TownController : MonoBehaviour {
 		textTP = GameObject.Find("Talent Points").GetComponent<tk2dTextMesh>();
 		checkLevelUp();
 		updateTexts();
+		if (LevelDescriptor.instance.goToMapOnLoad) {
+			TownMenu.instance.mapWindowInstantly();
+		}
 	}
 
 	public void checkLevelUp() {

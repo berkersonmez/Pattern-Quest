@@ -48,6 +48,10 @@ public class TownMenu : MonoBehaviour {
 		moveCamera = false;
 	}
 	
+	public void mapWindowInstantly() {
+		transform.position = mapPosition;
+	}
+	
 	public void mapWindowRight() {
 		cameraTarget = transform.position + new Vector3(24, 0, 0);
 		moveCamera = true;

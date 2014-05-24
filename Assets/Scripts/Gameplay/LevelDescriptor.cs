@@ -7,6 +7,7 @@ public class LevelDescriptor : MonoBehaviour {
 	public static LevelDescriptor instance;
 	public Queue<string> creatureNameList;
 	public int currentDungeon;
+	public bool goToMapOnLoad = false;
 	
 	
 	void Start() {
