@@ -85,18 +85,19 @@ public class Quest : MonoBehaviour {
 			player.questSlayCounter[id].Add(creatureName, 0);
 		}
 		s_button.SetSprite("map_sign_3");
+		GameSaveController.instance.saveGame();
 	}
 
 	public void decline() {
 		player.questSlayCounter.Remove(id);
 		s_button.SetSprite("map_sign_1");
+		GameSaveController.instance.saveGame();
 	}
 
 	public void complete() {
 		player.questSlayCounter.Remove(id);
 		removeTargetedItems();
 		getRewards();
-		GameSaveController.instance.saveGame();
 		InventoryController.instance.refreshItemList();
 		SpellListController.instance.refreshSpellList();
 		SpellListController.instance.refreshComboList();
@@ -106,6 +107,7 @@ public class Quest : MonoBehaviour {
 		if (!isRepeatable) {player.completedQuests.Add(id);
 		s_button.SetSprite("map_sign_2");
 		isCompleted = true;
+		GameSaveController.instance.saveGame();
 		}
 	}
 
