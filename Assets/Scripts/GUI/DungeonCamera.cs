@@ -19,7 +19,6 @@ public class DungeonCamera : MonoBehaviour {
 
 	void Start() {
 		instance = this;
-		Screen.SetResolution(480, 800, true);
 		cam = Camera.main.GetComponent<tk2dCamera>();
 		cameraTarget = transform.position;
 	}

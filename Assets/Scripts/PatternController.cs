@@ -20,7 +20,7 @@ public class PatternController : MonoBehaviour {
 	}
 	
 	protected virtual void createButtons() {
-		tk2dCameraAnchor anchor = GameObject.Find("AnchorLL").GetComponent<tk2dCameraAnchor>();
+		GameObject anchor = GameObject.Find("AnchorLL");
 		for (int i = 0 ; i < 4 ; i++) {
 			for (int j = 0 ; j < 4 ; j++) {
 				GameObject obj = Instantiate(buttonPrefab) as GameObject;
@@ -217,7 +217,7 @@ public class PatternController : MonoBehaviour {
 	}
 	
 	public virtual void drawBridgeBetween(int[] n1, int[] n2, int bridgeCount) {
-		tk2dCameraAnchor anchor = GameObject.Find("AnchorLL").GetComponent<tk2dCameraAnchor>();
+		GameObject anchor = GameObject.Find("AnchorLL");
 		GameObject obj = Instantiate(bridgePrefab) as GameObject;
 		obj.transform.parent = anchor.transform;
 		Vector3 n1Pos = buttons[n1[0], n1[1]].transform.localPosition;
