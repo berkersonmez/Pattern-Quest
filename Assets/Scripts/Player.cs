@@ -23,8 +23,8 @@ public class Player : Creature {
 	public Player(){
 		isPlayer = true;
 		spellPerTurn = 2;
-		hp = 300;
-		mana = 300;
+		hp = 100;
+		mana = 100;
 		spriteName = "avatar_player_2";
 	}
 	

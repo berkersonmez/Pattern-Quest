@@ -235,8 +235,10 @@ public class Spell {
 	}
 
 	public virtual void update(){
-		if(this.currentCoolDown > 0)
+		if(this.currentCoolDown > 0){
 			this.currentCoolDown--;
+			Debug.Log(this.idName + " in cooldown'i 1 azaltildi");
+		}
 	}
 
 	public virtual void resetCooldown(){

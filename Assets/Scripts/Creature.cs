@@ -246,31 +246,7 @@ public class Creature
 	public void play(Battle battle, ref Creature caster, ref Creature target){
 		Debug.Log("================CREATURE PLAYING===================");
 		calculatePointsOfSpells();
-		//Spell spell = this.spellList[0];
-		//battle.castSpell(spell);
-		/*bool isAbsorbActive = false;
-		Spell lastEatenSpell = this.eatenSpells[eatenSpells.Count - 1];
-		Spell secondEatenSpell = this.eatenSpells[eatenSpells.Count - 2];
-		if(lastEatenSpell.type == secondEatenSpell.type){
-			if(lastEatenSpell.damage + lastEatenSpell.damageOverTime +
-			   secondEatenSpell.damage + secondEatenSpell.damageOverTime > hp*10.0/100){
-				for(int i=0; i<spellList.Count ; i++){
-					if(spellList[i].name == "Absorb Damage" && spellList[i].type == lastEatenSpell.type){
-						for(int j=0; j<this.powers.Count ; j++){
-								if(powers[j].name == "Absorb Damage"){
-									isAbsorbActive = true;
-									this.ai_spell_points[i] += this.spellPower*10;
-									Debug.Log( hp*10.0/100 + "var");
-								}	
-							}
-							if(isAbsorbActive == false){
-								battle.castSpell(spellList[i]);
-								Debug.Log(spellList[i].name + spellList[i].type + spellList[i].damage);
-							}
-					}
-				}
-			}
-		}*/
+
 		int bestSpell = 0;
 		for(int i=0; i<ai_spell_points.Count; i++){
 			if(ai_spell_points[bestSpell] < ai_spell_points[i])
@@ -278,13 +254,6 @@ public class Creature
 		}
 		battle.castSpell(spellList[bestSpell]);
 
-		/*if(brain==0 && this.spellList.Count > 1){
-			DungeonController.instance.battle.castSpell(this.spellList[1]);
-			brain = 5;
-		}else{
-			battle.castSpell(spell);
-			brain--;
-		}*/
 	}
 
 

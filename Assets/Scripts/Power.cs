@@ -31,14 +31,14 @@ public class Power : Spell {
 	}
 
 	public override bool cast(Battle battle, Creature caster, Creature target, int critDamageIncrease){
-		Debug.Log(this.name + "'in cooldown'ı " + this.totalCoolDown);
+		Debug.Log(this.name + "'in cooldown'i " + this.totalCoolDown);
 		Power temp = new Power();
 		temp = this.copy();
 		temp.totalAmount = this.amount;
 		temp.currentAmount = this.amount;
 		temp.justForThisBattle = true;
-		caster.powers.Add(temp);
 		this.currentCoolDown = this.totalCoolDown;
+		caster.powers.Add(temp);
 		// Combat text
 		int placement = !target.isPlayer ? (int)CombatTextController.Placement.PLAYER : (int)CombatTextController.Placement.CREATURE;
 		CombatTextController.instance.deployText(name, "("+amount.ToString()+")", placement, new Color(.9f, .9f, .9f));
@@ -53,10 +53,10 @@ public class Power : Spell {
 	}
 
 	public override void update(){
+		if(currentCoolDown > 0)
+			currentCoolDown--;
 		if(active == false){
-			if(currentCoolDown > 0)
-				currentCoolDown--;
-			else if(currentCoolDown == 0){
+			if(currentCoolDown == 0){
 				active = true;
 				remainingTurn = totalTurn;
 			}

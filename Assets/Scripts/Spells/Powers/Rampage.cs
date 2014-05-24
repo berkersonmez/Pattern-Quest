@@ -21,8 +21,10 @@ public class Rampage : Power {
 	public override bool react(Spell castedSpell, string effectOn, ref string combatTextExtra){
 		if(effectOn != this.effectOn)
 			return false;
+		if(castedSpell.owner.currentHp > castedSpell.owner.hp * (float)percent/100)
+			return false;
 		if(DungeonController.instance.battle.turn > 1){
-			castedSpell.owner.criticalStrikeChance = 100;
+			castedSpell.damage *= 2;
 		}
 		return false;
 	}
