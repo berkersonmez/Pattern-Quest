@@ -94,9 +94,11 @@ public class Battle {
 			activeSpells = activeSpellsOnCreature;
 		foreach(ActiveSpell activeSpell in activeSpells){
 			if(activeSpell.spell.isOverTime)
-				if(activeSpell.spell.type == spell.type){
-				activeSpell.remainingTurn = spell.turn;
-				return;
+				if(activeSpell.spell.idName == spell.idName){
+					activeSpell.remainingTurn = spell.turn;
+					GameObject.Find("Avatar Creature").GetComponent<Avatar>().updateActiveSpellVisuals();
+					GameObject.Find("Avatar Player").GetComponent<Avatar>().updateActiveSpellVisuals();
+					return;
 			}
 		}
 		ActiveSpell newActiveSpell = new ActiveSpell(spell);

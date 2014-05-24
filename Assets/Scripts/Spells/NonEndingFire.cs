@@ -12,7 +12,7 @@ public class NonEndingFire : Spell {
 		turn = 3;
 		mana = 5;
 		type = "fire";
-		totalCoolDown = 3;
+		totalCoolDown = 1;
 		level = 1;
 		isOverTime = true;
 		shape.Add(6);
