@@ -88,8 +88,10 @@ public class StoreItemHolder : MonoBehaviour {
 		if (buyable) {
 			if (good.costType == "gold") {
 				player.gold -= good.costAmount;
+				GameSaveController.instance.getStats().countingStat("Gold spent", good.costAmount);
 			} else if (good.costType == "crystal") {
 				player.crystal -= good.costAmount;
+				GameSaveController.instance.getStats().countingStat("Crystals spent", good.costAmount);
 			}
 			StoreManager.instance.OnItemPurchasedInGame(good);
 		} else {

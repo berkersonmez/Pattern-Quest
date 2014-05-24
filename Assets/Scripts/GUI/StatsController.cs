@@ -11,6 +11,7 @@ public class StatsController : MonoBehaviour {
 	private tk2dTextMesh textHpRegen;
 	private tk2dTextMesh textManaRegen;
 	private tk2dTextMesh textCritChance;
+	private tk2dTextMesh textStats;
 
 	void Start () {
 		instance = this;
@@ -22,6 +23,7 @@ public class StatsController : MonoBehaviour {
 		textHpRegen = texts.Find("HP Regen").GetComponent<tk2dTextMesh>();
 		textManaRegen = texts.Find("Mana Regen").GetComponent<tk2dTextMesh>();
 		textCritChance = texts.Find("Crit Chance").GetComponent<tk2dTextMesh>();
+		textStats = transform.Find("Texts General").Find("Stats").GetComponent<tk2dTextMesh>();
 	}
 
 	public void updateStats() {
@@ -36,11 +38,14 @@ public class StatsController : MonoBehaviour {
 		textHpRegen.text = "HP Regen: " + avatar.owner.HpRegen + "/turn";
 		textManaRegen.text = "Mana Regen: " + avatar.owner.ManaRegen + "/turn";
 		textCritChance.text = "Crit. Chance: " + avatar.owner.criticalStrikeChance + "%";
+		textStats.text = GameSaveController.instance.getStats().getStatsText();
 		textDamage.Commit();
 		textSpellDmg.Commit();
 		textArmor.Commit();
 		textHpRegen.Commit();
 		textManaRegen.Commit();
 		textCritChance.Commit();
+		textStats.Commit();
 	}
+	
 }

@@ -88,6 +88,8 @@ public class Creature
 		currentHp -= amount;
 		if(currentHp < 0)
 			currentHp = 0;
+		if (!(this is Player))
+			GameSaveController.instance.getStats().highValueStat("Most damage done", amount);
 	}
 
 	public virtual void increaseMana(int amount){

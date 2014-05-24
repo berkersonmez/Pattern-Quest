@@ -10,6 +10,7 @@ public class GameSaveController : MonoBehaviour {
 	[System.Serializable]
 	public class GameSave {
 		public Player player;
+		public Stats stats;
 		// Other variables to save goes here.
 	}
 	
@@ -18,6 +19,7 @@ public class GameSaveController : MonoBehaviour {
 	public GameSave currentGame;
 	public static BinaryFormatter bf = new BinaryFormatter();
 	public Player player = null;
+	public Stats stats;
 	public int currentSlot;
 	
 	void Start () {
@@ -31,6 +33,7 @@ public class GameSaveController : MonoBehaviour {
 			return false;
 		}
 		player = getPlayerOverride();
+		stats = getStatsOverride();
 		currentSlot = slot;
 		return true;
 	}
@@ -42,6 +45,7 @@ public class GameSaveController : MonoBehaviour {
 			return false;
 		}
 		slotPlayer = getPlayerOverride(slotGame);
+		stats = getStatsOverride();
 		currentSlot = slot;
 		return true;
 	}
@@ -78,6 +82,9 @@ public class GameSaveController : MonoBehaviour {
 		player.xp = 0;
 		player.gold = 0;
 		player.crystal = 0;
+		
+		stats = new Stats();
+		
 		currentSlot = slot;
 		saveGame();
 	}
@@ -85,6 +92,7 @@ public class GameSaveController : MonoBehaviour {
 	// Collect data to "currentGame" in this method before save.
 	public void saveGame() {
 		currentGame.player = player;
+		currentGame.stats = stats;
 		save("GameSave" + currentSlot, currentGame);
 	}
 	
@@ -96,10 +104,22 @@ public class GameSaveController : MonoBehaviour {
 		return player;
 	}
 	
+	public Stats getStats() {
+		if (stats == null) {
+			stats = currentGame.stats;
+		}
+		return stats;
+	}
+	
 	// Gets player directly
 	public Player getPlayerOverride() {
 		player = currentGame.player;
 		return currentGame.player;
+	}
+	
+	public Stats getStatsOverride() {
+		stats = currentGame.stats;
+		return stats;
 	}
 	
 	public Player getPlayerOverride(GameSave slotGame) {

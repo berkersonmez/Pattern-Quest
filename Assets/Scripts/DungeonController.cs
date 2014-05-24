@@ -64,6 +64,7 @@ public class DungeonController : MonoBehaviour {
 	
 	public void finishBattle(bool playerWon) {
 		if (playerWon) {
+			GameSaveController.instance.getStats().countingStat("Monsters killed", 1);
 			mobAvatar.deadAnim();
 			LootWindow.instance.prepare();
 			allLootItems.AddRange(currentCreature.droppedItems);

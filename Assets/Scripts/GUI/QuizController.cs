@@ -89,6 +89,7 @@ public class QuizController : MonoBehaviour {
 	public void answer(int choiceID) {
 		if (choiceID == question.answer) {
 			GameSaveController.instance.getPlayer().answeredQuestions.Add(question.id);
+			GameSaveController.instance.getStats().countingStat("Questions answered", 1);
 			GameSaveController.instance.saveGame();
 			Notification.activate("Correct answer!",
 			                      () => nextQuestion());

@@ -105,10 +105,11 @@ public class Quest : MonoBehaviour {
 		TownController.instance.checkLevelUp();
 		TownController.instance.updateTexts();
 		if (!isRepeatable) {player.completedQuests.Add(id);
-		s_button.SetSprite("map_sign_2");
-		isCompleted = true;
-		GameSaveController.instance.saveGame();
+			s_button.SetSprite("map_sign_2");
+			isCompleted = true;		
 		}
+		GameSaveController.instance.getStats().countingStat("Quests completed", 1);
+		GameSaveController.instance.saveGame();		
 	}
 
 	public bool checkCompletion() {
