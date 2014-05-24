@@ -39,6 +39,9 @@ public class Power : Spell {
 		temp.justForThisBattle = true;
 		caster.powers.Add(temp);
 		this.currentCoolDown = this.totalCoolDown;
+		// Combat text
+		int placement = !target.isPlayer ? (int)CombatTextController.Placement.PLAYER : (int)CombatTextController.Placement.CREATURE;
+		CombatTextController.instance.deployText(name, "("+amount.ToString()+")", placement, new Color(.9f, .9f, .9f));
 		return true;
 	}
 

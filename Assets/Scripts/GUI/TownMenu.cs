@@ -19,6 +19,7 @@ public class TownMenu : MonoBehaviour {
 	public Vector3 characterMenuPosition = new Vector3(-24, -40, -10);
 	public Vector3 talentsPosition = new Vector3(-48, -40, -10);
 	public Vector3 quizPosition = new Vector3(0, -80, -10);
+	public Vector3 quizCategoriesPosition = new Vector3(0, -120, -10);
 	public Vector3 storePosition = new Vector3(72, 80, -10);
 	public Vector3 storeCombosPosition = new Vector3(144, 80, -10);
 	public Vector3 storeItemsPosition = new Vector3(96, 80, -10);
@@ -107,6 +108,12 @@ public class TownMenu : MonoBehaviour {
 	
 	public void quizWindow() {
 		cameraTarget = quizPosition;
+		fadeOut();
+		moveCamera = false;
+	}
+	
+	public void quizCategoriesWindow() {
+		cameraTarget = quizCategoriesPosition;
 		fadeOut();
 		moveCamera = false;
 	}

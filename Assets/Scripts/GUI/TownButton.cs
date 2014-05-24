@@ -39,7 +39,7 @@ public class TownButton : MonoBehaviour {
 			TownMenu.instance.mapWindowLeft();
 		} else if (transform.name == "QuizButton") {
 			Notification.activate("Answer all questions correctly to get the gold prize!",
-			                      () => {TownMenu.instance.quizWindow(); QuizController.instance.startQuiz();});
+			                      () => {TownMenu.instance.quizCategoriesWindow();});
 		} else if (transform.name == "ShopButton") {
 			StoreManager.instance.refreshStoreLists();
 			TownMenu.instance.storeWindow();

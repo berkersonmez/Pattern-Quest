@@ -34,7 +34,7 @@ public class Douball : ComboSpell {
 	public override bool requires(Queue<Spell> castedSpells){
 		int fire_ball_count = 0;
 		foreach(Spell spell in castedSpells){
-			if(spell.name == "FireBall")
+			if(spell.idName == "FireBall")
 				fire_ball_count++;
 		}
 		if(fire_ball_count >= 2)

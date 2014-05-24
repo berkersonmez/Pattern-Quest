@@ -6,6 +6,8 @@ public class QuizController : MonoBehaviour {
 
 	public int questionCount = 10;
 	public int prizeGold = 100;
+	[HideInInspector]
+	public string category;
 	
 	private int answeredQuestionCount = 0;
 	private Question question;
@@ -28,13 +30,14 @@ public class QuizController : MonoBehaviour {
 		t_header = transform.Find("BG/Header").GetComponent<tk2dTextMesh>();
 	}
 	
-	public void startQuiz() {
+	public void startQuiz(string category) {
 		answeredQuestionCount = 0;
+		this.category = category;
 		setQuestion();
 	}
 	
 	private void setQuestion() {
-		Question newQuestion = XmlParse.instance.getRandomUnansweredQuestion();
+		Question newQuestion = XmlParse.instance.getRandomUnansweredQuestion(category);
 		if (newQuestion == null) {
 			noQuestionsLeft();
 		} else {

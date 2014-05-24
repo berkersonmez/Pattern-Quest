@@ -175,15 +175,16 @@ public class XmlParse : MonoBehaviour {
 		return packs;
 	}
 	
-	public Question getRandomUnansweredQuestion() {
+	public Question getRandomUnansweredQuestion(string category) {
 		Question question = new Question();
 		XmlNodeList xmlQuestions = QuizDoc.GetElementsByTagName("question");
 		
 		var exclude = GameSaveController.instance.getPlayer().answeredQuestions;
-		var range = Enumerable.Range(0, xmlQuestions.Count).Where(i => !exclude.Contains(i));
+		var range = Enumerable.Range(0, xmlQuestions.Count).Where(i => (!exclude.Contains(i) && xmlQuestions[i].SelectSingleNode("category").InnerText == category));
+		int elementCount = range.ToList().Count;
 		int randomNode;
 		try {
-			randomNode = range.ElementAt(Random.Range(0, xmlQuestions.Count - exclude.Count));
+			randomNode = range.ElementAt(Random.Range(0, elementCount));
 		} catch (System.Exception e) {
 			Debug.Log("Exception happened: " + e.Message);
 			return null;
@@ -200,7 +201,14 @@ public class XmlParse : MonoBehaviour {
 		return question;
 	}
 	
-	
+	public string[] getCategories() {
+		XmlNodeList xmlCategories = QuizDoc.SelectNodes("/quiz/categories/category");
+		string[] categories = new string[xmlCategories.Count];
+		for(int i = 0; i < xmlCategories.Count; i++) {
+			categories[i] = xmlCategories[i].InnerText;
+		}
+		return categories;
+	}
 	
 	public Item getItemByStoreId(string storeId) {
 		Item obj = new Item();
