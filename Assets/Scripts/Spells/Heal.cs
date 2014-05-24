@@ -52,6 +52,7 @@ public class Heal : Spell {
 		// Combat text
 		int placement = caster.isPlayer ? (int)CombatTextController.Placement.PLAYER : (int)CombatTextController.Placement.CREATURE;
 		CombatTextController.instance.deployText(name, currentHeal.ToString() + combatTextExtra, placement, Color.green);
+		this.currentCoolDown = this.totalCoolDown;
 		return true;
 	}
 

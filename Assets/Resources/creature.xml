@@ -34,7 +34,7 @@
 			<item dropChance="5">sopa</item>
 		</items>
 		<spellList>
-			<spell>Poison:name=Rat Poison,dot=4,turn=5</spell>
+			<spell>Poison:name=Rat Poison,dot=4,turn=5,cooldown=5</spell>
 		</spellList>
 	</creature>
 	
@@ -57,8 +57,8 @@
 	<creature>
 		<name>kocaman</name>
 		<damage>2</damage>
-		<hp>50</hp>
-		<mana>30</mana>
+		<hp>100</hp>
+		<mana>100</mana>
 		<manaRegen>3</manaRegen>
 		<spellPower>4</spellPower>
 		<level>1</level>
@@ -71,7 +71,9 @@
 		</items>
 		<spellList>
 			<spell>FireBall:name=Fire Ball,damage=4</spell>
-			<spell>AbsorbDamage:name=Absorb Damage,currentAmount=10,totalAmount=10,type=fire</spell>
+			<spell>AbsorbDamage:name=Absorb Damage,amount=10,type=fire,cooldown=2</spell>
+			<spell>Heal:name=Heal,heal=3,cooldown=1</spell>
+			<spell>Poison:dot=4,turn=3,cooldown=3</spell>
 		</spellList>
 	</creature>
 </creatures>

@@ -90,11 +90,12 @@ public class XmlParse : MonoBehaviour {
 			if(creatureContent.Name == "damage"){
 				obj.damage = getValue(creatureContent.InnerText);
 				Spell spell = new Spell(obj.damage);
-				spell.owner = obj;
-				obj.spellList.Add(spell);
+				obj.learnSpell(spell);
 			}
 			if(creatureContent.Name == "hp")
-				obj.hp = getValue(creatureContent.InnerText);	
+				obj.hp = getValue(creatureContent.InnerText);
+			if(creatureContent.Name == "mana")
+				obj.mana = getValue(creatureContent.InnerText);
 			if(creatureContent.Name == "spellPower")
 				obj.spellPower = getValue(creatureContent.InnerText);	
 			if(creatureContent.Name == "level")
@@ -126,7 +127,7 @@ public class XmlParse : MonoBehaviour {
 					className = getConstructor(xmlSpell.InnerText, ref allParameters);
 					spellNamesList.Add(className);
 					Spell newSpell = Globals.instance.createSpell(className, allParameters, obj);
-					obj.spellList.Add(newSpell);
+					obj.learnSpell(newSpell);
 					Debug.Log(newSpell.name);
 					}
 				}

@@ -31,25 +31,29 @@ public class Power : Spell {
 	}
 
 	public override bool cast(Battle battle, Creature caster, Creature target, int critDamageIncrease){
+		Debug.Log(this.name + "'in cooldown'ı " + this.totalCoolDown);
 		Power temp = new Power();
 		temp = this.copy();
-		temp.currentAmount = 7;
+		temp.totalAmount = this.amount;
+		temp.currentAmount = this.amount;
 		temp.justForThisBattle = true;
 		caster.powers.Add(temp);
+		this.currentCoolDown = this.totalCoolDown;
 		return true;
 	}
 
 	public override void resetCooldown(){
-		this.currentCooldDown = 0;
+		this.currentAmount = this.totalAmount;
+		this.currentCoolDown = 0;
 		this.active = true;
 		this.remainingTurn = this.totalTurn;
 	}
 
 	public override void update(){
 		if(active == false){
-			if(currentCooldDown > 0)
-				currentCooldDown--;
-			else if(currentCooldDown == 0){
+			if(currentCoolDown > 0)
+				currentCoolDown--;
+			else if(currentCoolDown == 0){
 				active = true;
 				remainingTurn = totalTurn;
 			}
@@ -62,7 +66,7 @@ public class Power : Spell {
 	}
 
 	public override void change(string allParameters){
-		Debug.Log("DEGiSTiRiLiYOR");
+		Debug.Log(this.idName + " POWER DEGiSTiRiLiYOR");
 		string[] values = allParameters.Split(',');
 		for(int i=0; i<values.Length; i++){
 			string[] part = values[i].Split('=');
@@ -99,6 +103,7 @@ public class Power : Spell {
 				break;
 			case "amount":
 				this.totalAmount += int.Parse(part[1]);
+				this.currentAmount += int.Parse(part[1]);
 				break;
 			case "percent":
 				this.percent += int.Parse(part[1]);

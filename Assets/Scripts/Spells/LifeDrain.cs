@@ -66,6 +66,7 @@ public class LifeDrain : Spell {
 		if(result == true)
 			return true;
 		battle.addActiveSpell(temp, target);
+		this.currentCoolDown = this.totalCoolDown;
 		return true;
 	}
 

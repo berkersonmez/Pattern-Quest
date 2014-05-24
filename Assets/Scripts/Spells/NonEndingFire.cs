@@ -35,7 +35,7 @@ public class NonEndingFire : Spell {
 	
 	public override bool cast(Battle battle, Creature caster, Creature target, int critIncrease){
 		string combatTextExtra = "";
-		if(this.currentCooldDown > 0)
+		if(this.currentCoolDown > 0)
 			return false;
 		if(caster.currentMana - mana < 0)
 			return false;
@@ -61,8 +61,7 @@ public class NonEndingFire : Spell {
 		CombatTextController.instance.deployText(name, currentDamage.ToString() + combatTextExtra, placement, Color.red);
 
 		battle.addActiveSpell(temp, target);
-		if(this.totalCoolDown > 0)
-			this.currentCooldDown = this.totalCoolDown;
+		this.currentCoolDown = this.totalCoolDown;
 		return true;
 	}
 

@@ -57,6 +57,7 @@ public class Poison : Spell {
 		caster.react(temp,"self",ref combatTextExtra);
 		caster.decreaseMana(mana);
 		bool result = target.react(temp,"enemy",ref combatTextExtra);
+		this.currentCoolDown = this.totalCoolDown;
 		if(result == true)
 			return true;
 		battle.addActiveSpell(temp, target);

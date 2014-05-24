@@ -40,6 +40,7 @@ public class SoulRipper : Spell {
 		// Combat text
 		int placement = target.isPlayer ? (int)CombatTextController.Placement.PLAYER : (int)CombatTextController.Placement.CREATURE;
 		CombatTextController.instance.deployText(name, currentDamage.ToString() + combatTextExtra, placement, Color.red);
+		this.currentCoolDown = this.totalCoolDown;
 		return true;
 	}
 	

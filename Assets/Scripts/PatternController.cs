@@ -244,12 +244,12 @@ public class PatternController : MonoBehaviour {
 	}
 	
 	public virtual void finishPattern() {
-		Debug.Log("====PATTERN====");
+		//Debug.Log("====PATTERN====");
 		foreach(int[] node in pattern) {
 			buttons[node[0], node[1]].unhighlight();
-			Debug.Log("(x:" + node[0] + "y:" + node[1] + ")");
+			//Debug.Log("(x:" + node[0] + "y:" + node[1] + ")");
 		}
-		Debug.Log("===============");
+		//Debug.Log("===============");
 
 		int critPointCount = 0;
 		// Debug this to see directional rep.

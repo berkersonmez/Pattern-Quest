@@ -30,7 +30,8 @@ public class Creature
 	public List<Item> droppedItems = new List<Item>();
 	public List<string> spellNamesList = new List<string>();
 	public List<Spell> spellList = new List<Spell>();
-	public List<Spell> eatenSpells = new List<Spell>();//eskiden queue idi ,save temizleme yok mu
+	public List<Spell> eatenSpells = new List<Spell>();
+	public List<int> ai_spell_points = new List<int>();
 	public List<Spell> comboSpells = new List<Spell>();
 	public List<Power> powers = new List<Power>();
 	Queue<ActiveSpell> nextTurnsActiveSpells = new Queue<ActiveSpell>();
@@ -132,7 +133,7 @@ public class Creature
 	public void checkPowers(){
 		Power toDelete = new Power();
 		foreach(Power power in powers){
-			if(power.justForThisBattle == true && power.currentAmount == 0 && power.percent == 0){
+			if(power.justForThisBattle == true && power.active == false){
 				toDelete = power;
 				break;
 			}
@@ -157,6 +158,8 @@ public class Creature
 			spell.resetCooldown();
 		}
 		eatenSpells.Clear();
+		for(int i=0; i<ai_spell_points.Count ; i++)
+			ai_spell_points[i]=0;
 	}
 
 	public void finishBattle(){
@@ -191,36 +194,97 @@ public class Creature
 			return false;
 		}
 	}
-	
-	public void play(Battle battle, ref Creature caster, ref Creature target){
-		Spell spell = this.spellList[0];
-		//battle.castSpell(spell);
+
+	public void calculatePointsOfSpells(){
+		for(int i=0; i<ai_spell_points.Count ; i++)
+			ai_spell_points[i]=0;
+		//Calculate Absorb
 		bool isAbsorbActive = false;
 		Spell lastEatenSpell = this.eatenSpells[eatenSpells.Count - 1];
 		Spell secondEatenSpell = this.eatenSpells[eatenSpells.Count - 2];
-		if(lastEatenSpell.type == secondEatenSpell.type)
-			if(lastEatenSpell.damage + lastEatenSpell.damageOverTime > 0 &&
-			   secondEatenSpell.damage + secondEatenSpell.damageOverTime > 0)
-				foreach(Spell spello in spellList)
-					if(spello.name == "Absorb Damage" && spello.type == lastEatenSpell.type){
-						foreach(Power power in this.powers){
-							if(power.name == "Absorb Damage"){
+		if(lastEatenSpell.type == secondEatenSpell.type){
+			if(lastEatenSpell.damage + lastEatenSpell.damageOverTime*lastEatenSpell.turn +
+			   secondEatenSpell.damage + secondEatenSpell.damageOverTime*secondEatenSpell.turn > hp*10.0/100){
+				for(int i=0; i<spellList.Count ; i++){
+					if(spellList[i].name == "Absorb Damage" && spellList[i].type == lastEatenSpell.type){
+						for(int j=0; j<this.powers.Count ; j++){
+							if(powers[j].name == "Absorb Damage"){
+								Debug.Log("HALA ABSORB VAR");
+								this.ai_spell_points[i] = 0;
 								isAbsorbActive = true;
-								Debug.Log("var");
 							}	
 						}
 						if(isAbsorbActive == false){
-							battle.castSpell(spello);
-					   		Debug.Log(spello.name + spello.type + spello.damage);
+							this.ai_spell_points[i] += this.spellPower*100;
+							Debug.Log("ABSORB GELIYOR");
+							//Debug.Log( spellList[i].name + " " + ai_spell_points[i] + " puan aldi");
+							//Debug.Log(spellList[i].name + spellList[i].type + spellList[i].damage);
 						}
 					}
-		if(brain==0 && this.spellList.Count > 1){
+				}
+			}
+		}
+		//Calculate Damage Spells
+		for(int i=0; i<spellList.Count ; i++){
+			if(spellList[i].currentCoolDown > 0){
+				Debug.Log(spellList[i].name + " su anda cooldown'da");
+				this.ai_spell_points[i] = 0;
+				continue;
+			}
+			int totalDamage = spellList[i].damage + spellList[i].damageOverTime*spellList[i].turn;
+			int totalHeal = spellList[i].heal + spellList[i].healOverTime*spellList[i].turn;
+			if(totalDamage > 0){
+				this.ai_spell_points[i] += totalDamage + this.spellPower;
+			}
+			if(totalHeal > 0){
+				this.ai_spell_points[i] += (int) ((float)hp/currentHp * (totalHeal + this.spellPower) / 1.5);
+			}
+			Debug.Log( spellList[i].name + " " + ai_spell_points[i] + " puan aldi");
+		}
+	}
+
+	public void play(Battle battle, ref Creature caster, ref Creature target){
+		Debug.Log("================CREATURE PLAYING===================");
+		calculatePointsOfSpells();
+		//Spell spell = this.spellList[0];
+		//battle.castSpell(spell);
+		/*bool isAbsorbActive = false;
+		Spell lastEatenSpell = this.eatenSpells[eatenSpells.Count - 1];
+		Spell secondEatenSpell = this.eatenSpells[eatenSpells.Count - 2];
+		if(lastEatenSpell.type == secondEatenSpell.type){
+			if(lastEatenSpell.damage + lastEatenSpell.damageOverTime +
+			   secondEatenSpell.damage + secondEatenSpell.damageOverTime > hp*10.0/100){
+				for(int i=0; i<spellList.Count ; i++){
+					if(spellList[i].name == "Absorb Damage" && spellList[i].type == lastEatenSpell.type){
+						for(int j=0; j<this.powers.Count ; j++){
+								if(powers[j].name == "Absorb Damage"){
+									isAbsorbActive = true;
+									this.ai_spell_points[i] += this.spellPower*10;
+									Debug.Log( hp*10.0/100 + "var");
+								}	
+							}
+							if(isAbsorbActive == false){
+								battle.castSpell(spellList[i]);
+								Debug.Log(spellList[i].name + spellList[i].type + spellList[i].damage);
+							}
+					}
+				}
+			}
+		}*/
+		int bestSpell = 0;
+		for(int i=0; i<ai_spell_points.Count; i++){
+			if(ai_spell_points[bestSpell] < ai_spell_points[i])
+				bestSpell = i;
+		}
+		battle.castSpell(spellList[bestSpell]);
+
+		/*if(brain==0 && this.spellList.Count > 1){
 			DungeonController.instance.battle.castSpell(this.spellList[1]);
 			brain = 5;
 		}else{
 			battle.castSpell(spell);
 			brain--;
-		}
+		}*/
 	}
 
 
@@ -236,6 +300,7 @@ public class Creature
 	public bool learnSpell(Spell spell){
 		spell.owner = this;
 		this.spellList.Add(spell);
+		this.ai_spell_points.Add(0);  //simply to increase size of the ai spells by 1 too
 		return true;
 	}
 }

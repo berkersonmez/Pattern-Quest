@@ -5,7 +5,8 @@ using System.Collections.Generic;
 [System.Serializable]
 public class Spell {
 	public enum EffectType {PROJECTILE = 0, ENEMY_INSTANT, SELF_INSTANT};
-	
+
+	public int amount=0; //for power spells
 	public int damage=0;
 	public int damageOverTime=0;
 	public int percent=0;
@@ -13,7 +14,7 @@ public class Spell {
 	public string type;
 	public int heal=0;
 	public int healOverTime=0;
-	public int currentCooldDown=0;
+	public int currentCoolDown=0;
 	public int totalCoolDown=0;
 	public int level=1;
 	public int maxLevel;
@@ -78,6 +79,9 @@ public class Spell {
 			case "heal":
 				this.heal = int.Parse(part[1]);
 				break;
+			case "amount":
+				this.amount = int.Parse(part[1]);
+				break;
 			case "dot":
 				this.damageOverTime = int.Parse(part[1]);
 				this.isOverTime = true;
@@ -103,6 +107,7 @@ public class Spell {
 	}
 
 	public virtual void change(string allParameters){
+		Debug.Log(this.idName + " SPELL DEGiSTiRiLiYOR");
 		string[] values = allParameters.Split(',');
 		for(int i=0; i<values.Length; i++){
 			string[] part = values[i].Split('=');
@@ -115,6 +120,9 @@ public class Spell {
 				break;
 			case "heal":
 				this.heal += int.Parse(part[1]);
+				break;
+			case "amount":
+				this.amount += int.Parse(part[1]);
 				break;
 			case "dot":
 				this.damageOverTime += int.Parse(part[1]);
@@ -156,6 +164,9 @@ public class Spell {
 				break;
 			case "heal":
 				this.heal -= int.Parse(part[1]);
+				break;
+			case "amount":
+				this.amount -= int.Parse(part[1]);
 				break;
 			case "dot":
 				this.damageOverTime -= int.Parse(part[1]);
@@ -199,8 +210,11 @@ public class Spell {
 		}
 		caster.decreaseMana(temp.mana);
 		bool result = target.react(temp,"enemy",ref combatTextExtra);
-		if(result)
+		if(result){
+			//Not sure about this cooldown
+			this.currentCoolDown = this.totalCoolDown;
 			return true;
+		}
 		
 		if(this.damageOverTime > 0)
 			battle.addActiveSpell(temp, target);
@@ -216,17 +230,17 @@ public class Spell {
 			int placement = target.isPlayer ? (int)CombatTextController.Placement.PLAYER : (int)CombatTextController.Placement.CREATURE;
 			CombatTextController.instance.deployText(name, currentDamage.ToString() + combatTextExtra, placement, Color.red);
 		}
-		this.currentCooldDown = this.totalCoolDown;
+		this.currentCoolDown = this.totalCoolDown;
 		return true;		
 	}
 
 	public virtual void update(){
-		if(this.currentCooldDown > 0)
-			this.currentCooldDown--;
+		if(this.currentCoolDown > 0)
+			this.currentCoolDown--;
 	}
 
 	public virtual void resetCooldown(){
-		this.currentCooldDown = 0;
+		this.currentCoolDown = 0;
 	}
 
 	public virtual int applyCritical(Creature caster, int currentDamage, int critDamageIncrease) {
@@ -285,6 +299,9 @@ public class Spell {
 				break;
 			case "heal":
 				this.heal = int.Parse(part[1]);
+				break;
+			case "amount":
+				this.amount = int.Parse(part[1]);
 				break;
 			case "dot":
 				this.damageOverTime = int.Parse(part[1]);

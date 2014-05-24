@@ -27,7 +27,7 @@ public class IncreaseDamage : Power {
 			return false;
 		if((castedSpell.type == this.type) || (this.type == "all"))
 			castedSpell.damage += this.currentAmount;
-		this.currentCooldDown = totalCoolDown;
+		this.currentCoolDown = totalCoolDown;
 		this.active = false;
 		return false;
 	}

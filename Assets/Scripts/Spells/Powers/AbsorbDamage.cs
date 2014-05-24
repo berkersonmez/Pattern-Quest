@@ -13,7 +13,7 @@ public class AbsorbDamage : Power {
 		currentAmount = 0;
 		percent = 0;
 		effectOn = "enemy";
-		totalCoolDown = 1;
+		totalCoolDown = 0;
 		mana = 0;
 		type = "fire";
 		active = true;
@@ -41,7 +41,7 @@ public class AbsorbDamage : Power {
 			}
 			if(currentAmount == 0){
 				this.active = false;
-				this.currentCooldDown = this.totalCoolDown;
+				this.currentCoolDown = this.totalCoolDown;
 				this.currentAmount = this.totalAmount;
 				if(this.justForThisBattle == true){
 					//In this bracket "Absorb Power" power should be removed from the power list of the creature\\
@@ -55,7 +55,7 @@ public class AbsorbDamage : Power {
 			castedSpell.damage = (int) ((float)(castedSpell.damage) * (float)percent / 100);
 			combatTextExtra += "(" + (tempDamage - castedSpell.damage) + ")";
 			this.active = false;
-			this.currentCooldDown = this.totalCoolDown;
+			this.currentCoolDown = this.totalCoolDown;
 		}
 		return false;
 	}

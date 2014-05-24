@@ -12,7 +12,7 @@ public class GameStarter : MonoBehaviour {
 	private int newSaveSlotId;
 
 	void Start () {
-		PlayerPrefs.DeleteAll();
+		//PlayerPrefs.DeleteAll();
 		instance = this;
 		
 		loadingText = GameObject.Find("Loading Text").GetComponent<tk2dTextMesh>();
