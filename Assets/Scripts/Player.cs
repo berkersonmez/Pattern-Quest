@@ -19,6 +19,8 @@ public class Player : Creature {
 	public Dictionary<int,Dictionary<string,int>> questSlayCounter = new Dictionary<int, Dictionary<string,int>>();
 	public List<int> completedQuests = new List<int>();
 	public List<int> answeredQuestions = new List<int>();
+	
+	public bool seenTutorial = false;
 
 	public Player(){
 		isPlayer = true;
