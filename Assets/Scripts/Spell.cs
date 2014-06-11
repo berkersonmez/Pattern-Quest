@@ -266,6 +266,7 @@ public class Spell {
 		if(this.damageOverTime > 0){
 			int currentDamage = damageOverTime;
 			Spell temp = new Spell(this.name,currentDamage,true);
+			temp.type = this.type;
 			temp.cast(battle, caster, target, 0);
 			return;
 		}
@@ -295,6 +296,9 @@ public class Spell {
 			switch(part[0]){
 			case "name":
 				this.name = part[1];
+				break;
+			case "type":
+				this.type = part[1];
 				break;
 			case "damage":
 				this.damage = int.Parse(part[1]);

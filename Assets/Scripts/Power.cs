@@ -36,6 +36,7 @@ public class Power : Spell {
 		temp = this.copy();
 		temp.totalAmount = this.amount;
 		temp.currentAmount = this.amount;
+		temp.type = this.type;
 		temp.justForThisBattle = true;
 		this.currentCoolDown = this.totalCoolDown;
 		caster.powers.Add(temp);

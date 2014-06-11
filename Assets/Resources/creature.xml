@@ -19,7 +19,7 @@
 	
 	<creature>
 		<name>Rat Master</name>
-		<damage>3</damage>
+		<damage>2</damage>
 		<hp>30</hp>
 		<mana>10</mana>
 		<manaRegen>1</manaRegen>
@@ -29,7 +29,7 @@
 		<spriteName>avatar_creature_2</spriteName>
 		<gold>2</gold>
 		<items>
-			<item dropChance="8">Green Stone 1</item>
+			<item dropChance="8">Green Stone 2</item>
 			<item dropChance="8">Blue Stone 1</item>
 			<item dropChance="5">sopa</item>
 		</items>
@@ -39,7 +39,7 @@
 	</creature>
 	
 	<creature>
-		<name>ufak</name>
+		<name>Lito</name>
 		<damage>3</damage>
 		<hp>20</hp>
 		<mana>20</mana>
@@ -53,15 +53,103 @@
 			<item dropChance="15">Red Stone 1</item>
 			<item dropChance="5">sopa</item>
 		</items>
+		<spellList>
+			<spell>Poison:name=Lito's Poison,dot=2,turn=10,cooldown=10</spell>
+		</spellList>
 	</creature>
+	
 	<creature>
-		<name>kocaman</name>
-		<damage>2</damage>
+		<name>Bomber</name>
+		<damage>12</damage>
+		<hp>10</hp>
+		<mana>20</mana>
+		<manaRegen>2</manaRegen>
+		<spellPower>2</spellPower>
+		<level>2</level>
+		<type>insect</type>
+		<spriteName>avatar_creature_3</spriteName>
+		<gold>2</gold>
+		<items>
+			<item dropChance="15">Red Stone 1</item>
+			<item dropChance="5">sopa</item>
+		</items>
+	</creature>
+	
+	<creature>
+		<name>Fireling</name>
+		<damage>10</damage>
+		<hp>50</hp>
+		<mana>20</mana>
+		<manaRegen>2</manaRegen>
+		<spellPower>5</spellPower>
+		<level>1</level>
+		<type>insect</type>
+		<spriteName>avatar_creature_3</spriteName>
+		<gold>2</gold>
+		<items>
+			<item dropChance="15">Red Stone 1</item>
+			<item dropChance="5">sopa</item>
+		</items>
+		<spellList>
+			<spell>AbsorbDamage:name=Absorb Damage,amount=10,type=nature,cooldown=2</spell>
+			<spell>Heal:name=Heal,heal=3,cooldown=1</spell>
+			<spell>NonEndingFire:dot=4,turn=3,cooldown=3</spell>
+		</spellList>
+	</creature>
+	
+	
+	
+	<creature>
+		<name>Little Yeti</name>
+		<damage>16</damage>
+		<hp>85</hp>
+		<mana>120</mana>
+		<manaRegen>2</manaRegen>
+		<spellPower>10</spellPower>
+		<level>3</level>
+		<type>insect</type>
+		<spriteName>avatar_creature_3</spriteName>
+		<gold>2</gold>
+		<items>
+			<item dropChance="15">Red Stone 1</item>
+			<item dropChance="5">sopa</item>
+		</items>
+		<spellList>
+			<spell>AbsorbDamage:name=Absorb Damage,amount=10,type=nature,cooldown=2</spell>
+			<spell>Heal:name=Heal,heal=3,cooldown=1</spell>
+			<spell>NonEndingFire:dot=4,turn=3,cooldown=3</spell>
+		</spellList>
+	</creature>
+	
+	<creature>
+		<name>Big Yeti</name>
+		<damage>10</damage>
 		<hp>100</hp>
+		<mana>150</mana>
+		<manaRegen>2</manaRegen>
+		<spellPower>15</spellPower>
+		<level>3</level>
+		<type>insect</type>
+		<spriteName>avatar_creature_3</spriteName>
+		<gold>2</gold>
+		<items>
+			<item dropChance="15">Red Stone 1</item>
+			<item dropChance="5">sopa</item>
+		</items>
+		<spellList>
+			<spell>Heal:name=Heal,heal=3,cooldown=1</spell>
+			<spell>Poison:dot=5,turn=5,cooldown=5</spell>
+		</spellList>
+	</creature>
+	
+	<creature>
+		<name>Bigo</name>
+		<damage>2</damage>
+		<hp>70</hp>
 		<mana>100</mana>
 		<manaRegen>3</manaRegen>
 		<spellPower>4</spellPower>
-		<level>1</level>
+		<level>2</level>
 		<type>insect</type>
 		<spriteName>avatar_creature_4</spriteName>
 		<gold>5</gold>
@@ -72,7 +160,7 @@
 		<spellList>
 			<spell>FireBall:name=Fire Ball,damage=4</spell>
 			<spell>AbsorbDamage:name=Absorb Damage,amount=10,type=fire,cooldown=2</spell>
-			<spell>Heal:name=Heal,heal=3,cooldown=1</spell>
+			<spell>Heal:name=Heal,heal=3,cooldown=2</spell>
 			<spell>Poison:dot=4,turn=3,cooldown=3</spell>
 		</spellList>
 	</creature>

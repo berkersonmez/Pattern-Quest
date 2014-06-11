@@ -228,7 +228,7 @@ public class Creature
 		}
 		//Calculate Damage Spells
 		for(int i=0; i<spellList.Count ; i++){
-			if(spellList[i].currentCoolDown > 0){
+			if(spellList[i].currentCoolDown > 0 || spellList[i].mana > spellList[i].owner.currentMana){
 				Debug.Log(spellList[i].name + " su anda cooldown'da");
 				this.ai_spell_points[i] = 0;
 				continue;

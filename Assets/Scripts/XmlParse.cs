@@ -109,6 +109,7 @@ public class XmlParse : MonoBehaviour {
 			if(creatureContent.Name == "items"){
 				XmlNodeList xmlItems = creatureContent.ChildNodes;
 				string itemName = determineDroppedItem(xmlItems);
+				Debug.Log(itemName + " araniyor");
 				Item droppedItem = getItem(itemName);
 				if(droppedItem == null){
 					Debug.Log("Item dusmedi :((");
@@ -301,7 +302,23 @@ public class XmlParse : MonoBehaviour {
 	
 	public Item getItem(string name){
 		Item obj = new Item();
-		
+		if(name == null)
+			return null;
+		int multiplier;
+		string[] splittedName = name.Split(' ');
+		bool isNumeric = int.TryParse(splittedName.Last(), out multiplier);
+		if(isNumeric){
+			Debug.Log("NUMERIC");
+			int numLength=0,temp=multiplier;
+			while (temp > 0) {
+				numLength++;
+				temp /= 10; 
+			}
+			name = name.Remove(name.Length - numLength - 1);//removing " 5" from "Blue Stone 5"
+		}else
+			multiplier=1;
+		Debug.Log("Yeni isim: " + name);
+
 		XmlNode datNode = ItemDoc.SelectSingleNode("/items/item[name='" + name + "']");
 		if(datNode == null)
 			return null;
@@ -313,7 +330,7 @@ public class XmlParse : MonoBehaviour {
 					obj.name = itemContent.InnerText;		
 			}
 			if(itemContent.Name == "damage"){
-				obj.damage = getValue(itemContent.InnerText);
+				obj.damage = getValue(itemContent.InnerText) * multiplier;
 			}
 			if(itemContent.Name == "type"){
 				obj.type = itemContent.InnerText;
@@ -321,19 +338,19 @@ public class XmlParse : MonoBehaviour {
 			if(itemContent.Name == "rarity")
 				obj.rarity = itemContent.InnerText;
 			if(itemContent.Name == "armor")
-				obj.armor = getValue(itemContent.InnerText);
+				obj.armor = getValue(itemContent.InnerText) * multiplier;
 			if(itemContent.Name == "hp")
-				obj.hp = getValue(itemContent.InnerText);
+				obj.hp = getValue(itemContent.InnerText) * multiplier;
 			if(itemContent.Name == "mana")
-				obj.mana = getValue(itemContent.InnerText);
+				obj.mana = getValue(itemContent.InnerText) * multiplier;
 			if(itemContent.Name == "manaRegen")
-				obj.manaRegen = getValue(itemContent.InnerText);
+				obj.manaRegen = getValue(itemContent.InnerText) * multiplier;
 			if(itemContent.Name == "level")
-				obj.level = getValue(itemContent.InnerText);
+				obj.level = getValue(itemContent.InnerText) * multiplier;
 			if(itemContent.Name == "spriteName")
 				obj.spriteName = itemContent.InnerText;
 			if(itemContent.Name == "gold")
-				obj.gold = getValue(itemContent.InnerText);
+				obj.gold = getValue(itemContent.InnerText) * multiplier;
 			if(itemContent.Name == "effect")
 				obj.effect = itemContent.InnerText;
 	  	}

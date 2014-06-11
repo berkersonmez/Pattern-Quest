@@ -3,14 +3,14 @@
 
 	<dungeon no="1">
 	    <creatures>
-			<creature>ufak</creature>
+			<creature>Lito</creature>
 		</creatures>
 	</dungeon>
 	<dungeon no="2">
 	    <creatures>
-			<creature>kocaman</creature>
-			<creature>ufak</creature>
-			<creature>ufak</creature>
+			<creature>Bigo</creature>
+			<creature>Lito</creature>
+			<creature>Lito</creature>
 		</creatures>
 	</dungeon>
 	<dungeon no="3">
@@ -26,6 +26,36 @@
 			<creature>Rat</creature>
 			<creature>Rat</creature>
 			<creature>Rat Master</creature>
+		</creatures>
+	</dungeon>
+	<dungeon no="5">
+	    <creatures>
+			<creature>Fireling</creature>
+			<creature>Fireling</creature>
+		</creatures>
+	</dungeon>
+	<dungeon no="6">
+	    <creatures>
+			<creature>Bomber</creature>
+		</creatures>
+	</dungeon>
+	<dungeon no="7">
+	    <creatures>
+			<creature>Bomber</creature>
+			<creature>Bomber</creature>
+			<creature>Bomber</creature>
+			<creature>Bomber</creature>
+			<creature>Bomber</creature>
+		</creatures>
+	</dungeon>
+	<dungeon no="8">
+	    <creatures>
+			<creature>Little Yeti</creature>
+		</creatures>
+	</dungeon>
+	<dungeon no="9">
+	    <creatures>
+			<creature>Big Yeti</creature>
 		</creatures>
 	</dungeon>
 </dungeons>

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <items>
 	<item dropChance="30">
-		<name>Red Stone 1</name>
+		<name>Red Stone</name>
 	    <rarity>common</rarity>
 		<type>red</type>
-	    <damage>1,2</damage>
+	    <damage>2</damage>
 		<level>1</level>
 		<gold>3</gold>
 		<spriteName>avatar_item_3</spriteName>
 	</item>
 	<item dropChance="30">
-		<name>Blue Stone 1</name>
+		<name>Blue Stone</name>
 	    <rarity>common</rarity>
 		<type>blue</type>
 	    <mana>2</mana>
@@ -20,7 +20,7 @@
 		<spriteName>avatar_item_2</spriteName>
 	</item>
 	<item dropChance="30">
-		<name>Green Stone 1</name>
+		<name>Green Stone</name>
 	    <rarity>common</rarity>
 		<type>green</type>
 		<hp>3,4</hp>
