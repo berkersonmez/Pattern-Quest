@@ -22,7 +22,7 @@ public class GameSaveController : MonoBehaviour {
 	public Stats stats;
 	public int currentSlot;
 	
-	void Start () {
+	void Awake () {
 		instance = this;
 		player = null;
 	}

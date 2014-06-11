@@ -40,6 +40,7 @@ public class Quest : MonoBehaviour {
 		uiItem.OnRelease += OnRelease;
 		player = GameSaveController.instance.getPlayer();
 		s_button = transform.Find("ButtonGraphic").GetComponent<tk2dSprite>();
+		update();
 	}
 	
 	void OnDown() {
