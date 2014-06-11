@@ -9,6 +9,7 @@ public class Globals : MonoBehaviour {
 	public int xpPerCreatureLevel = 10;
 	public int xpStartingReq = 100;
 	public float xpReqMultiplier = 1.5f;
+	public GameObject tutorialPrefab;
 	
 	void Awake() {
 		instance = this;

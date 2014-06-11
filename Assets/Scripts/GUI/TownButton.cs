@@ -53,6 +53,8 @@ public class TownButton : MonoBehaviour {
 			TownMenu.instance.storeSpellsWindow();
 		} else if (transform.name == "BuyCrystalPacksButton") {
 			TownMenu.instance.storeCrystalPacksWindow();
+		} else if (transform.name == "QuitButton") {
+			Application.Quit();
 		}
 	}
 }

@@ -82,6 +82,7 @@ public class GameSaveController : MonoBehaviour {
 		player.xp = 0;
 		player.gold = 0;
 		player.crystal = 0;
+		player.seenTutorial = false;
 		
 		stats = new Stats();
 		

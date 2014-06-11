@@ -36,6 +36,10 @@ public class DungeonController : MonoBehaviour {
 		playerAvatar.setOwner(player);
 		enterDungeon();
 		LevelDescriptor.instance.goToMapOnLoad = true;
+		if (!player.seenTutorial) {
+			Instantiate(Globals.instance.tutorialPrefab);
+			player.seenTutorial = true;
+		}
 	}
 	
 	public void enterDungeon() {
